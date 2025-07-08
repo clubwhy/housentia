@@ -1,3 +1,5 @@
 import ProductsPage from '../products/page';
 
-export default ProductsPage; 
+export default function CategoryPage(props: any) {
+  return <ProductsPage {...props} />;
+} 
