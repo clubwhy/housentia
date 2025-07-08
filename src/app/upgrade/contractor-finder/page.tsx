@@ -63,7 +63,10 @@ async function getVendors() {
   }
 }
 
-export default async function ContractorFinderPage() {
+export default async function ContractorFinderPage({ searchParams }: { searchParams: Record<string, string> }) {
+  const category = searchParams.category || '';
+  const sort = searchParams.sort || 'newest';
+  const page = parseInt(searchParams.page || '1', 10);
   const vendors: Vendor[] = await getVendors();
   return (
     <div className="min-h-screen bg-white">
