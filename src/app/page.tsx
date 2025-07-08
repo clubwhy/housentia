@@ -1,9 +1,57 @@
-"use client";
 import Image from 'next/image'
 import { motion } from "framer-motion";
 import BlogFeed from '@/components/BlogFeed';
+import pool from './upgrade/contractor-finder/db';
+import ProductImage from './shop/products/ProductImage.client';
 
-export default function Home() {
+type Product = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  product_url: string;
+  category: string;
+  vendor_name: string;
+};
+
+export default async function Home() {
+  // Fetch latest 4 products
+  let products: Product[] = [];
+  try {
+    const conn = await pool.getConnection();
+    products = await conn.query(
+      `SELECT p.uid AS id, p.name, p.description, p.retail_price AS price, p.image_url, p.product_url, t.label AS category, v.company AS vendor_name
+       FROM products p
+       JOIN types t ON p.type_uid = t.uid
+       JOIN vendors v ON p.vendor_uid = v.uid
+       WHERE p.active = 1
+       ORDER BY p.uid DESC
+       LIMIT 4`
+    );
+    conn.release();
+  } catch (e) {
+    // handle error or leave products empty
+  }
+
+  // Fetch latest 10 DIY Kits & Tools products
+  let diyKits: Product[] = [];
+  try {
+    const conn = await pool.getConnection();
+    diyKits = await conn.query(
+      `SELECT p.uid AS id, p.name, p.description, p.retail_price AS price, p.image_url, p.product_url, t.label AS category, v.company AS vendor_name
+       FROM products p
+       JOIN types t ON p.type_uid = t.uid
+       JOIN vendors v ON p.vendor_uid = v.uid
+       WHERE p.active = 1 AND t.label = 'DIY Kits & Tools'
+       ORDER BY p.uid DESC
+       LIMIT 10`
+    );
+    conn.release();
+  } catch (e) {
+    // handle error or leave diyKits empty
+  }
+
   return (
     <main className="bg-secondary font-sans">
       {/* Modern Minimal Hero Section */}
@@ -48,14 +96,30 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-left">Design, Decor, and Do It Yourself Projects</h2>
           <div className="flex overflow-x-auto gap-6 pb-4">
-            {[1,2,3,4,5,6].map((i) => (
-              <div key={i} className="min-w-[260px] bg-slate-50 rounded-xl shadow hover:scale-105 hover:shadow-lg transition p-6 flex flex-col justify-between">
-                <img src="/public/window.svg" alt="DIY" className="w-16 h-16 mb-3 mx-auto" />
-                <h3 className="text-lg font-semibold mb-2">[DIY/Decor Article Title]</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">Short description of the project, trend, or tip. (e.g., "10 Small Upgrades That Make a Big Impact")</p>
-                <a href="#" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Read More</a>
+            {diyKits.length > 0 ? diyKits.map((product: Product) => (
+              <div key={product.id} className="min-w-[260px] bg-slate-50 rounded-xl shadow hover:scale-105 hover:shadow-lg transition p-6 flex flex-col justify-between">
+                <div className="w-16 h-16 mb-3 mx-auto flex items-center justify-center relative">
+                  <ProductImage src={product.image_url} alt={product.name} />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">{product.description}</p>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-blue-600 font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}</span>
+                  <span className="text-xs text-gray-500">by {product.vendor_name}</span>
+                </div>
+                <a href={product.product_url || '#'} target="_blank" rel="noopener noreferrer" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">View Details</a>
               </div>
-            ))}
+            )) : (
+              [1,2,3,4,5,6].map((i) => (
+                <div key={i} className="min-w-[260px] bg-slate-50 rounded-xl shadow p-6 flex flex-col justify-between animate-pulse">
+                  <div className="w-16 h-16 mb-3 mx-auto bg-slate-200 rounded" />
+                  <div className="h-5 bg-slate-200 rounded w-2/3 mb-2" />
+                  <div className="h-4 bg-slate-200 rounded w-1/2 mb-4" />
+                  <div className="h-4 bg-slate-200 rounded w-1/3 mb-2" />
+                  <div className="h-6 bg-slate-200 rounded w-1/2" />
+                </div>
+              ))
+            )}
           </div>
           <div className="flex flex-wrap justify-center gap-4 mb-4">
             <a href="#" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">Shop Decor Kits</a>
@@ -91,16 +155,30 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Best-Selling Home Essentials</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-            {[1,2,3,4].map((i) => (
-              <div key={i} className="bg-indigo-100 rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition border border-indigo-200">
-                <div className="mb-2">
-                  <svg className="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+            {products.length > 0 ? products.map((product: Product) => (
+              <div key={product.id} className="bg-indigo-100 rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition border border-indigo-200">
+                <div className="mb-2 h-32 flex items-center justify-center relative">
+                  <ProductImage src={product.image_url} alt={product.name} />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">[Tool Name]</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">Short tool description.</p>
-                <a href="#" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Try Now</a>
+                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">{product.description}</p>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-blue-600 font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}</span>
+                  <span className="text-xs text-gray-500">by {product.vendor_name}</span>
+                </div>
+                <a href={product.product_url || '#'} target="_blank" rel="noopener noreferrer" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Try Now</a>
               </div>
-            ))}
+            )) : (
+              [1,2,3,4].map((i) => (
+                <div key={i} className="bg-indigo-100 rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition border border-indigo-200 animate-pulse">
+                  <div className="mb-2 h-32 bg-indigo-200 rounded" />
+                  <div className="h-5 bg-indigo-200 rounded w-2/3 mb-2" />
+                  <div className="h-4 bg-indigo-200 rounded w-1/2 mb-4" />
+                  <div className="h-4 bg-indigo-200 rounded w-1/3 mb-2" />
+                  <div className="h-6 bg-indigo-200 rounded w-1/2" />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
