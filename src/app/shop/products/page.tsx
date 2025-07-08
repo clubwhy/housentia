@@ -19,19 +19,35 @@ interface Category {
   label: string;
 }
 
-export default async function ProductsPage({ searchParams }: { searchParams: any }) {
-  const params = await searchParams;
+export default async function ProductsPage({ searchParams, params }: { searchParams: any, params?: { category?: string } }) {
+  const urlParams = await searchParams;
   let category = '';
   let sort = 'newest';
   let page = 1;
-  if (params && typeof params.get === 'function') {
-    category = params.get('category') || '';
-    sort = params.get('sort') || 'newest';
-    page = parseInt(params.get('page') || '1', 10);
-  } else if (params && typeof params === 'object') {
-    category = params.category || '';
-    sort = params.sort || 'newest';
-    page = parseInt(params.page || '1', 10);
+  if (urlParams && typeof urlParams.get === 'function') {
+    category = urlParams.get('category') || '';
+    sort = urlParams.get('sort') || 'newest';
+    page = parseInt(urlParams.get('page') || '1', 10);
+  } else if (urlParams && typeof urlParams === 'object') {
+    category = urlParams.category || '';
+    sort = urlParams.sort || 'newest';
+    page = parseInt(urlParams.page || '1', 10);
+  }
+  // If /shop/[category] route, override category filter
+  if (params && params.category) {
+    // Map route param to display label if needed
+    // Example: /shop/trending -> 'Trending Products'
+    const categoryMap: Record<string, string> = {
+      trending: 'Trending Products',
+      'interior-accessories': 'Interior Accessories',
+      'diy-kits': 'DIY Kits & Tools',
+      gardening: 'Gardening Essentials',
+      'gift-ideas': 'Gift Ideas',
+      'affiliate-product': 'Affiliate Product',
+      'drop-shipping-product': 'Drop-Shipping Product',
+      'solar-installer': 'Solar Installer',
+    };
+    category = categoryMap[params.category] || params.category;
   }
   const PAGE_SIZE = 12;
   const offset = (page - 1) * PAGE_SIZE;
