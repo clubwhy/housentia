@@ -1,15 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +15,86 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-sans;
+  /* background: var(--background); */
+  /* color: var(--foreground); */
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Blogger-like post body styles */
+.post-body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.1rem;
+  color: #222;
+  line-height: 1.7;
+}
+.post-body h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 2rem 0 1rem 0;
+  color: #217346;
+}
+.post-body h2 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin: 1.5rem 0 1rem 0;
+  color: #217346;
+}
+.post-body h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 1.2rem 0 0.8rem 0;
+}
+.post-body p {
+  margin-bottom: 1.1em;
+}
+.post-body ul, .post-body ol {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+.post-body li {
+  margin-bottom: 0.4em;
+}
+.post-body blockquote {
+  border-left: 4px solid #217346;
+  background: #f8f8f8;
+  margin: 1.5em 0;
+  padding: 0.8em 1.2em;
+  color: #444;
+  font-style: italic;
+}
+.post-body strong {
+  font-weight: bold;
+}
+.post-body em {
+  font-style: italic;
+}
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5em auto;
+}
+.post-body a {
+  color: #217346;
+  text-decoration: underline;
+}
+.post-body a:hover {
+  color: #14532d;
+  text-decoration: underline;
 }

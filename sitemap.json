@@ -1,0 +1,168 @@
+{
+  "pages": [
+    {
+      "title": "Home",
+      "path": "/"
+    },
+    {
+      "title": "DIY & Style",
+      "path": "/diy-style",
+      "children": [
+        {
+          "title": "DIY Home Projects",
+          "path": "/diy-style/home-projects"
+        },
+        {
+          "title": "Interior Decor Ideas",
+          "path": "/diy-style/interior-decor"
+        },
+        {
+          "title": "Garden & Outdoor Ideas",
+          "path": "/diy-style/garden-ideas"
+        },
+        {
+          "title": "Before & After",
+          "path": "/diy-style/before-after"
+        },
+        {
+          "title": "Decor Kits & Tools",
+          "path": "/diy-style/decor-kits"
+        }
+      ]
+    },
+    {
+      "title": "Upgrade",
+      "path": "/upgrade",
+      "children": [
+        {
+          "title": "Solar Panel Guide",
+          "path": "/upgrade/solar-guide"
+        },
+        {
+          "title": "Windows, Doors & Roofing",
+          "path": "/upgrade/windows-roofing"
+        },
+        {
+          "title": "Kitchen & Bath Remodel",
+          "path": "/upgrade/kitchen-bath"
+        },
+        {
+          "title": "HVAC & Insulation",
+          "path": "/upgrade/hvac-insulation"
+        },
+        {
+          "title": "Find a Local Contractor",
+          "path": "/upgrade/contractor-finder"
+        }
+      ]
+    },
+    {
+      "title": "Shop",
+      "path": "/shop",
+      "children": [
+        {
+          "title": "Trending Products",
+          "path": "/shop/trending"
+        },
+        {
+          "title": "Interior Accessories",
+          "path": "/shop/interior-accessories"
+        },
+        {
+          "title": "DIY Kits & Tools",
+          "path": "/shop/diy-kits"
+        },
+        {
+          "title": "Gardening Essentials",
+          "path": "/shop/gardening"
+        },
+        {
+          "title": "Gift Ideas",
+          "path": "/shop/gift-ideas"
+        }
+      ]
+    },
+    {
+      "title": "Tools",
+      "path": "/tools",
+      "children": [
+        {
+          "title": "Mortgage Calculator",
+          "path": "/tools/mortgage-calculator"
+        },
+        {
+          "title": "Affordability Calculator",
+          "path": "/tools/affordability-calculator"
+        },
+        {
+          "title": "Refinance Analyzer",
+          "path": "/tools/refinance-analyzer"
+        },
+        {
+          "title": "Remodeling Cost Estimator",
+          "path": "/tools/remodeling-cost"
+        },
+        {
+          "title": "Solar Savings Estimator",
+          "path": "/tools/solar-savings"
+        }
+      ]
+    },
+    {
+      "title": "Mortgage",
+      "path": "/mortgage",
+      "children": [
+        {
+          "title": "Today's Mortgage Rates",
+          "path": "/mortgage/todays-rates"
+        },
+        {
+          "title": "Find the Right Loan",
+          "path": "/mortgage/loan-matching"
+        },
+        {
+          "title": "Loan Types Explained",
+          "path": "/mortgage/loan-types"
+        },
+        {
+          "title": "Refinance & Cash-Out",
+          "path": "/mortgage/refinance-cashout"
+        },
+        {
+          "title": "Reverse Mortgage & HELOC",
+          "path": "/mortgage/reverse-heloc"
+        },
+        {
+          "title": "Get Prequalified",
+          "path": "/mortgage/prequalify"
+        }
+      ]
+    },
+    {
+      "title": "Blog",
+      "path": "/blog",
+      "children": [
+        {
+          "title": "Smart Financing Tips",
+          "path": "/blog/financing-tips"
+        },
+        {
+          "title": "Home Maintenance Guides",
+          "path": "/blog/maintenance-guides"
+        },
+        {
+          "title": "Interior & Style Trends",
+          "path": "/blog/style-trends"
+        },
+        {
+          "title": "DIY & Gardening Tips",
+          "path": "/blog/diy-gardening"
+        },
+        {
+          "title": "News & Regulations",
+          "path": "/blog/news"
+        }
+      ]
+    }
+  ]
+} 
