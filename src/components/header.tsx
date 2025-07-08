@@ -19,9 +19,9 @@ const navMenus = [
     href: '/upgrade',
     submenu: [
       { label: 'Solar Panel Guide', href: '/upgrade/solar-guide' },
-      { label: 'Windows, Doors & Roofing', href: '/upgrade/windows-roofing' },
-      { label: 'Kitchen & Bath Remodel', href: '/upgrade/kitchen-bath' },
-      { label: 'HVAC & Insulation', href: '/upgrade/hvac-insulation' },
+      // { label: 'Windows, Doors & Roofing', href: '/upgrade/windows-roofing' },
+      // { label: 'Kitchen & Bath Remodel', href: '/upgrade/kitchen-bath' },
+      // { label: 'HVAC & Insulation', href: '/upgrade/hvac-insulation' },
       { label: 'Find a Local Contractor', href: '/upgrade/contractor-finder' },
     ],
   },

@@ -126,7 +126,7 @@ export default function GardenOutdoorIdeasPage() {
             </div>
           </div>
         </section>
-      </main>
+    </main>
     </div>
   );
 } 
