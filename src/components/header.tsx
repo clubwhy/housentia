@@ -10,8 +10,8 @@ const navMenus = [
       { label: 'DIY Home Projects', href: '/diy-style/home-projects' },
       { label: 'Interior Decor Ideas', href: '/diy-style/interior-decor' },
       { label: 'Garden & Outdoor Ideas', href: '/diy-style/garden-ideas' },
-      { label: 'Before & After', href: '/diy-style/before-after' },
-      { label: 'Decor Kits & Tools', href: '/diy-style/decor-kits' },
+      // { label: 'Before & After', href: '/diy-style/before-after' },
+      // { label: 'Decor Kits & Tools', href: '/diy-style/decor-kits' },
     ],
   },
   {
