@@ -17,18 +17,26 @@ export default function BlogFeed() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('BlogFeed: Starting to fetch posts...');
     fetch('/api/blog-feed')
-      .then(res => res.json())
+      .then(res => {
+        console.log('BlogFeed: Response status:', res.status);
+        return res.json();
+      })
       .then(data => {
-        setPosts(data.posts);
+        console.log('BlogFeed: Received data:', data);
+        console.log('BlogFeed: Posts count:', data.posts?.length || 0);
+        setPosts(data.posts || []);
         setLoading(false);
       })
       .catch(err => {
-        console.error('Error fetching blog posts:', err);
+        console.error('BlogFeed: Error fetching blog posts:', err);
         setError('Failed to load blog posts');
         setLoading(false);
       });
   }, []);
+
+  console.log('BlogFeed: Current posts state:', posts.length);
 
   if (loading) return <div className="text-center text-gray-400 py-8">Loading blog posts…</div>;
   if (error) return <div className="text-center text-red-500 py-8">{error}</div>;
