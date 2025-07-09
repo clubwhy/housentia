@@ -122,9 +122,9 @@ export default async function Home() {
             )}
           </div>
           <div className="flex flex-wrap justify-center gap-4 mb-4">
-            <a href="#" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">Shop Decor Kits</a>
+            <a href="/shop/diy-kits" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">Shop DIY Kits & Tools</a>
             <a href="#" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">Watch on YouTube</a>
-            <a href="#" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">See More Blog Posts</a>
+            <a href="/blog?label=DIY%20%26%20Gardening%20Tips" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">See More Blog Posts</a>
           </div>
         </div>
       </section>
@@ -134,12 +134,12 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Power Up Your Home the Smart Way</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
-            {["Solar Panel Guide","HVAC Tips","Windows & Roofing"].map((title, i) => (
+            {["Solar Panel Guide","DIY Home Projects","Garden & Outdoor Ideas"].map((title, i) => (
               <div key={i} className={`bg-white rounded-xl shadow p-6 flex flex-col justify-between relative ${i === 0 ? 'border-2 border-primary' : ''}`}>
                 {i === 0 && <span className="absolute top-2 right-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded">Top Rated</span>}
                 <h3 className="text-lg font-semibold mb-2">{title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">Quick intro or tip about {title.toLowerCase()}.</p>
-                <a href="#" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Learn More</a>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">Quick intro or tip about {title === 'DIY Home Projects' ? 'diy home projects' : title === 'Garden & Outdoor Ideas' ? 'garden & outdoor ideas' : title.toLowerCase()}.</p>
+                <a href={i === 0 ? "/upgrade/solar-guide" : i === 1 ? "/diy-style/home-projects" : i === 2 ? "/diy-style/garden-ideas" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Learn More</a>
               </div>
             ))}
           </div>
@@ -208,7 +208,11 @@ export default async function Home() {
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-4">Latest Tips from the Housentia Blog</h2>
             <p className="text-gray-600 mb-6">Discover smart home upgrades, DIY tips, and financing insights</p>
-            <a 
+
+          </div>
+          <BlogFeed />
+          <div className="text-center mb-8">
+          <a 
               href="/blog" 
               className="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-accent-hover transition-colors mb-6"
             >
@@ -217,8 +221,7 @@ export default async function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </a>
-          </div>
-          <BlogFeed />
+            </div>
         </div>
       </section>
 
