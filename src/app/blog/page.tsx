@@ -55,15 +55,43 @@ export default function BlogPage() {
     post.labels && post.labels.includes(selectedLabel)
   );
 
+  // 라벨별 hero/설명 텍스트 매핑
+  const HERO_MAP: Record<string, { title: string; description: string }> = {
+    'Smart Financing Tips': {
+      title: 'Housentia Blog',
+      description: 'Discover smart home upgrades, DIY tips, and financing insights to help you build a better living space.',
+    },
+    'Home Maintenance Guides': {
+      title: 'Home Maintenance Guides',
+      description: 'Expert tips and checklists for keeping your home in top shape, from seasonal chores to essential repairs.',
+    },
+    'Interior & Style Trends': {
+      title: 'Interior & Style Trends',
+      description: 'Stay inspired with the latest interior design ideas, color palettes, and style trends for every room.',
+    },
+    'DIY & Gardening Tips': {
+      title: 'DIY & Gardening Tips',
+      description: 'Step-by-step guides and creative ideas for your next DIY project or garden upgrade.',
+    },
+    'News & Regulations': {
+      title: 'News & Regulations',
+      description: 'Stay up to date on home-related news, policy changes, and important regulations that affect homeowners.',
+    },
+  };
+
+  const showHero = HERO_MAP[selectedLabel] !== undefined;
+  const heroTitle = HERO_MAP[selectedLabel]?.title || 'Housentia Blog';
+  const heroDesc = HERO_MAP[selectedLabel]?.description || 'Discover smart home upgrades, DIY tips, and financing insights to help you build a better living space.';
+
   return (
     <>
-      {selectedLabel === 'Smart Financing Tips' ? (
+      {showHero ? (
         <>
           <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white w-full">
             <div className="px-6 py-12 text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Housentia Blog</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{heroTitle}</h1>
               <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-                Discover smart home upgrades, DIY tips, and financing insights to help you build a better living space.
+                {heroDesc}
               </p>
             </div>
           </div>
@@ -85,7 +113,7 @@ export default function BlogPage() {
                     <span className="text-gray-400">&gt;</span>
                   </li>
                   <li>
-                    <span className="text-gray-900 font-medium">Smart Financing Tips</span>
+                    <span className="text-gray-900 font-medium">{selectedLabel}</span>
                   </li>
                 </ol>
               </nav>
@@ -94,7 +122,7 @@ export default function BlogPage() {
         </>
       ) : null}
       <main className="max-w-4xl mx-auto px-4 py-10">
-        {selectedLabel !== 'Smart Financing Tips' && (
+        {!showHero && (
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-extrabold mb-4">Housentia Blog</h1>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto">
