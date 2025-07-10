@@ -144,7 +144,7 @@ export default async function Home() {
             ))}
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
-            <a href="#" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg font-semibold hover:bg-accent-hover transition">Get a Free Estimate</a>
+            <a href="/tools/solar-savings-estimator" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg font-semibold hover:bg-accent-hover transition">Get a Free Solar Savings Estimate</a>
             <span className="text-gray-500 text-sm">Rebates & government incentives available</span>
           </div>
         </div>
