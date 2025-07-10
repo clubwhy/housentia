@@ -2,6 +2,7 @@ export const runtime = 'nodejs';
 import Image from 'next/image';
 import Link from 'next/link';
 const pool = require('./db');
+import PageHero from '@/components/PageHero';
 
 export const dynamic = 'force-dynamic';
 
@@ -68,23 +69,16 @@ export default async function ContractorFinderPage({ searchParams }: { searchPar
   const sort = searchParams.sort || 'newest';
   const page = parseInt(searchParams.page || '1', 10);
   const vendors: Vendor[] = await getVendors();
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-[#f5f9fc] border-b border-gray-200 py-8 px-4">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 font-sans mb-2 md:mb-0">Find a Local Contractor</h1>
-          <nav className="flex items-center text-xs text-gray-500 gap-1 md:self-end md:mb-1">
-            <Link href="/" className="hover:text-primary flex items-center gap-1">
-              <span className="sr-only">Home</span>
-            </Link>
-            <span className="mx-1">/</span>
-            <Link href="/upgrade" className="hover:text-primary">Upgrade</Link>
-            <span className="mx-1">/</span>
-            <span className="text-gray-700 font-semibold">Find a Local Contractor</span>
-          </nav>
-        </div>
-      </section>
+      <PageHero 
+        title="Find a Local Contractor"
+        breadcrumbs={[
+          { label: 'Upgrade', href: '/upgrade' },
+          { label: 'Find a Local Contractor' }
+        ]}
+      />
       {/* Main Content Area */}
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
         <h2 className="text-2xl font-bold text-center mb-4">Solar Company</h2>
