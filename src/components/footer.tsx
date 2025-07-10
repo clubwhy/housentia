@@ -53,9 +53,12 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          {/* Copyright */}
-          <div className="md:col-span-1 flex flex-col justify-end md:items-end items-start">
-            <div className="text-slate-500 mt-6 md:mt-0">&copy; {new Date().getFullYear()} Housentia. All rights reserved.</div>
+          {/* Logo + Copyright */}
+          <div className="md:col-span-1 flex flex-col justify-end md:items-end items-start h-full">
+            <div className="flex-1 flex items-end md:justify-end justify-start w-full">
+              <span className="text-2xl font-bold text-white md:text-right select-none" style={{letterSpacing:'-0.01em'}}>Housentia</span>
+            </div>
+            <div className="text-slate-500 mt-2 md:mt-4 text-xs md:text-right">&copy; {new Date().getFullYear()} Housentia. All rights reserved.</div>
           </div>
         </div>
       </footer>
