@@ -43,7 +43,7 @@ const navMenus = [
       { label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' },
       { label: 'Affordability Calculator', href: '/tools/affordability-calculator' },
       { label: 'Refinance Analyzer', href: '/tools/refinance-analyzer' },
-      { label: 'Remodeling Cost Estimator', href: '/tools/remodeling-cost' },
+      // { label: 'Remodeling Cost Estimator', href: '/tools/remodeling-cost' },
       { label: 'Solar Savings Estimator', href: '/tools/solar-savings-estimator' },
     ],
   },
