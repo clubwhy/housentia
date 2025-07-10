@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { HiHome, HiChevronRight } from 'react-icons/hi';
 import PageHero from '@/components/PageHero';
 import React from 'react'; // Added missing import
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import usStates from '@/data/usStates.json';
 
 export default function AffordabilityCalculatorPage() {
   // 상태 관리
@@ -71,35 +74,44 @@ export default function AffordabilityCalculatorPage() {
             {tab==='personal' ? (
               <form className="space-y-4">
                 <div>
-                  <label className="block font-semibold">Annual income <span className="text-gray-400 ml-1">ⓘ</span></label>
+                  <label className="block font-semibold">Annual income {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                   <input type="number" className="w-full border-b bg-transparent py-1 px-2" value={income} onChange={e=>setIncome(Number(e.target.value))} min={0} />
                 </div>
                 <div>
-                  <label className="block font-semibold">Current monthly debt <span className="text-gray-400 ml-1">ⓘ</span></label>
+                  <label className="block font-semibold">Current monthly debt {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                   <input type="number" className="w-full border-b bg-transparent py-1 px-2" value={debt} onChange={e=>setDebt(Number(e.target.value))} min={0} />
                 </div>
                 <div>
-                  <label className="block font-semibold">Down payment <span className="text-gray-400 ml-1">ⓘ</span></label>
+                  <label className="block font-semibold">Down payment {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                   <input type="number" className="w-full border-b bg-transparent py-1 px-2" value={down} onChange={e=>setDown(Number(e.target.value))} min={0} />
                 </div>
                 <div>
-                  <label className="block font-semibold">Enter a state <span className="text-gray-400 ml-1">ⓘ</span></label>
-                  <input type="text" className="w-full border-b bg-transparent py-1 px-2" value={state} onChange={e=>setState(e.target.value)} />
+                  <label className="block font-semibold">Select a state</label>
+                  <select
+                    className="w-full border-b bg-transparent py-1 px-2"
+                    value={state}
+                    onChange={e => setState(e.target.value)}
+                  >
+                    <option value="">Select...</option>
+                    {usStates.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
                 </div>
                 <button type="button" className="mt-4 px-6 py-2 border rounded text-primary border-primary font-bold hover:bg-primary hover:text-white transition">Update</button>
               </form>
             ) : (
               <form className="space-y-4">
                 <div>
-                  <label className="block font-semibold">Property tax (annual) <span className="text-gray-400 ml-1">ⓘ</span></label>
+                  <label className="block font-semibold">Property tax (annual) {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                   <input type="number" className="w-full border-b bg-transparent py-1 px-2" value={propertyTax} onChange={e=>setPropertyTax(Number(e.target.value))} min={0} />
                 </div>
                 <div>
-                  <label className="block font-semibold">Homeowners insurance (annual) <span className="text-gray-400 ml-1">ⓘ</span></label>
+                  <label className="block font-semibold">Homeowners insurance (annual) {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                   <input type="number" className="w-full border-b bg-transparent py-1 px-2" value={insurance} onChange={e=>setInsurance(Number(e.target.value))} min={0} />
                 </div>
                 <div>
-                  <label className="block font-semibold">Homeowners association fees (monthly) <span className="text-gray-400 ml-1">ⓘ</span></label>
+                  <label className="block font-semibold">Homeowners association fees (monthly) {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                   <input type="number" className="w-full border-b bg-transparent py-1 px-2" value={hoa} onChange={e=>setHoa(Number(e.target.value))} min={0} />
                 </div>
                 <div className="flex gap-4">
@@ -113,7 +125,7 @@ export default function AffordabilityCalculatorPage() {
                     </select>
                   </div>
                   <div className="flex-1">
-                    <label className="block font-semibold">Interest rate <span className="text-gray-400 ml-1">ⓘ</span></label>
+                    <label className="block font-semibold">Interest rate {/* <span className="text-gray-400 ml-1">ⓘ</span> */}</label>
                     <input type="number" step="0.01" className="w-full border-b bg-transparent py-1 px-2" value={interest} onChange={e=>setInterest(Number(e.target.value))} min={0} />
                   </div>
                 </div>
@@ -123,31 +135,80 @@ export default function AffordabilityCalculatorPage() {
           </div>
           {/* 우측 결과 영역 */}
           <div className="flex-1 flex flex-col items-center justify-center min-w-[320px]">
-            {/* 게이지 그래프 (SVG) */}
-            <div className="w-full flex flex-col items-center mb-6">
-              <svg width="260" height="140" viewBox="0 0 260 140">
-                <path d="M40 120 A90 90 0 0 1 220 120" fill="none" stroke="#16a34a" strokeWidth="14" />
-                <path d="M120 32 A90 90 0 0 1 220 120" fill="none" stroke="#f59e42" strokeWidth="14" />
-                <path d="M180 32 A90 90 0 0 1 220 120" fill="none" stroke="#ef4444" strokeWidth="14" />
-                {/* 추천값 포인터 */}
-                <circle cx="140" cy="120" r="8" fill="#fff" stroke="#2563eb" strokeWidth="4" />
-                <text x="140" y="60" textAnchor="middle" fontSize="28" fontWeight="bold" fill="#0a2580">${affordable.toLocaleString()}</text>
-                <text x="140" y="85" textAnchor="middle" fontSize="16" fill="#0a2580">Home price</text>
-                <text x="140" y="110" textAnchor="middle" fontSize="18" fill="#2563eb">${calcMonthly.toLocaleString()}</text>
-                <text x="140" y="128" textAnchor="middle" fontSize="14" fill="#2563eb">Estimated monthly payment</text>
-              </svg>
+            {/* 게이지 그래프 (CircularProgressbar) */}
+            <div className="w-48 h-48 flex flex-col items-center mb-4">
+              {(() => {
+                const gaugeValue = Math.min(100, Math.round((affordable / 1000000) * 100));
+                let color = '#16a34a';
+                if (gaugeValue >= 85) color = '#ef4444';
+                else if (gaugeValue >= 60) color = '#f59e42';
+                return (
+                  <CircularProgressbarWithChildren
+                    value={gaugeValue}
+                    maxValue={100}
+                    strokeWidth={12}
+                    styles={buildStyles({
+                      pathColor: color,
+                      trailColor: '#e5e7eb',
+                      strokeLinecap: 'round',
+                      textColor: '#0a2580',
+                      backgroundColor: '#fff',
+                    })}
+                  >
+                    <div className="flex flex-col items-center">
+                      <div className="text-3xl font-bold text-primary">${affordable.toLocaleString()}</div>
+                      <div className="text-base text-blue-600 font-semibold mt-1">Home price</div>
+                    </div>
+                  </CircularProgressbarWithChildren>
+                );
+              })()}
             </div>
-            {/* Breakdown */}
-            <div className="w-full max-w-xs mb-6">
-              <div className="flex items-center gap-2 mb-2 font-semibold">AFFORDABILITY BREAKDOWN <span className="text-gray-400">ⓘ</span></div>
-              <div className="flex flex-col gap-1 text-sm">
-                <div className="flex items-center justify-between"><span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-green-600 inline-block"></span>Affordable</span><span className="text-primary font-bold">Recommended ▶ $0 - ${affordable.toLocaleString()}</span></div>
-                <div className="flex items-center justify-between"><span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-orange-400 inline-block"></span>Stretch</span><span>${affordable.toLocaleString()} - ${stretch.toLocaleString()}</span></div>
-                <div className="flex items-center justify-between"><span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-red-500 inline-block"></span>Aggressive</span><span>${stretch.toLocaleString()} - ${aggressive.toLocaleString()}</span></div>
+            {/* 월 납입금 카드 */}
+            <div className="w-full max-w-xs mb-4">
+              <div className="rounded-xl bg-blue-50 border border-blue-200 shadow flex flex-col items-center py-4 mb-2">
+                <div className="text-gray-500 text-sm mb-1">Estimated monthly payment</div>
+                <div className="text-2xl font-bold text-blue-700">${calcMonthly.toLocaleString()}</div>
               </div>
             </div>
-            <button className="mt-2 px-8 py-3 rounded bg-primary text-white font-bold text-lg shadow hover:bg-blue-700 transition">Prequalify</button>
-            <div className="text-xs text-gray-400 mt-2">Prequalification doesn’t affect your credit score.</div>
+            {/* Breakdown 카드 스타일 - 유니크하게 개선 (간격/패딩 조정) */}
+            <div className="w-full max-w-xs mb-6">
+              <div className="flex items-center gap-2 mb-2 font-semibold">AFFORDABILITY BREAKDOWN {/* <span className="text-gray-400">ⓘ</span> */}</div>
+              <div className="flex flex-col gap-2">
+                {/* Affordable (2줄, 배지는 금액 위로) */}
+                <div className="relative flex items-center rounded-xl bg-blue-50 border border-blue-200 shadow-sm px-4 py-3 min-h-[56px]">
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2l2.39 4.84L18 7.27l-3.91 3.81L15.18 18 10 14.77 4.82 18l1.09-6.92L2 7.27l5.61-.43L10 2z"/></svg>
+                    </span>
+                    <span className="font-extrabold text-blue-800 uppercase tracking-wide text-base">Affordable</span>
+                  </div>
+                  {/* Recommended 배지 오버레이 (금액 위로) */}
+                  <span className="absolute top-1 right-4 px-2 py-0.5 rounded-full bg-blue-100 text-xs text-blue-700 font-semibold shadow-sm z-10">
+                    Recommended
+                  </span>
+                  {/* 금액은 아래쪽에 block으로 */}
+                  <span className="block w-full text-right font-extrabold text-blue-700 text-lg mt-2 whitespace-nowrap">{`$0 - $${affordable.toLocaleString()}`}</span>
+                </div>
+                {/* Stretch */}
+                <div className="flex items-center justify-between rounded-xl bg-purple-50 border border-purple-100 px-3 py-2 min-h-[44px]">
+                  <div className="flex items-center gap-1">
+                    <span className="w-4 h-4 rounded-full bg-purple-400"></span>
+                    <span className="font-semibold text-purple-800">Stretch</span>
+                  </div>
+                  <span className="font-bold text-purple-700 text-base">{`$${affordable.toLocaleString()} - $${stretch.toLocaleString()}`}</span>
+                </div>
+                {/* Aggressive */}
+                <div className="flex items-center justify-between rounded-xl bg-rose-50 border border-rose-100 px-3 py-2 min-h-[44px]">
+                  <div className="flex items-center gap-1">
+                    <span className="w-4 h-4 rounded-full bg-rose-400"></span>
+                    <span className="font-semibold text-rose-800">Aggressive</span>
+                  </div>
+                  <span className="font-bold text-rose-700 text-base">{`$${stretch.toLocaleString()} - $${aggressive.toLocaleString()}`}</span>
+                </div>
+              </div>
+            </div>
+            {/* <button className="mt-2 px-8 py-3 rounded bg-primary text-white font-bold text-lg shadow hover:bg-blue-700 transition">Prequalify</button> */}
+            {/* <div className="text-xs text-gray-400 mt-2">Prequalification doesn’t affect your credit score.</div> */}
           </div>
         </div>
       </main>

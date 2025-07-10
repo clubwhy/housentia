@@ -31,6 +31,7 @@ export default function MortgageCalculatorPage() {
     const totalInterest = monthlyMortgage * n - loanAmount;
     const payoffDate = new Date();
     payoffDate.setMonth(payoffDate.getMonth() + n);
+    const totalMortgagePayment = totalMonthly * n;
 
     setResult({
       loanAmount: loanAmount.toLocaleString(undefined, { maximumFractionDigits: 0 }),
@@ -40,7 +41,8 @@ export default function MortgageCalculatorPage() {
       monthlyOther: monthlyOther.toLocaleString(undefined, { maximumFractionDigits: 0 }),
       totalMonthly: totalMonthly.toLocaleString(undefined, { maximumFractionDigits: 0 }),
       totalInterest: totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 }),
-      payoffDate: payoffDate.getFullYear()
+      payoffDate: payoffDate.getFullYear(),
+      totalMortgagePayment: totalMortgagePayment.toLocaleString(undefined, { maximumFractionDigits: 0 })
     });
   }
 
@@ -62,58 +64,104 @@ export default function MortgageCalculatorPage() {
           </nav>
         </div>
       </section>
-      {/* Main Content Area */}
-      <main className="max-w-xl mx-auto px-4 py-12 font-sans text-[17px] text-gray-800">
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 mb-8">
-          <h2 className="text-2xl font-bold text-primary text-center mb-6">Estimate Your Monthly Payment</h2>
-          <form id="calcForm" className="space-y-4" onSubmit={calculate}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="block font-medium text-gray-700">Home Price
-                <input type="number" name="homePrice" required className="mt-1 input input-bordered w-full" placeholder="e.g. 500000" />
-              </label>
-              <label className="block font-medium text-gray-700">Down Payment (%)
-                <input type="number" name="downPaymentPercent" required className="mt-1 input input-bordered w-full" placeholder="e.g. 20" />
-              </label>
-              <label className="block font-medium text-gray-700">Loan Term (Years)
-                <select name="loanTermYears" required className="mt-1 input input-bordered w-full">
-                  <option value="10">10 years</option>
-                  <option value="15">15 years</option>
-                  <option value="20">20 years</option>
-                  <option value="30">30 years</option>
-                </select>
-              </label>
-              <label className="block font-medium text-gray-700">Interest Rate (%)
-                <input type="number" name="interestRate" step="0.001" required className="mt-1 input input-bordered w-full" placeholder="e.g. 6.5" />
-              </label>
-              <label className="block font-medium text-gray-700">Property Tax Rate (%)
-                <input type="number" name="propertyTaxRate" step="0.01" required className="mt-1 input input-bordered w-full" placeholder="e.g. 1.2" />
-              </label>
-              <label className="block font-medium text-gray-700">Home Insurance ($/year)
-                <input type="number" name="homeInsurance" required className="mt-1 input input-bordered w-full" placeholder="e.g. 1200" />
-              </label>
-              <label className="block font-medium text-gray-700">Other Costs ($/year)
-                <input type="number" name="otherCosts" required className="mt-1 input input-bordered w-full" placeholder="e.g. 600" />
-              </label>
-            </div>
-            <button type="submit" className="w-full mt-4 py-3 bg-primary text-white font-bold rounded-lg shadow hover:bg-accent-hover transition text-lg">Calculate</button>
-          </form>
-        </div>
-        {result && (
-          <div id="calcResult" className="mt-8 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 shadow-lg border border-primary/20">
-            <h3 className="text-xl font-bold text-primary mb-4 text-center">Results</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <p><strong>Loan Amount:</strong> <span className="text-blue-700">${result.loanAmount}</span></p>
-              <p><strong>Monthly Mortgage:</strong> <span className="text-blue-700">${result.monthlyMortgage}</span></p>
-              <p><strong>Property Tax:</strong> <span className="text-blue-700">${result.monthlyPropertyTax}</span></p>
-              <p><strong>Home Insurance:</strong> <span className="text-blue-700">${result.monthlyInsurance}</span></p>
-              <p><strong>Other Costs:</strong> <span className="text-blue-700">${result.monthlyOther}</span></p>
-              <p><strong>Total Monthly Payment:</strong> <span className="text-accent font-bold">${result.totalMonthly}</span></p>
-              <p><strong>Total Interest:</strong> <span className="text-blue-700">${result.totalInterest}</span></p>
-              <p><strong>Payoff Year:</strong> <span className="text-primary font-bold">{result.payoffDate}</span></p>
+      <div className="flex items-center justify-center py-8">
+        <div className="w-full max-w-5xl rounded-2xl shadow-xl border border-slate-100 bg-white p-6 md:p-10 flex flex-col md:flex-row gap-8">
+          {/* 입력폼 */}
+          <div className="flex-1 min-w-[320px]">
+            <div className="bg-slate-50 rounded-xl p-6">
+              <h2 className="text-xl font-bold text-primary mb-4">Personal info</h2>
+              <form id="calcForm" className="space-y-0" onSubmit={calculate}>
+                <div className="divide-y divide-slate-200">
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Home Price</label>
+                    <input type="number" name="homePrice" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3" placeholder="e.g. 500000" />
+                  </div>
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Down Payment (%)</label>
+                    <input type="number" name="downPaymentPercent" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3" placeholder="e.g. 20" />
+                  </div>
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Loan Term (Years)</label>
+                    <select name="loanTermYears" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3">
+                      <option value="10">10 years</option>
+                      <option value="15">15 years</option>
+                      <option value="20">20 years</option>
+                      <option value="30">30 years</option>
+                    </select>
+                  </div>
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Interest Rate (%)</label>
+                    <input type="number" name="interestRate" step="0.001" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3" placeholder="e.g. 6.5" />
+                  </div>
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Property Tax Rate (%)</label>
+                    <input type="number" name="propertyTaxRate" step="0.01" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3" placeholder="e.g. 1.2" />
+                  </div>
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Home Insurance ($/year)</label>
+                    <input type="number" name="homeInsurance" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3" placeholder="e.g. 1200" />
+                  </div>
+                  <div className="py-3">
+                    <label className="font-bold text-base block mb-1">Other Costs ($/year)</label>
+                    <input type="number" name="otherCosts" required className="bg-white border border-slate-200 rounded-lg w-full h-9 text-right text-base px-3" placeholder="e.g. 600" />
+                  </div>
+                </div>
+                <button type="submit" className="mt-5 w-full py-2 border border-primary text-primary font-bold rounded-lg bg-white hover:bg-primary/10 transition text-base">Calculate</button>
+              </form>
             </div>
           </div>
-        )}
-      </main>
+          {/* 결과 영역 */}
+          <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center">
+            <div className="w-full max-w-md">
+              <div className="flex flex-col items-center justify-center mb-6">
+                <div className="w-40 h-40 rounded-full border-8 border-slate-100 flex items-center justify-center mb-2">
+                  <div className="text-3xl font-extrabold text-primary text-center">${result ? result.totalMonthly : 0}</div>
+                </div>
+                <div className="text-primary font-bold text-lg text-center">Estimated monthly payment</div>
+              </div>
+              <div className="bg-blue-50 rounded-xl p-4 text-center shadow mb-4">
+                <div className="font-bold text-slate-700 mb-1">Loan Amount</div>
+                <div className="text-blue-700 text-xl font-extrabold">${result ? result.loanAmount : 0}</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 shadow mb-4">
+                <div className="font-bold text-slate-700 mb-1">Breakdown</div>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center justify-between bg-blue-100 rounded-lg px-3 py-1">
+                    <span className="font-bold text-blue-700">Property Tax</span>
+                    <span className="text-blue-700">${result ? result.monthlyPropertyTax : 0}</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-purple-100 rounded-lg px-3 py-1">
+                    <span className="font-bold text-purple-700">Home Insurance</span>
+                    <span className="text-purple-700">${result ? result.monthlyInsurance : 0}</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-pink-100 rounded-lg px-3 py-1">
+                    <span className="font-bold text-pink-700">Other Costs</span>
+                    <span className="text-pink-700">${result ? result.monthlyOther : 0}</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-green-100 rounded-lg px-3 py-1">
+                    <span className="font-bold text-green-700">Monthly Mortgage</span>
+                    <span className="text-green-700">${result ? result.monthlyMortgage : 0}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 mt-4">
+                <div className="flex items-center justify-between bg-green-100 rounded-lg px-3 py-1">
+                  <span className="font-bold text-green-700">Total Mortgage Payment</span>
+                  <span className="text-green-700">${result ? result.totalMortgagePayment : 0}</span>
+                </div>
+                <div className="flex items-center justify-between bg-blue-100 rounded-lg px-3 py-1">
+                  <span className="font-bold text-blue-700">Total Interest</span>
+                  <span className="text-blue-700">${result ? result.totalInterest : 0}</span>
+                </div>
+                <div className="flex items-center justify-between bg-yellow-100 rounded-lg px-3 py-1">
+                  <span className="font-bold text-yellow-700">Payoff Year</span>
+                  <span className="text-yellow-700">{result ? result.payoffDate : '-'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 } 
