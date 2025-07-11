@@ -188,11 +188,21 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Need Help Paying for Your Home Projects?</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
-            {["Mortgage Calculator","Refinance Analyzer","Remodeling Cost Estimator","Loan Guides"].map((tool, i) => (
+            {["Mortgage Calculator","Refinance Analyzer","Remodeling Cost Estimator","Find the Right Loan"].map((tool, i) => (
               <div key={i} className="bg-secondary rounded-xl p-6 flex flex-col justify-between">
-                <h3 className="text-lg font-semibold mb-2">{tool}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">Quick intro or tip about {tool.toLowerCase()}.</p>
-                <a href="#" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Try Now</a>
+                <h3 className="text-lg font-semibold mb-2">
+                  {i === 0 && "Mortgage Calculator"}
+                  {i === 1 && "Refinance Analyzer"}
+                  {i === 2 && "Solar Savings Calculator"}
+                  {i === 3 && "Find the Right Loan"}
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  {i === 0 && "Estimate your monthly mortgage payments in seconds."}
+                  {i === 1 && "See if refinancing can lower your rate or monthly payment."}
+                  {i === 2 && "Find out how much you could save by going solar over 20 years."}
+                  {i === 3 && "Learn the basics of home loans and how to choose the right one."}
+                </p>
+                <a href={i === 0 ? "/tools/mortgage-calculator" : i === 1 ? "/tools/refinance-analyzer" : i === 2 ? "/tools/solar-savings-estimator" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Try Now</a>
               </div>
             ))}
           </div>

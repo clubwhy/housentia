@@ -106,13 +106,13 @@ export default function BlogPostPage() {
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{post.title}</h1>
         
         <div className="flex items-center text-sm text-gray-500 mb-4">
-          <span>{new Date(post.published).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}</span>
-          <span className="mx-2">•</span>
-          <span>{post.author}</span>
+        <span>{new Date(post.published).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}</span>
+        <span className="mx-2">•</span>
+        <span>{post.author}</span>
           {post.commentCount > 0 && (
             <>
               <span className="mx-2">•</span>
@@ -132,27 +132,27 @@ export default function BlogPostPage() {
                 {label}
               </span>
             ))}
-          </div>
+      </div>
         )}
       </header>
 
       {/* Post Content */}
       <article className="prose prose-lg max-w-none">
-        <div
+      <div
           className="post-body text-gray-700 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      />
       </article>
 
       {/* Footer */}
       <footer className="mt-8 pt-6 border-t border-gray-200">
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => router.back()}
+      <button
+        onClick={() => router.back()}
             className="inline-flex items-center text-primary font-semibold hover:text-accent transition-colors"
-          >
+      >
             ← Back to Blog
-          </button>
+      </button>
           
           <div className="text-sm text-gray-500">
             Last updated: {new Date(post.updated).toLocaleDateString()}

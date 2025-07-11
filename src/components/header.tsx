@@ -51,12 +51,10 @@ const navMenus = [
     label: 'Mortgage',
     href: '/mortgage',
     submenu: [
-      { label: "Today's Mortgage Rates", href: '/mortgage/todays-rates' },
-      { label: 'Find the Right Loan', href: '/mortgage/loan-matching' },
-      { label: 'Loan Types Explained', href: '/mortgage/loan-types' },
+      { label: "Today's Mortgage Rates", href: '/mortgage/todays-mortgage-rates' },
+      { label: 'Find the Right Loan', href: '/mortgage/find-the-right-loan' },
       { label: 'Refinance & Cash-Out', href: '/mortgage/refinance-cashout' },
-      { label: 'Reverse Mortgage & HELOC', href: '/mortgage/reverse-heloc' },
-      { label: 'Get Prequalified', href: '/mortgage/prequalify' },
+      { label: 'First time home buyer', href: '/mortgage/first-time-home-buyer' },
     ],
   },
   {
@@ -130,6 +128,9 @@ export default function Header() {
                       className="block px-4 py-2 text-gray-700 hover:bg-secondary hover:text-primary first:rounded-t-lg last:rounded-b-lg transition"
                     >
                       {item.label}
+                      {menu.label === 'Mortgage' && item.label === 'Find the Right Loan' && (
+                        <span className="ml-1 px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-bold align-middle animate-ai-glow">AI</span>
+                      )}
                     </a>
                   ))}
                 </div>

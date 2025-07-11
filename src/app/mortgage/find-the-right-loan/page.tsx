@@ -1,0 +1,38 @@
+"use client";
+import PageHero from '@/components/PageHero';
+import GeminiChatBot from '@/components/GeminiChatBot';
+
+export default function FindTheRightLoanPage() {
+  return (
+    <div className="min-h-screen w-full relative bg-gradient-to-br from-[#0f2027] via-[#2c5364] to-[#00b89f] overflow-x-hidden">
+      {/* 은은한 SVG 패턴 (점선 다이아몬드 + 컬러 원) */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <svg width="100%" height="100%" style={{position: 'absolute', inset: 0}}>
+          {/* 점선 다이아몬드 */}
+          <g stroke="#fff" strokeDasharray="4 4" strokeWidth="1.5" opacity="0.13">
+            <polygon points="180,80 230,130 180,180 130,130" />
+            <polygon points="500,200 570,270 500,340 430,270" />
+            <polygon points="900,60 950,110 900,160 850,110" />
+          </g>
+          {/* 컬러 원 */}
+          <circle cx="160" cy="120" r="10" fill="#07c3ff" opacity="0.7" />
+          <circle cx="600" cy="260" r="13" fill="#00b89f" opacity="0.7" />
+          <circle cx="950" cy="120" r="8" fill="#ffc400" opacity="0.7" />
+          <circle cx="300" cy="350" r="10" fill="#ff3b3b" opacity="0.7" />
+        </svg>
+      </div>
+      <PageHero 
+        title="Find the Right Loan"
+        breadcrumbs={[{ label: 'Mortgage', href: '/mortgage' }, { label: 'Find the Right Loan' }]}
+      />
+      <main className="relative max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-100 shadow-2xl rounded-2xl overflow-hidden z-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7, background: 'transparent' }}>
+        <div className="flex flex-col items-center justify-center mb-4">
+          <img src="/habi.png" alt="Habi Logo" className="w-24 h-14 rounded-xl bg-white shadow-md object-contain mb-2" style={{paddingLeft: '10px', paddingRight: '10px'}} />
+        </div>
+        <p className="text-center text-gray-200 mb-10">Say Hello to Smarter Home Buying</p>
+        <GeminiChatBot />
+        {/* Content goes here */}
+      </main>
+    </div>
+  );
+} 
