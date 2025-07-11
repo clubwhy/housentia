@@ -1,21 +1,25 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { 
   getBloggerConfig, 
   transformBloggerPost, 
   getCacheHeaders, 
-  createErrorResponse 
+  createErrorResponse,
+  extractSlugFromUrl
 } from '@/lib/blogger';
 
-// Blogger API v3를 사용한 개선된 블로그 피드 API
-export async function GET() {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { slug: string } }
+) {
   try {
-    console.log('Fetching blog posts from Blogger API v3...');
+    const { slug } = params;
+    console.log('Fetching blog post with slug:', slug);
     
     // Blogger 설정 가져오기
     const config = getBloggerConfig();
     
-    // Blogger API v3 엔드포인트 사용
-    const url = `https://www.googleapis.com/blogger/v3/blogs/${config.blogId}/posts?key=${config.apiKey}&maxResults=${config.maxPosts}&status=LIVE`;
+    // 먼저 모든 포스트를 가져와서 slug로 찾기
+    const url = `https://www.googleapis.com/blogger/v3/blogs/${config.blogId}/posts?key=${config.apiKey}&maxResults=50&status=LIVE`;
     
     console.log('Making request to Blogger API v3...');
     const response = await fetch(url, {
@@ -34,20 +38,30 @@ export async function GET() {
     
     const data = await response.json();
     console.log('Blogger API v3 response received');
-    console.log('Total posts available:', data.items?.length || 0);
     
-    // Blogger API v3 응답 구조에 맞게 데이터 변환
-    const posts = data.items?.map(transformBloggerPost) || [];
+    // slug로 포스트 찾기
+    const post = data.items?.find((post: any) => {
+      const postSlug = extractSlugFromUrl(post.url);
+      return postSlug === slug;
+    });
     
-    console.log('Total posts processed:', posts.length);
+    if (!post) {
+      console.log('Post not found for slug:', slug);
+      return NextResponse.json(
+        createErrorResponse('Blog post not found', 404)
+      );
+    }
     
-    // 응답에 캐시 헤더 추가
-    const headers = getCacheHeaders(config.cacheDuration);
+    const processedPost = transformBloggerPost(post);
+    console.log('Found and processed post:', processedPost.title);
     
-    return NextResponse.json({ posts }, { headers });
+    // 응답에 캐시 헤더 추가 (10분 캐시)
+    const headers = getCacheHeaders(600);
+    
+    return NextResponse.json({ post: processedPost }, { headers });
     
   } catch (error) {
-    console.error('Error fetching blog posts from Blogger API v3:', error);
+    console.error('Error fetching blog post:', error);
     
     // 설정 오류인지 확인
     if (error instanceof Error && error.message.includes('environment variable')) {
@@ -64,7 +78,7 @@ export async function GET() {
     }
     
     return NextResponse.json(
-      createErrorResponse('Internal server error while fetching blog posts', 500)
+      createErrorResponse('Internal server error while fetching blog post', 500)
     );
   }
 } 
