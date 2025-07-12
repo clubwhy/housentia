@@ -12,8 +12,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'API key not set' }, { status: 500 });
   }
 
-  // Gemini API endpoint (v1beta/models/gemini-pro:generateContent)
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey;
+  // Gemini API endpoint (v1/models/gemini-2.5-pro:generateContent)
+  const url = 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=' + apiKey;
 
   const body = {
     contents: [
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       const error = await response.json();
-      return NextResponse.json({ error }, { status: response.status });
+      return NextResponse.json({ error: typeof error === 'string' ? error : JSON.stringify(error) }, { status: response.status });
     }
 
     const data = await response.json();

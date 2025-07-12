@@ -5,12 +5,29 @@ interface Message {
   content: string;
 }
 
+const STORAGE_KEY = 'habi_chat_history';
+
 export default function GeminiChatBot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // 마운트 시 로컬스토리지에서 불러오기
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        setMessages(JSON.parse(saved));
+      } catch {}
+    }
+  }, []);
+
+  // messages가 바뀔 때마다 저장
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  }, [messages]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

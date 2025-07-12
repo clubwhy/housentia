@@ -25,6 +25,32 @@ export default function FindTheRightLoanPage() {
         title="Find the Right Loan"
         breadcrumbs={[{ label: 'Mortgage', href: '/mortgage' }, { label: 'Find the Right Loan' }]}
       />
+      {/* 오른쪽 하단 워터마크 로고 (더 잘 보이게, 클릭 시 이동) */}
+      <a
+        href="/mortgage/find-the-right-loan"
+        style={{
+          position: 'fixed',
+          right: '3vw',
+          bottom: '3vw',
+          zIndex: 10,
+          opacity: 0.35,
+          filter: 'brightness(2.5) grayscale(0.4) drop-shadow(0 0 16px #fff)',
+          pointerEvents: 'auto',
+          width: '190px',
+          height: 'auto',
+          background: 'rgba(255,255,255,0.13)',
+          borderRadius: '22px',
+          padding: '10px',
+          transition: 'opacity 0.2s',
+        }}
+        title="Go to Ask Habi chatbot"
+      >
+        <img
+          src="/habi.png"
+          alt="Ask Habi Logo Watermark"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+      </a>
       <main className="relative max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-100 shadow-2xl rounded-2xl overflow-hidden z-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7, background: 'transparent' }}>
         <div className="flex flex-col items-center justify-center mb-4">
           <img src="/habi.png" alt="Habi Logo" className="w-24 h-14 rounded-xl bg-white shadow-md object-contain mb-2" style={{paddingLeft: '10px', paddingRight: '10px'}} />
