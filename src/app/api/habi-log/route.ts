@@ -8,13 +8,16 @@ export async function GET(req: NextRequest) {
     if (!email) {
       return NextResponse.json({ error: 'Email is required.' }, { status: 400 });
     }
+    console.log('[HABI LOG API] email param:', email);
     const conn = await pool.getConnection();
     try {
       const [rows] = await conn.query(
-        'SELECT id, message, role, created_at, ip FROM habi_chat_log WHERE email = ? ORDER BY created_at DESC LIMIT 100',
+        'SELECT id, message, role, created_at, ip FROM habi_chat_log WHERE LOWER(TRIM(email)) = LOWER(TRIM(?)) ORDER BY created_at DESC LIMIT 100',
         [email]
       );
-      return NextResponse.json({ logs: rows });
+      console.log('[HABI LOG API] rows:', rows);
+      const logs = Array.isArray(rows) ? rows : rows ? [rows] : [];
+      return NextResponse.json({ logs });
     } finally {
       conn.release();
     }

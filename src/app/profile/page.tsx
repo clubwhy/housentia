@@ -77,10 +77,10 @@ function HabiUsageLogTab({ email }: { email: string }) {
   useEffect(() => {
     if (!email) return;
     setLoading(true);
-    fetch(`/api/habi-log?email=${encodeURIComponent(email)}`)
+    fetch(`/api/habi-log?email=${encodeURIComponent(email.trim().toLowerCase())}`)
       .then(res => res.ok ? res.json() : Promise.reject(res))
       .then(data => {
-        setLogs(data.logs || []);
+        setLogs(Array.isArray(data.logs) ? data.logs : []);
         setLoading(false);
       })
       .catch(() => {
