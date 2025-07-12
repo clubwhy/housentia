@@ -25,6 +25,10 @@ export default function FindTheRightLoanPage() {
         title="Find the Right Loan"
         breadcrumbs={[{ label: 'Mortgage', href: '/mortgage' }, { label: 'Find the Right Loan' }]}
       />
+      <div className="max-w-4xl mx-auto flex items-center justify-center gap-3 px-4 -mt-6 mb-2">
+        <img src="/habi.png" alt="Ask Habi Logo" className="w-24 h-14 rounded-xl bg-white shadow-md object-contain" />
+        <span className="text-lg md:text-xl font-bold text-white drop-shadow">Say Hello to Smarter Home Buying</span>
+      </div>
       {/* 오른쪽 하단 워터마크 로고 (더 잘 보이게, 클릭 시 이동) */}
       <a
         href="/mortgage/find-the-right-loan"
@@ -51,11 +55,8 @@ export default function FindTheRightLoanPage() {
           style={{ width: '100%', height: 'auto', display: 'block' }}
         />
       </a>
-      <main className="relative max-w-4xl mx-auto px-4 py-2 font-sans text-[17px] text-gray-100 shadow-2xl rounded-2xl overflow-hidden z-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7, background: 'transparent' }}>
-        <div className="flex flex-col items-center justify-center mb-4">
-          <img src="/habi.png" alt="Habi Logo" className="w-24 h-14 rounded-xl bg-white shadow-md object-contain mb-2" style={{paddingLeft: '10px', paddingRight: '10px'}} />
-        </div>
-        <p className="text-center text-gray-200 mb-4">Say Hello to Smarter Home Buying</p>
+      <main className="relative max-w-4xl mx-auto px-4 pt-2 pb-6 font-sans text-[17px] text-gray-100 shadow-2xl rounded-2xl overflow-hidden z-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7, background: 'transparent' }}>
+        {/* 상단 로고/워딩은 Hero 아래로 이동 */}
         <GeminiChatBot />
         {/* Content goes here */}
       </main>
