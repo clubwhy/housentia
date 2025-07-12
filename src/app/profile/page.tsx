@@ -80,7 +80,7 @@ function HabiUsageLogTab({ email }: { email: string }) {
     fetch(`/api/habi-log?email=${encodeURIComponent(email.trim().toLowerCase())}`)
       .then(res => res.ok ? res.json() : Promise.reject(res))
       .then(data => {
-        setLogs(Array.isArray(data.logs) ? data.logs : []);
+        setLogs(Array.isArray(data.logs) ? data.logs : data.logs ? [data.logs] : []);
         setLoading(false);
       })
       .catch(() => {
