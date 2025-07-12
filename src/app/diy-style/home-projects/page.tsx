@@ -1,6 +1,6 @@
 "use client";
-import Link from 'next/link';
-import { HiHome, HiChevronRight } from 'react-icons/hi';
+import { HiLightBulb, HiWrenchScrewdriver, HiCheckCircle, HiSparkles } from 'react-icons/hi2';
+import { HiClipboard as HiClipboardLegacy } from 'react-icons/hi';
 import PageHero from '@/components/PageHero';
 
 export default function DIYHomeProjectsPage() {
@@ -13,102 +13,115 @@ export default function DIYHomeProjectsPage() {
           { label: 'DIY Home Projects' }
         ]}
       />
-      {/* Main Content Area */}
-      <main className="max-w-2xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
-        <h2 className="text-2xl font-bold text-center mb-8">DIY Home Projects: From Planning to Launch</h2>
+      <main className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          {/* Hero */}
+          <h1 className="text-4xl font-bold mb-4">DIY Home Projects</h1>
+          <p className="text-lg text-gray-600 mb-8">Plan. Build. Test. Launch. Everything you need to successfully complete your next home project—from idea to execution.</p>
 
-        {/* Project Stages as Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto">
-          {/* Planning Card */}
-          <div className="bg-white rounded-xl shadow border border-gray-100 p-6 flex flex-col min-w-[320px]">
-            <h3 className="text-lg font-bold mb-3 text-primary-700">PLANNING: Set Yourself Up for Success</h3>
-            <ul className="list-disc pl-5 space-y-1 mb-4 text-[16px]">
-              <li>Clear goal: What are you building or fixing?</li>
-              <li>Measurements & sketches</li>
-              <li>Budget estimate</li>
-              <li>Research (tutorials, guides, expert advice)</li>
-              <li>Permit check (if needed)</li>
-              <li>Time plan: Break project into steps</li>
-            </ul>
-            <div className="mt-auto pt-2 text-xs text-gray-600 border-t border-gray-100"><strong>Tip:</strong> Measure twice, cut once. Planning saves time and money.</div>
+          {/* What is this section */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-2">What Is This Section?</h2>
+            <p className="text-gray-700">This section is designed for homeowners, renters, and beginners looking to take on <strong>real, manageable home improvement projects</strong>. Whether you're fixing a door hinge or installing a garden bed, this is your go-to hub to get it done right.</p>
           </div>
 
-          {/* Execution Card */}
-          <div className="bg-white rounded-xl shadow border border-gray-100 p-6 flex flex-col min-w-[320px]">
-            <h3 className="text-lg font-bold mb-3 text-primary-700">EXECUTION: Gather Tools & Build with Purpose</h3>
-            <ul className="list-disc pl-5 space-y-1 mb-4 text-[16px]">
-              <li>Materials checklist</li>
-              <li>Tools (power drill, saw, level, etc.)</li>
-              <li>Workspace setup</li>
-              <li>Safety gear (gloves, goggles, mask)</li>
-              <li>Instructions nearby (printed or on device)</li>
-              <li>Optional helper if needed</li>
-            </ul>
-            <div className="mt-auto pt-2 text-xs text-gray-600 border-t border-gray-100"><strong>Tip:</strong> Tidy as you go to stay efficient and safe.</div>
+          {/* Featured Projects */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Featured Project Guides</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h3 className="text-xl font-semibold mb-2">Build a Raised Garden Bed</h3>
+                <ul className="list-disc list-inside text-gray-700 mb-4">
+                  <li>Step-by-step guide</li>
+                  <li>Printable material list</li>
+                  <li>Recommended tools</li>
+                  <li>Time estimate: 2–4 hours</li>
+                </ul>
+                <a href="#" className="text-blue-600 font-medium">View Guide →</a>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h3 className="text-xl font-semibold mb-2">Replace a Sprinkler Head</h3>
+                <ul className="list-disc list-inside text-gray-700 mb-4">
+                  <li>Visual checklist</li>
+                  <li>Tools needed</li>
+                  <li>Warning signs for replacement</li>
+                  <li>Compatibility chart</li>
+                </ul>
+                <a href="#" className="text-blue-600 font-medium">Open Checklist →</a>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h3 className="text-xl font-semibold mb-2">DIY Tile Backsplash</h3>
+                <ul className="list-disc list-inside text-gray-700 mb-4">
+                  <li>Video tutorial</li>
+                  <li>Surface prep guide</li>
+                  <li>Grout comparison chart</li>
+                  <li>Safety gear checklist</li>
+                </ul>
+                <a href="#" className="text-blue-600 font-medium">Watch Tutorial →</a>
+              </div>
+            </div>
           </div>
 
-          {/* Testing Card */}
-          <div className="bg-white rounded-xl shadow border border-gray-100 p-6 flex flex-col min-w-[320px]">
-            <h3 className="text-lg font-bold mb-3 text-primary-700">TESTING: Check Before You Finalize</h3>
-            <ul className="list-disc pl-5 space-y-1 mb-4 text-[16px]">
-              <li>Fit & function test</li>
-              <li>Structural check (sturdy, level, secure)</li>
-              <li>Paint/stain patch test</li>
-              <li>Water/electric functionality check</li>
-              <li>Ask for a second opinion</li>
+          {/* Tools & Templates */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Tools & Templates</h2>
+            <ul className="list-disc list-inside text-gray-700">
+              <li><a href="#" className="text-blue-600">Download Project Planner (PDF)</a></li>
+              <li><a href="#" className="text-blue-600">Get Material Calculator</a></li>
+              <li><a href="#" className="text-blue-600">Tool Finder Wizard (coming soon)</a></li>
             </ul>
-            <div className="mt-auto pt-2 text-xs text-gray-600 border-t border-gray-100"><strong>Tip:</strong> Testing saves you from costly mistakes down the road.</div>
           </div>
 
-          {/* Launch Card */}
-          <div className="bg-white rounded-xl shadow border border-gray-100 p-6 flex flex-col min-w-[320px]">
-            <h3 className="text-lg font-bold mb-3 text-primary-700">LAUNCH: Final Touches & Enjoy</h3>
-            <ul className="list-disc pl-5 space-y-1 mb-4 text-[16px]">
-              <li>Final cleanup (tools, dust, tape)</li>
-              <li>Seal or protect your work</li>
+          {/* Choose by Project Type */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Choose by Project Type</h2>
+            <table className="min-w-full text-left border-collapse border border-gray-200">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="border border-gray-200 px-4 py-2">Category</th>
+                  <th className="border border-gray-200 px-4 py-2">Examples</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2">Indoor Improvements</td>
+                  <td className="border border-gray-200 px-4 py-2">Shelves, doors, backsplashes</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2">Outdoor Projects</td>
+                  <td className="border border-gray-200 px-4 py-2">Planter beds, irrigation fixes</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2">Painting & Finish</td>
+                  <td className="border border-gray-200 px-4 py-2">Entryways, trims, cabinets</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-4 py-2">Small Repairs</td>
+                  <td className="border border-gray-200 px-4 py-2">Hinges, handles, squeaky doors</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Tips */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Smart Tips for DIYers</h2>
+            <ul className="list-disc list-inside text-gray-700">
+              <li>Start small and build confidence</li>
+              <li>Always measure twice</li>
+              <li>Use painter’s tape to avoid messy finishes</li>
               <li>Take before/after photos</li>
-              <li>Note what worked or needs improvement</li>
-              <li>Celebrate your success!</li>
+              <li>Safety first: mask, gloves, goggles</li>
             </ul>
-            <div className="mt-auto pt-2 text-xs text-gray-600 border-t border-gray-100"><strong>Tip:</strong> Save your notes and measurements for future upgrades.</div>
+          </div>
+
+          {/* CTA & AI Prompt */}
+          <div className="bg-blue-50 p-6 rounded-lg text-center">
+            <p className="text-lg font-semibold text-blue-800 mb-2">Need help deciding what to build?</p>
+            <p className="text-gray-700 mb-4">Ask Habi, our AI assistant, to recommend the best starting project based on your goals.</p>
+            <a href="#" className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">Chat with Habi →</a>
           </div>
         </div>
-
-        {/* Summary Table */}
-        <section className="mb-8">
-          <h3 className="text-lg font-semibold mb-3">Summary: The DIY Project Lifecycle</h3>
-          <table className="w-full border-collapse mt-2 text-[16px]">
-            <thead>
-              <tr>
-                <th className="text-left border-b-2 border-gray-200 pb-2">Stage</th>
-                <th className="text-left border-b-2 border-gray-200 pb-2">Key Focus</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="py-2 align-top">Planning</td>
-                <td className="py-2 align-top">Goals, research, measurements, budget</td>
-              </tr>
-              <tr>
-                <td className="py-2 align-top">Execution</td>
-                <td className="py-2 align-top">Tools, materials, safety, build process</td>
-              </tr>
-              <tr>
-                <td className="py-2 align-top">Testing</td>
-                <td className="py-2 align-top">Fit, stability, appearance, functionality</td>
-              </tr>
-              <tr>
-                <td className="py-2 align-top">Launch</td>
-                <td className="py-2 align-top">Cleanup, finishing touches, reflection</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        {/* Final Thoughts */}
-        <section className="mt-10">
-          <p className="mb-0"><strong>Final advice:</strong> DIY isn't just about saving money—it's about building confidence, skills, and pride in your home. Start small, learn fast, and keep building.</p>
-        </section>
       </main>
     </div>
   );
