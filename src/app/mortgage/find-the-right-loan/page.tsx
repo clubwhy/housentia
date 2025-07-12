@@ -51,11 +51,11 @@ export default function FindTheRightLoanPage() {
           style={{ width: '100%', height: 'auto', display: 'block' }}
         />
       </a>
-      <main className="relative max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-100 shadow-2xl rounded-2xl overflow-hidden z-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7, background: 'transparent' }}>
+      <main className="relative max-w-4xl mx-auto px-4 py-2 font-sans text-[17px] text-gray-100 shadow-2xl rounded-2xl overflow-hidden z-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7, background: 'transparent' }}>
         <div className="flex flex-col items-center justify-center mb-4">
           <img src="/habi.png" alt="Habi Logo" className="w-24 h-14 rounded-xl bg-white shadow-md object-contain mb-2" style={{paddingLeft: '10px', paddingRight: '10px'}} />
         </div>
-        <p className="text-center text-gray-200 mb-10">Say Hello to Smarter Home Buying</p>
+        <p className="text-center text-gray-200 mb-4">Say Hello to Smarter Home Buying</p>
         <GeminiChatBot />
         {/* Content goes here */}
       </main>

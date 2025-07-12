@@ -70,12 +70,47 @@ function ChangePasswordTab({ email }: { email: string }) {
   );
 }
 
-function HabiUsageLogTab() {
-  // 실제 로그 데이터 연동 전 더미
+function HabiUsageLogTab({ email }: { email: string }) {
+  const [logs, setLogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    if (!email) return;
+    setLoading(true);
+    fetch(`/api/habi-log?email=${encodeURIComponent(email)}`)
+      .then(res => res.ok ? res.json() : Promise.reject(res))
+      .then(data => {
+        setLogs(data.logs || []);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load usage log.");
+        setLoading(false);
+      });
+  }, [email]);
   return (
     <div className="py-4">
       <h2 className="text-xl font-bold mb-4 text-primary">Habi Usage Log</h2>
-      <div className="text-gray-600">(Usage log feature coming soon.)</div>
+      {loading ? (
+        <div className="text-gray-400">Loading...</div>
+      ) : error ? (
+        <div className="text-red-600">{error}</div>
+      ) : logs.length === 0 ? (
+        <div className="text-gray-500">No usage log found.</div>
+      ) : (
+        <div className="max-h-96 overflow-y-auto text-left">
+          {logs.map(log => (
+            <div key={log.id} className="mb-4 p-3 rounded border bg-gray-50">
+              <div className="text-xs text-gray-500 mb-1 flex gap-2">
+                <span>{log.role === 'user' ? 'User' : 'AI'}</span>
+                <span>{new Date(log.created_at).toLocaleString()}</span>
+                <span>IP: {log.ip}</span>
+              </div>
+              <div className={log.role === 'user' ? 'text-blue-700' : 'text-gray-800'}>{log.message}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -242,7 +277,7 @@ export default function ProfilePage() {
         </form>
         )}
         {tab === 'password' && <ChangePasswordTab email={email} />}
-        {tab === 'log' && <HabiUsageLogTab />}
+        {tab === 'log' && <HabiUsageLogTab email={email} />}
         <a href="/" className="block text-primary underline mt-6">Back to Home</a>
       </div>
     </div>
