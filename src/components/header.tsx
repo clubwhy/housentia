@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const navMenus = [
   {
@@ -73,6 +74,34 @@ const navMenus = [
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const closeTimer = useRef<NodeJS.Timeout | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsLoggedIn(!!localStorage.getItem('isLoggedIn'));
+      window.addEventListener('storage', () => {
+        setIsLoggedIn(!!localStorage.getItem('isLoggedIn'));
+      });
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    const email = typeof window !== 'undefined' ? localStorage.getItem('email') : '';
+    if (email) {
+      try {
+        await fetch('/api/logout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+      } catch {}
+    }
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('email');
+    setIsLoggedIn(false);
+    router.push('/');
+  };
 
   const handleMouseEnter = (label: string) => {
     if (closeTimer.current) {
@@ -144,8 +173,17 @@ export default function Header() {
         </nav>
         {/* Right: Auth Buttons */}
         <div className="flex-1 flex justify-end items-center space-x-2">
-          <a href="/signup" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Sign up</a>
-          <a href="/login" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">Log in</a>
+          {isLoggedIn ? (
+            <>
+              <a href="/profile" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">My Profile</a>
+              <button onClick={handleLogout} className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Logout</button>
+            </>
+          ) : (
+            <>
+              <a href="/signup" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Sign up</a>
+              <a href="/login" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">Log in</a>
+            </>
+          )}
         </div>
       </div>
     </header>

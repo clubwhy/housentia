@@ -1,0 +1,35 @@
+import { NextRequest, NextResponse } from 'next/server';
+import pool from '@/app/upgrade/contractor-finder/db';
+import bcrypt from 'bcryptjs';
+
+export async function POST(req: NextRequest) {
+  try {
+    const { email, current, password } = await req.json();
+    if (!email || !current || !password) {
+      return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
+    }
+    const passwordRule = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,15}$/;
+    if (!passwordRule.test(password)) {
+      return NextResponse.json({ error: 'Password must be 8-15 characters and include at least one uppercase letter, one lowercase letter, one number, and one special character.' }, { status: 400 });
+    }
+    const conn = await pool.getConnection();
+    try {
+      const [rows] = await conn.query('SELECT id, password FROM user WHERE email = ?', [email]);
+      const user = Array.isArray(rows) ? rows[0] : rows;
+      if (!user) {
+        return NextResponse.json({ error: 'User not found.' }, { status: 404 });
+      }
+      const match = await bcrypt.compare(current, user.password);
+      if (!match) {
+        return NextResponse.json({ error: 'Current password is incorrect. Please contact support if you need help.' }, { status: 401 });
+      }
+      const hashed = await bcrypt.hash(password, 10);
+      await conn.query('UPDATE user SET password = ? WHERE email = ?', [hashed, email]);
+      return NextResponse.json({ success: true });
+    } finally {
+      conn.release();
+    }
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Server error' }, { status: 500 });
+  }
+} 
