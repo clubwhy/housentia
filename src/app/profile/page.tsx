@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import usStates from "@/data/usStates.json";
 import { useCallback } from "react";
+import ReactMarkdown from 'react-markdown';
 
 function ChangePasswordTab({ email }: { email: string }) {
   const [current, setCurrent] = useState("");
@@ -106,7 +107,36 @@ function HabiUsageLogTab({ email }: { email: string }) {
                 <span>{new Date(log.created_at).toLocaleString()}</span>
                 <span>IP: {log.ip}</span>
               </div>
-              <div className={log.role === 'user' ? 'text-blue-700' : 'text-gray-800'}>{log.message}</div>
+              {log.role === 'ai' ? (() => {
+                const firstLineBreak = log.message.indexOf('\n');
+                let summary = '';
+                let detail = '';
+                if (firstLineBreak > 0) {
+                  summary = log.message.slice(0, firstLineBreak).trim();
+                  detail = log.message.slice(firstLineBreak).trim();
+                } else {
+                  const firstPeriod = log.message.indexOf('. ');
+                  if (firstPeriod > 0) {
+                    summary = log.message.slice(0, firstPeriod + 1).trim();
+                    detail = log.message.slice(firstPeriod + 1).trim();
+                  } else {
+                    summary = log.message;
+                    detail = '';
+                  }
+                }
+                return (
+                  <div>
+                    <div className="font-bold text-blue-700 mb-1">{summary}</div>
+                    {detail && (
+                      <div className="prose prose-sm max-w-none">
+                        <ReactMarkdown>{detail}</ReactMarkdown>
+                      </div>
+                    )}
+                  </div>
+                );
+              })() : (
+                <div className="text-blue-700">{log.message}</div>
+              )}
             </div>
           ))}
         </div>
