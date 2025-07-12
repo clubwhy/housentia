@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'ai';
@@ -13,6 +14,7 @@ export default function GeminiChatBot() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   // 마운트 시 로컬스토리지에서 불러오기
   useEffect(() => {
@@ -30,7 +32,9 @@ export default function GeminiChatBot() {
   }, [messages]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   async function handleSend() {
@@ -69,23 +73,48 @@ export default function GeminiChatBot() {
   return (
     <div className="max-w-xl mx-auto bg-white rounded-2xl shadow p-6 flex flex-col h-[500px]">
       <h3 className="text-xl font-bold mb-4 text-center">AI Mortgage Chatbot (Gemini)</h3>
-      <div className="flex-1 overflow-y-auto mb-4 space-y-3">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto mb-4 space-y-3">
         {messages.length === 0 && (
           <div className="text-gray-400 text-center mt-16">Ask me anything about mortgages, home buying, or loans!</div>
         )}
         {messages.map((msg, i) => (
           <div key={i} className={msg.role === 'user' ? 'text-right' : 'text-left'}>
-            <div className={
-              'inline-block px-4 py-2 rounded-lg ' +
-              (msg.role === 'user'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-800')
-            }>
-              {msg.content}
-            </div>
+            {msg.role === 'ai' ? (
+              (() => {
+                // 1. 요약(첫 문장) + 상세(아래) 분리
+                const firstLineBreak = msg.content.indexOf('\n');
+                let summary = '';
+                let detail = '';
+                if (firstLineBreak > 0) {
+                  summary = msg.content.slice(0, firstLineBreak).trim();
+                  detail = msg.content.slice(firstLineBreak).trim();
+                } else {
+                  // 마크다운 제목이 맨 앞에 올 경우(### 등)
+                  const firstPeriod = msg.content.indexOf('. ');
+                  if (firstPeriod > 0) {
+                    summary = msg.content.slice(0, firstPeriod + 1).trim();
+                    detail = msg.content.slice(firstPeriod + 1).trim();
+                  } else {
+                    summary = msg.content;
+                    detail = '';
+                  }
+                }
+                return (
+                  <div className="bg-gray-100 text-gray-800 inline-block px-4 py-2 rounded-lg text-left max-w-full">
+                    <div className="font-bold text-blue-700 mb-1">{summary}</div>
+                    {detail && (
+                      <div className="prose prose-sm max-w-none">
+                        <ReactMarkdown>{detail}</ReactMarkdown>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()
+            ) : (
+              <div className="inline-block px-4 py-2 rounded-lg bg-blue-600 text-white">{msg.content}</div>
+            )}
           </div>
         ))}
-        <div ref={bottomRef} />
       </div>
       {error && <div className="text-red-600 text-center mb-2">{error}</div>}
       <div className="flex gap-2">
