@@ -58,6 +58,35 @@ UNLOCK TABLES;
 commit;
 
 --
+-- Table structure for table `contactus`
+--
+
+DROP TABLE IF EXISTS `contactus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contactus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `contact_reason` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contactus`
+--
+
+LOCK TABLES `contactus` WRITE;
+/*!40000 ALTER TABLE `contactus` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `contactus` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
 -- Table structure for table `habi_chat_log`
 --
 
@@ -192,6 +221,51 @@ INSERT INTO `online_inquiry` VALUES
 (5,'realtor','see_homes','real_estate_agent','zoom','2025-07-11','17:28:00','Young Hwan Cho','91737','kundergroundmusic@gmail.com',NULL,'2025-07-11 15:27:44',NULL),
 (6,'solar','solar','solar_agent','zoom','2025-07-23','15:46:00','tommy test','91730','kundergroundm@gmail.com',NULL,'2025-07-11 22:47:27',NULL);
 /*!40000 ALTER TABLE `online_inquiry` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
+-- Table structure for table `optout`
+--
+
+DROP TABLE IF EXISTS `optout`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `optout` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_email` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_phone` varchar(50) DEFAULT NULL,
+  `user_ip` varchar(50) DEFAULT NULL,
+  `email_property_updates` tinyint(1) DEFAULT 0,
+  `email_market_insights` tinyint(1) DEFAULT 0,
+  `email_home_improvement` tinyint(1) DEFAULT 0,
+  `email_promotional_offers` tinyint(1) DEFAULT 0,
+  `sms_property_alerts` tinyint(1) DEFAULT 0,
+  `sms_appointment_reminders` tinyint(1) DEFAULT 0,
+  `push_browser_notifications` tinyint(1) DEFAULT 0,
+  `push_mobile_notifications` tinyint(1) DEFAULT 0,
+  `analytics_website_analytics` tinyint(1) DEFAULT 0,
+  `analytics_personalized_recommendations` tinyint(1) DEFAULT 0,
+  `third_party_partner_recommendations` tinyint(1) DEFAULT 0,
+  `third_party_advertising_networks` tinyint(1) DEFAULT 0,
+  `cookies_analytics` tinyint(1) DEFAULT 0,
+  `cookies_marketing` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_email` (`user_email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `optout`
+--
+
+LOCK TABLES `optout` WRITE;
+/*!40000 ALTER TABLE `optout` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `optout` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
 
@@ -439,4 +513,4 @@ commit;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-07-12 14:14:07
+-- Dump completed on 2025-07-14  0:25:14
