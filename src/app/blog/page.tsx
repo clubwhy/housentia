@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import PageHero from '@/components/PageHero';
+import { Suspense } from 'react';
 
 interface BlogPost {
   title: string;
@@ -21,7 +22,8 @@ const LABELS = [
   "News & Regulations",
 ];
 
-export default function BlogPage() {
+// 1. useSearchParams를 사용하는 부분을 별도 컴포넌트로 분리
+function ActualBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -185,5 +187,14 @@ export default function BlogPage() {
         )}
       </main>
     </>
+  );
+}
+
+// 2. BlogPage에서 Suspense로 감싸기
+export default function BlogPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ActualBlogPage />
+    </Suspense>
   );
 } 

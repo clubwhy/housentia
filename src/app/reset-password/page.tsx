@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function ResetPasswordPage() {
+function ActualResetPasswordPage() {
   const searchParams = useSearchParams();
   const token = searchParams?.get("token") || "";
   const email = searchParams?.get("email") || "";
@@ -96,5 +96,13 @@ export default function ResetPasswordPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ActualResetPasswordPage />
+    </Suspense>
   );
 } 
