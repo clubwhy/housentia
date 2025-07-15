@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from "framer-motion";
 import BlogFeed from '@/components/BlogFeed';
 import pool from './upgrade/contractor-finder/db';
@@ -30,7 +31,9 @@ export default async function Home() {
        LIMIT 4`
     );
     conn.release();
+    console.log('[Home] Fetched products:', products.length);
   } catch (e) {
+    console.error('[Home] Error fetching products:', e);
     // handle error or leave products empty
   }
 
@@ -43,12 +46,14 @@ export default async function Home() {
        FROM products p
        JOIN types t ON p.type_uid = t.uid
        JOIN vendors v ON p.vendor_uid = v.uid
-       WHERE p.active = 1 AND t.label = 'DIY Kits & Tools'
+       WHERE p.active = 1
        ORDER BY p.uid DESC
        LIMIT 10`
     );
     conn.release();
+    console.log('[Home] Fetched DIY kits:', diyKits.length);
   } catch (e) {
+    console.error('[Home] Error fetching DIY kits:', e);
     // handle error or leave diyKits empty
   }
 
@@ -98,7 +103,7 @@ export default async function Home() {
           <div className="flex overflow-x-auto gap-6 pb-4">
             {diyKits.length > 0 ? diyKits.map((product: Product) => (
               <div key={product.id} className="min-w-[260px] bg-slate-50 rounded-xl shadow hover:scale-105 hover:shadow-lg transition p-6 flex flex-col justify-between">
-                <div className="w-16 h-16 mb-3 mx-auto flex items-center justify-center relative">
+                <div className="w-16 h-16 mb-3 mx-auto flex items-center justify-center relative aspect-square">
                   <ProductImage src={product.image_url} alt={product.name} />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
@@ -107,18 +112,13 @@ export default async function Home() {
                   <span className="text-blue-600 font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}</span>
                   <span className="text-xs text-gray-500">by {product.vendor_name}</span>
                 </div>
-                <a href={product.product_url || '#'} target="_blank" rel="noopener noreferrer" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">View Details</a>
+                <Link href={`/shop/products/${product.id}`} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">View Details</Link>
               </div>
             )) : (
-              [1,2,3,4,5,6].map((i) => (
-                <div key={i} className="min-w-[260px] bg-slate-50 rounded-xl shadow p-6 flex flex-col justify-between animate-pulse">
-                  <div className="w-16 h-16 mb-3 mx-auto bg-slate-200 rounded" />
-                  <div className="h-5 bg-slate-200 rounded w-2/3 mb-2" />
-                  <div className="h-4 bg-slate-200 rounded w-1/2 mb-4" />
-                  <div className="h-4 bg-slate-200 rounded w-1/3 mb-2" />
-                  <div className="h-6 bg-slate-200 rounded w-1/2" />
-                </div>
-              ))
+              <div className="w-full text-center py-8">
+                <div className="text-gray-500 text-lg mb-2">DIY Kits & Tools 상품이 준비 중입니다</div>
+                <p className="text-gray-400 text-sm">곧 새로운 DIY 키트와 도구들이 추가될 예정입니다.</p>
+              </div>
             )}
           </div>
           <div className="flex flex-wrap justify-center gap-4 mb-4">
@@ -157,7 +157,7 @@ export default async function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-6">
             {products.length > 0 ? products.map((product: Product) => (
               <div key={product.id} className="bg-indigo-100 rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition border border-indigo-200">
-                <div className="mb-2 h-32 flex items-center justify-center relative">
+                <div className="mb-2 aspect-square flex items-center justify-center relative">
                   <ProductImage src={product.image_url} alt={product.name} />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
@@ -166,18 +166,13 @@ export default async function Home() {
                   <span className="text-blue-600 font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}</span>
                   <span className="text-xs text-gray-500">by {product.vendor_name}</span>
                 </div>
-                <a href={product.product_url || '#'} target="_blank" rel="noopener noreferrer" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Try Now</a>
+                <Link href={`/shop/products/${product.id}`} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">View Details</Link>
               </div>
             )) : (
-              [1,2,3,4].map((i) => (
-                <div key={i} className="bg-indigo-100 rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition border border-indigo-200 animate-pulse">
-                  <div className="mb-2 h-32 bg-indigo-200 rounded" />
-                  <div className="h-5 bg-indigo-200 rounded w-2/3 mb-2" />
-                  <div className="h-4 bg-indigo-200 rounded w-1/2 mb-4" />
-                  <div className="h-4 bg-indigo-200 rounded w-1/3 mb-2" />
-                  <div className="h-6 bg-indigo-200 rounded w-1/2" />
-                </div>
-              ))
+              <div className="col-span-full text-center py-8">
+                <div className="text-gray-500 text-lg mb-2">Best-Selling Home Essentials 상품이 준비 중입니다</div>
+                <p className="text-gray-400 text-sm">곧 인기 있는 홈 에센셜 상품들이 추가될 예정입니다.</p>
+              </div>
             )}
           </div>
         </div>

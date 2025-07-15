@@ -13,18 +13,21 @@ export default function ProductImage({ src, alt }: { src: string; alt: string })
         alt="No image"
         fill
         className="object-contain"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 25vw"
       />
     );
   }
 
+  // noimg.png를 절대 경로로 변환
+  const imageSrc = src === 'noimg.png' ? '/noimg.png' : src;
+
   return (
     <Image
-      src={src}
+      src={imageSrc}
       alt={alt}
       fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      className="object-contain"
+      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 25vw"
       onError={() => setError(true)}
     />
   );

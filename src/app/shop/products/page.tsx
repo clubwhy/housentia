@@ -195,7 +195,7 @@ export default async function ProductsPage({ searchParams, params }: { searchPar
               {products.map((product) => {
                 return (
                   <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                    <div className="relative h-48 bg-gray-200 flex flex-col items-center justify-center">
+                    <div className="relative aspect-square bg-gray-200 flex flex-col items-center justify-center">
                       <ProductImage src={product.image_url} alt={product.name} />
                     </div>
                     
@@ -217,9 +217,12 @@ export default async function ProductsPage({ searchParams, params }: { searchPar
                         )}
                       </div>
                       <div className="flex space-x-2">
-                        <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+                        <Link
+                          href={`/shop/products/${product.id}`}
+                          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 text-sm font-medium text-center"
+                        >
                           View Details
-                        </button>
+                        </Link>
                         {product.product_url && (
                           <a
                             href={product.product_url}
