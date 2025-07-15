@@ -242,7 +242,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <img src="/house-illustration.png" alt="Finance" className="max-w-xs" />
+            <img src="/house-illustration.png" alt="Finance" className="max-w-xs" /> 
           </div>
         </div>
       </section>
