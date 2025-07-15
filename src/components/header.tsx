@@ -180,8 +180,8 @@ export default function Header() {
             </>
           ) : (
             <>
-              <a href="/signup" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Sign up</a>
-              <a href="/login" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">Log in</a>
+          <a href="/signup" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Sign up</a>
+          <a href="/login" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">Log in</a>
             </>
           )}
         </div>

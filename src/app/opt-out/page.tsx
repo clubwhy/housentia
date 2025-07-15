@@ -798,7 +798,7 @@ export default function OptOut() {
                     <div>
                       <p className="text-gray-700">
                         <strong>Email:</strong><br />
-                        info@housentia.com
+                        <a href="mailto:info@housentia.com" className="text-primary hover:text-accent transition-colors">info@housentia.com</a>
                       </p>
                     </div>
                     <div>

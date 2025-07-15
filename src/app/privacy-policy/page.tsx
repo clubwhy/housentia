@@ -179,10 +179,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-gray-700">
-                    <strong>Email:</strong> privacy@housentia.com<br />
-                    <strong>Phone:</strong> +1 (555) 123-4567<br />
-                    <strong>Address:</strong> 123 Real Estate Ave, Suite 100, City, State 12345<br />
-                    <strong>Website:</strong> www.housentia.com
+                     Please use our <a href="/contactus" className="text-primary hover:text-accent transition-colors">Contact Us Form</a> or send email to <a href="mailto:info@housentia.com" className="text-primary hover:text-accent transition-colors">info@housentia.com</a>
                   </p>
                 </div>
               </section>
