@@ -205,7 +205,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
               <div className="mb-6">
                 <div className="flex items-center justify-between py-3 border-b border-gray-200">
                   <span className="text-gray-600">Vendor:</span>
-                  <span className="font-medium">{product.vendor_name}</span>
+                  <span className="font-medium text-gray-500">Amazon affiliate</span>
                 </div>
                 {product.sku && (
                   <div className="flex items-center justify-between py-3 border-b border-gray-200">
@@ -213,14 +213,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     <span className="font-medium">{product.sku}</span>
                   </div>
                 )}
-                {product.stock_qty !== undefined && (
-                  <div className="flex items-center justify-between py-3 border-b border-gray-200">
-                    <span className="text-gray-600">Stock:</span>
-                    <span className={`font-medium ${product.stock_qty > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {product.stock_qty > 0 ? `${product.stock_qty} available` : 'Out of stock'}
-                    </span>
-                  </div>
-                )}
+                <div className="flex items-center justify-between py-3 border-b border-gray-200">
+                  <span className="text-gray-600">Status:</span>
+                  <span className="font-medium text-orange-600">
+                    Amazon link coming soon
+                  </span>
+                </div>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
