@@ -221,21 +221,22 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href={`/shop/${getCategorySlug(product.category)}`}
-                  className="flex-1 bg-primary text-white text-center py-3 px-6 rounded-lg font-semibold hover:bg-accent-hover transition"
-                >
-                  Back to List
-                </Link>
+              <div className="flex flex-col gap-4">
                 <a
                   href={product.product_url || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-white text-gray-700 text-center py-3 px-6 rounded-lg font-semibold border-2 border-gray-300 hover:border-primary hover:text-primary transition"
+                  className="w-full bg-orange-500 text-white text-center py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition"
+                  dangerouslySetInnerHTML={{
+                    __html: `Buy Now on Amazon for <strong>${formatPrice(product.price)}</strong>`
+                  }}
+                />
+                <Link
+                  href={`/shop/${getCategorySlug(product.category)}`}
+                  className="w-full bg-primary text-white text-center py-3 px-6 rounded-lg font-semibold hover:bg-accent-hover transition"
                 >
-                  Visit Store
-                </a>
+                  Back to List
+                </Link>
               </div>
             </div>
           </div>

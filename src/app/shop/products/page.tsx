@@ -195,14 +195,18 @@ export default async function ProductsPage({ searchParams, params }: { searchPar
               {products.map((product) => {
                 return (
                   <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                    <div className="relative aspect-square bg-gray-200 flex flex-col items-center justify-center">
-                      <ProductImage src={product.image_url} alt={product.name} />
-                    </div>
+                    <Link href={`/shop/products/${product.id}`} className="block">
+                      <div className="relative aspect-square bg-gray-200 flex flex-col items-center justify-center">
+                        <ProductImage src={product.image_url} alt={product.name} />
+                      </div>
+                    </Link>
                     
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
+                      <Link href={`/shop/products/${product.id}`} className="block">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
+                          {product.name}
+                        </h3>
+                      </Link>
                       <p className="text-gray-600 text-sm mb-3 line-clamp-3">
                         {product.description}
                       </p>
