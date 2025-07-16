@@ -73,6 +73,7 @@ const navMenus = [
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const closeTimer = useRef<NodeJS.Timeout | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
@@ -124,8 +125,9 @@ export default function Header() {
         <div className="flex-1 flex items-center">
           <a href="/" className="text-2xl font-bold text-primary">Housentia</a>
         </div>
-        {/* Center: Menu */}
-        <nav className="flex-1 flex justify-center space-x-1">
+        
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex flex-1 justify-center space-x-1">
           {navMenus.map((menu) =>
             menu.submenu ? (
               <div
@@ -171,21 +173,96 @@ export default function Header() {
             )
           )}
         </nav>
-        {/* Right: Auth Buttons */}
+        
+        {/* Right: Auth Buttons & Mobile Menu Button */}
         <div className="flex-1 flex justify-end items-center space-x-2">
-          {isLoggedIn ? (
-            <>
-              <a href="/profile" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">My Profile</a>
-              <button onClick={handleLogout} className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Logout</button>
-            </>
-          ) : (
-            <>
-          <a href="/signup" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Sign up</a>
-          <a href="/login" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">Log in</a>
-            </>
-          )}
+          {/* Desktop Auth Buttons */}
+          <div className="hidden md:flex space-x-2">
+            {isLoggedIn ? (
+              <>
+                <a href="/profile" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">My Profile</a>
+                <button onClick={handleLogout} className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Logout</button>
+              </>
+            ) : (
+              <>
+                <a href="/signup" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow whitespace-nowrap">Sign up</a>
+                <a href="/login" className="border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm whitespace-nowrap bg-white">Log in</a>
+              </>
+            )}
+          </div>
+          
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            type="button"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
+      
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+          <div className="px-4 py-2 space-y-1">
+            {navMenus.map((menu) => (
+              <div key={menu.label}>
+                <button
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between"
+                  onClick={() => setOpenMenu(openMenu === menu.label ? null : menu.label)}
+                  type="button"
+                >
+                  {menu.label}
+                  {menu.submenu && (
+                    <svg className={`w-4 h-4 transition-transform ${openMenu === menu.label ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  )}
+                </button>
+                {menu.submenu && openMenu === menu.label && (
+                  <div className="pl-4 space-y-1">
+                    {menu.submenu.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-md"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                        {menu.label === 'Mortgage' && item.label === 'Find the Right Loan' && (
+                          <span className="ml-1 px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-bold align-middle animate-ai-glow">AI</span>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {/* Mobile Auth Buttons */}
+            <div className="pt-4 pb-2 border-t border-gray-200">
+              {isLoggedIn ? (
+                <div className="space-y-2">
+                  <a href="/profile" className="block w-full text-center border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm bg-white">My Profile</a>
+                  <button onClick={handleLogout} className="block w-full bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow">Logout</button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <a href="/signup" className="block w-full text-center bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm shadow">Sign up</a>
+                  <a href="/login" className="block w-full text-center border border-primary text-primary font-semibold px-4 py-2 rounded-md hover:bg-primary hover:text-white transition text-sm bg-white">Log in</a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }  

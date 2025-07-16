@@ -62,19 +62,19 @@ export default async function Home() {
       {/* Modern Minimal Hero Section */}
       <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#312e81] to-[#7c3aed]">
         <div className="w-full max-w-4xl px-4 mx-auto flex flex-col items-center text-center mb-4">
-          <div className="font-extrabold text-white text-5xl md:text-6xl whitespace-nowrap">
+          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
             Turn Your House
           </div>
-          <div className="font-extrabold text-white text-5xl md:text-6xl whitespace-nowrap">
+          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
             into the Home You Love
           </div>
-          <div className="font-extrabold text-white text-5xl md:text-6xl mt-2 whitespace-nowrap">
+          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 leading-tight">
             &
           </div>
-          <div className="font-extrabold text-white text-5xl md:text-6xl whitespace-nowrap">
+          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
             Learn How to Afford It Too.
           </div>
-          <p className="text-lg md:text-xl text-slate-300 mb-8 mt-6 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 mt-6 max-w-2xl mx-auto px-4">
             Discover smart home upgrades, DIY tips, and financing tools to help you build a better living space — and save money along the way.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
