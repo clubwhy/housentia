@@ -9,9 +9,7 @@ export const metadata: Metadata = {
   title: 'Housentia - Smarter Mortgage & Home Insights',
   description: 'Compare mortgage rates, explore home ideas, and save smarter. Housentia is your all-in-one home platform.',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: '/favicon.ico',
   },
 }
 
