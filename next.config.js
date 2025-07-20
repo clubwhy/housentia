@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['yourcdn.com'],
+    domains: ['yourcdn.com', 'm.media-amazon.com'],
   },
   typescript: {
     ignoreBuildErrors: true, // 👈 타입 오류 무시
