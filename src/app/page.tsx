@@ -26,12 +26,13 @@ export default async function Home() {
        FROM products p
        JOIN types t ON p.type_uid = t.uid
        JOIN vendors v ON p.vendor_uid = v.uid
-       WHERE p.active = 1
+       WHERE p.active = 1 and p.type_uid = 4
        ORDER BY p.uid DESC
        LIMIT 4`
     );
     conn.release();
     console.log('[Home] Fetched products:', products.length);
+    console.log('[Home] Product IDs:', products.map(p => p.id));
   } catch (e) {
     console.error('[Home] Error fetching products:', e);
     // handle error or leave products empty
@@ -46,7 +47,7 @@ export default async function Home() {
        FROM products p
        JOIN types t ON p.type_uid = t.uid
        JOIN vendors v ON p.vendor_uid = v.uid
-       WHERE p.active = 1
+       WHERE p.active = 1 and p.type_uid = 6
        ORDER BY p.uid DESC
        LIMIT 10`
     );
@@ -103,8 +104,14 @@ export default async function Home() {
           <div className="flex overflow-x-auto gap-6 pb-4">
             {diyKits.length > 0 ? diyKits.map((product: Product) => (
               <div key={product.id} className="min-w-[260px] bg-slate-50 rounded-xl shadow hover:scale-105 hover:shadow-lg transition p-6 flex flex-col justify-between">
-                <div className="w-16 h-16 mb-3 mx-auto flex items-center justify-center relative aspect-square">
-                  <ProductImage src={product.image_url} alt={product.name} />
+                <div className="w-20 h-20 mb-3 mx-auto flex items-center justify-center relative">
+                  <Image
+                    src={product.image_url || '/noimg.png'}
+                    alt={product.name}
+                    fill
+                    className="object-contain rounded-lg"
+                    sizes="80px"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">{product.description}</p>
@@ -116,8 +123,8 @@ export default async function Home() {
               </div>
             )) : (
               <div className="w-full text-center py-8">
-                <div className="text-gray-500 text-lg mb-2">DIY Kits & Tools 상품이 준비 중입니다</div>
-                <p className="text-gray-400 text-sm">곧 새로운 DIY 키트와 도구들이 추가될 예정입니다.</p>
+                <div className="text-gray-500 text-lg mb-2">DIY Kits & Tools are coming soon</div>
+                <p className="text-gray-400 text-sm">New DIY kits and tools will be added shortly. Stay tuned!</p>
               </div>
             )}
           </div>
@@ -170,8 +177,8 @@ export default async function Home() {
               </div>
             )) : (
               <div className="col-span-full text-center py-8">
-                <div className="text-gray-500 text-lg mb-2">Best-Selling Home Essentials 상품이 준비 중입니다</div>
-                <p className="text-gray-400 text-sm">곧 인기 있는 홈 에센셜 상품들이 추가될 예정입니다.</p>
+                <div className="text-gray-500 text-lg mb-2">Best-Selling Home Essentials are coming soon</div>
+                <p className="text-gray-400 text-sm">Popular home essentials will be added shortly. Stay tuned!</p>
               </div>
             )}
           </div>
