@@ -106,13 +106,13 @@ export default async function Home() {
           <div className="flex overflow-x-auto gap-6 pb-4">
             {diyKits.length > 0 ? diyKits.map((product: Product) => (
               <div key={product.id} className="min-w-[260px] bg-slate-50 rounded-xl shadow hover:scale-105 hover:shadow-lg transition p-6 flex flex-col justify-between">
-                <div className="w-20 h-20 mb-3 mx-auto flex items-center justify-center relative">
+                <div className="mb-3 mx-auto flex items-center justify-center">
                   <Image
                     src={product.image_url || '/noimg.png'}
                     alt={product.name}
-                    fill
+                    width={156}
+                    height={156}
                     className="object-contain rounded-lg"
-                    sizes="80px"
                   />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
