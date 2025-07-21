@@ -16,6 +16,8 @@ type Product = {
   vendor_name: string;
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   // Fetch latest 4 products
   let products: Product[] = [];
