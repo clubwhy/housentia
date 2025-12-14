@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/app/upgrade/contractor-finder/db';
 import { validateSession } from '@/lib/auth';
 import crypto from 'crypto';
+import { handleError, handleDatabaseError } from '@/lib/errorHandler';
 
 /**
  * Hash email for logging (never log plaintext emails)
@@ -39,7 +40,9 @@ export async function GET(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    console.error('[HABI LOG ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    if (e.code && e.code.startsWith('ER_')) {
+      return handleDatabaseError(e);
+    }
+    return handleError(e, 'HABI_LOG');
   }
 } 

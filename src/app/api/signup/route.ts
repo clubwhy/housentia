@@ -3,6 +3,7 @@ import pool from '@/app/upgrade/contractor-finder/db';
 import bcrypt from 'bcryptjs';
 import { validateCSRFToken } from '@/lib/csrf';
 import { rateLimiters } from '@/lib/rateLimit';
+import { handleError, handleDatabaseError } from '@/lib/errorHandler';
 
 export async function POST(req: NextRequest) {
   // Apply rate limiting
@@ -52,7 +53,10 @@ export async function POST(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    console.error('[SIGNUP ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    // Check if it's a database error
+    if (e.code && e.code.startsWith('ER_')) {
+      return handleDatabaseError(e);
+    }
+    return handleError(e, 'SIGNUP');
   }
 } 

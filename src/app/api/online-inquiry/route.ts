@@ -3,6 +3,7 @@ import pool from '@/app/upgrade/contractor-finder/db';
 import { sanitizeName, sanitizeEmail, sanitizeZipcode, sanitizePhone, sanitizeText } from '@/lib/sanitize';
 import { validateCSRFToken } from '@/lib/csrf';
 import validator from 'validator';
+import { handleError, handleDatabaseError } from '@/lib/errorHandler';
 
 // Allowed values for method field
 const ALLOWED_METHODS = ['phone', 'text', 'email', 'video'];
@@ -86,7 +87,9 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (e: any) {
-    console.error('[ONLINE INQUIRY ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    if (e.code && e.code.startsWith('ER_')) {
+      return handleDatabaseError(e);
+    }
+    return handleError(e, 'ONLINE_INQUIRY');
   }
 } 

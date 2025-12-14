@@ -3,6 +3,7 @@ import pool from '@/app/upgrade/contractor-finder/db';
 import { validateSession } from '@/lib/auth';
 import { validateCSRFToken } from '@/lib/csrf';
 import validator from 'validator';
+import { handleError, handleDatabaseError } from '@/lib/errorHandler';
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -81,8 +82,10 @@ export async function PATCH(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    console.error('[PROFILE UPDATE ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    if (e.code && e.code.startsWith('ER_')) {
+      return handleDatabaseError(e);
+    }
+    return handleError(e, 'PROFILE_UPDATE');
   }
 }
 
@@ -110,7 +113,9 @@ export async function GET(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    console.error('[PROFILE GET ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    if (e.code && e.code.startsWith('ER_')) {
+      return handleDatabaseError(e);
+    }
+    return handleError(e, 'PROFILE_GET');
   }
 } 

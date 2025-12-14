@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/app/upgrade/contractor-finder/db';
 import { destroySession, validateSession } from '@/lib/auth';
 import crypto from 'crypto';
+import { handleError, handleDatabaseError } from '@/lib/errorHandler';
 
 /**
  * Hash email for logging (never log plaintext emails)
@@ -41,7 +42,9 @@ export async function POST(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    console.error('[LOGOUT ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    if (e.code && e.code.startsWith('ER_')) {
+      return handleDatabaseError(e);
+    }
+    return handleError(e, 'LOGOUT');
   }
 } 

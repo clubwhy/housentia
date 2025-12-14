@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { createSession } from '@/lib/auth';
 import { validateCSRFToken } from '@/lib/csrf';
 import { rateLimiters } from '@/lib/rateLimit';
+import { handleError, handleAuthError } from '@/lib/errorHandler';
 
 function getToday() {
   const now = new Date();
@@ -49,18 +50,54 @@ export async function POST(req: NextRequest) {
         [email, getToday()]
       );
       const failCount = failRows[0]?.failCount || 0;
+      
+      // Check if account is locked
+      const [userCheckRows] = await conn.query(
+        'SELECT id, password, locked_until FROM user WHERE email = ?',
+        [email]
+      );
+      const userCheck = Array.isArray(userCheckRows) ? userCheckRows[0] : userCheckRows;
+      
+      if (userCheck && userCheck.locked_until) {
+        const lockedUntil = new Date(userCheck.locked_until);
+        const now = new Date();
+        if (lockedUntil > now) {
+          // Account is still locked
+          const minutesRemaining = Math.ceil((lockedUntil.getTime() - now.getTime()) / 60000);
+          const emailHash = hashEmail(email);
+          console.log(`[LOGIN BLOCKED] email_hash=${emailHash}, ip=${ip}, reason=account_locked, minutes_remaining=${minutesRemaining}`);
+          return NextResponse.json({ 
+            error: `Account is temporarily locked. Please try again in ${minutesRemaining} minute(s) or use Forgot password.` 
+          }, { status: 423 }); // 423 Locked
+        } else {
+          // Lock expired, clear it
+          await conn.query('UPDATE user SET locked_until = NULL WHERE email = ?', [email]);
+        }
+      }
+      
       if (failCount >= 10) {
+        // Lock account for 30 minutes after 10 failed attempts
+        const lockUntil = new Date();
+        lockUntil.setMinutes(lockUntil.getMinutes() + 30);
+        
+        await conn.query(
+          'UPDATE user SET locked_until = ? WHERE email = ?',
+          [lockUntil, email]
+        );
+        
         // 기록만 남기고 차단 안내
         await conn.query(
           'INSERT INTO login_log (email, ip, success, created_at) VALUES (?, ?, 0, NOW())',
           [email, ip]
         );
         const emailHash = hashEmail(email);
-        console.log(`[LOGIN BLOCKED] email_hash=${emailHash}, ip=${ip}, reason=too_many_failures`);
-        return NextResponse.json({ error: 'Too many failed attempts today. Please use Forgot password.' }, { status: 429 });
+        console.log(`[LOGIN BLOCKED] email_hash=${emailHash}, ip=${ip}, reason=too_many_failures, account_locked_until=${lockUntil.toISOString()}`);
+        return NextResponse.json({ 
+          error: 'Too many failed attempts. Account locked for 30 minutes. Please use Forgot password to reset.' 
+        }, { status: 423 }); // 423 Locked
       }
       
-      // 유저 조회
+      // 유저 조회 (check lock status was already done above)
       const [rows] = await conn.query('SELECT id, password FROM user WHERE email = ?', [email]);
       const user = Array.isArray(rows) ? rows[0] : rows;
       
@@ -105,7 +142,6 @@ export async function POST(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    console.error('[LOGIN ERROR]', e.message);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return handleError(e, 'LOGIN');
   }
 } 

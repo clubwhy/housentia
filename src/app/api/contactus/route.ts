@@ -4,6 +4,7 @@ import { rateLimiters } from '@/lib/rateLimit';
 import { sanitizeName, sanitizeEmail, sanitizeText } from '@/lib/sanitize';
 import { validateCSRFToken } from '@/lib/csrf';
 import validator from 'validator';
+import { handleError, handleDatabaseError } from '@/lib/errorHandler';
 
 // Allowed contact reasons (whitelist approach)
 const ALLOWED_CONTACT_REASONS = [
@@ -83,11 +84,11 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (error) {
-    console.error('[CONTACT FORM ERROR]', error);
-    return NextResponse.json(
-      { error: 'Failed to submit contact form. Please try again.' },
-      { status: 500 }
-    );
+    if (error && typeof error === 'object' && 'code' in error && 
+        typeof error.code === 'string' && error.code.startsWith('ER_')) {
+      return handleDatabaseError(error);
+    }
+    return handleError(error, 'CONTACT_FORM');
   } finally {
     if (connection) {
       connection.release();

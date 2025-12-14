@@ -34,23 +34,51 @@ export async function middleware(request: NextRequest) {
     }
   }
   
-  // Force HTTPS in production
-  if (process.env.NODE_ENV === 'production' && request.nextUrl.protocol === 'http:') {
-    return NextResponse.redirect(
-      `https://${request.nextUrl.hostname}${request.nextUrl.pathname}${request.nextUrl.search}`,
-      301
-    );
+  // Create response
+  const response = NextResponse.next();
+  
+  // Force HTTPS only in production AND not on localhost
+  const isProduction = process.env.NODE_ENV === 'production';
+  const isLocalhost = request.nextUrl.hostname === 'localhost' || 
+                      request.nextUrl.hostname === '127.0.0.1' ||
+                      request.nextUrl.hostname.startsWith('192.168.');
+  
+  // Never force HTTPS on localhost (development)
+  if (isProduction && !isLocalhost) {
+    // Check if request is HTTP (not HTTPS)
+    const protocol = request.headers.get('x-forwarded-proto') || 
+                     (request.nextUrl.protocol === 'https:' ? 'https' : 'http');
+    
+    if (protocol === 'http') {
+      const httpsUrl = new URL(request.url);
+      httpsUrl.protocol = 'https:';
+      return NextResponse.redirect(httpsUrl, 301);
+    }
+    
+    // Add HSTS header only in production and not on localhost
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   }
   
-  return NextResponse.next();
+  // Add security headers for all responses
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  
+  return response;
 }
 
 export const config = {
   matcher: [
-    '/api/profile/:path*',
-    '/api/change-password/:path*',
-    '/api/logout',
-    '/profile/:path*',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public files (public folder)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)',
   ],
 };
 
