@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { sanitizeText } from '@/lib/sanitize';
 
 interface TypeOption {
   code: string;
@@ -44,8 +45,9 @@ export default function InquiryForm() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
 
-  // Load options from API
+  // Load options from API and CSRF token
   useEffect(() => {
     async function fetchOptions() {
       setLoading(true);
@@ -63,7 +65,21 @@ export default function InquiryForm() {
       });
       setLoading(false);
     }
+    
+    async function fetchCSRFToken() {
+      try {
+        const res = await fetch('/api/csrf-token');
+        const data = await res.json();
+        if (data.csrfToken) {
+          setCsrfToken(data.csrfToken);
+        }
+      } catch (err) {
+        console.error('Failed to fetch CSRF token:', err);
+      }
+    }
+    
     fetchOptions();
+    fetchCSRFToken();
   }, []);
 
   // Validation
@@ -90,6 +106,12 @@ export default function InquiryForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setApiError(null);
+    
+    if (!csrfToken) {
+      setApiError('Please wait for security token to load');
+      return;
+    }
+    
     const errs = validate(values);
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
@@ -98,7 +120,8 @@ export default function InquiryForm() {
         const res = await fetch('/api/online-inquiry', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
+          credentials: 'include', // Important: include cookies
+          body: JSON.stringify({ ...values, csrfToken }),
         });
         const data = await res.json();
         if (res.ok && data.success) {
@@ -121,16 +144,16 @@ export default function InquiryForm() {
         <div className="text-gray-700 mb-4">We received your request. Here is a summary:</div>
         <div className="text-left max-w-md mx-auto mb-6">
           <ul className="space-y-1">
-            <li><b>Goal:</b> {values.goal}</li>
-            <li><b>Consultant:</b> {values.consultant}</li>
-            <li><b>Method:</b> {values.method}</li>
-            <li><b>Date:</b> {values.schedule_date}</li>
-            <li><b>Time:</b> {values.schedule_time}</li>
-            <li><b>Name:</b> {values.name}</li>
-            <li><b>Zipcode:</b> {values.zipcode}</li>
-            <li><b>Email:</b> {values.email}</li>
-            <li><b>Phone:</b> {values.phone}</li>
-            <li><b>Type:</b> {values.type}</li>
+            <li><b>Goal:</b> {sanitizeText(values.goal || '')}</li>
+            <li><b>Consultant:</b> {sanitizeText(values.consultant || '')}</li>
+            <li><b>Method:</b> {sanitizeText(values.method || '')}</li>
+            <li><b>Date:</b> {sanitizeText(values.schedule_date || '')}</li>
+            <li><b>Time:</b> {sanitizeText(values.schedule_time || '')}</li>
+            <li><b>Name:</b> {sanitizeText(values.name || '')}</li>
+            <li><b>Zipcode:</b> {sanitizeText(values.zipcode || '')}</li>
+            <li><b>Email:</b> {sanitizeText(values.email || '')}</li>
+            <li><b>Phone:</b> {sanitizeText(values.phone || 'N/A')}</li>
+            <li><b>Type:</b> {sanitizeText(values.type || '')}</li>
           </ul>
         </div>
         {/* Account creation flow will be added later */}

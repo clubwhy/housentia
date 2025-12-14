@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface ContactFormData {
   name: string;
@@ -20,6 +20,23 @@ export default function ContactForm() {
     type: 'success' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+
+  // Get CSRF token on component mount
+  useEffect(() => {
+    async function fetchCSRFToken() {
+      try {
+        const res = await fetch('/api/csrf-token');
+        const data = await res.json();
+        if (data.csrfToken) {
+          setCsrfToken(data.csrfToken);
+        }
+      } catch (err) {
+        console.error('Failed to fetch CSRF token:', err);
+      }
+    }
+    fetchCSRFToken();
+  }, []);
 
   const contactReasons = [
     'General Inquiry',
@@ -41,6 +58,15 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!csrfToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please wait for security token to load'
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
 
@@ -50,7 +76,8 @@ export default function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        credentials: 'include', // Important: include cookies
+        body: JSON.stringify({ ...formData, csrfToken }),
       });
 
       const result = await response.json();
