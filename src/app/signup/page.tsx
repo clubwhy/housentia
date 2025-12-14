@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
@@ -8,10 +8,33 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+
+  // Get CSRF token on component mount
+  useEffect(() => {
+    async function fetchCSRFToken() {
+      try {
+        const res = await fetch('/api/csrf-token');
+        const data = await res.json();
+        if (data.csrfToken) {
+          setCsrfToken(data.csrfToken);
+        }
+      } catch (err) {
+        console.error('Failed to fetch CSRF token:', err);
+      }
+    }
+    fetchCSRFToken();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
+    
+    if (!csrfToken) {
+      setError('Please wait for security token to load');
+      return;
+    }
+    
     const emailRule = /^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRule.test(email)) {
       setError('Invalid email address.');
@@ -35,7 +58,8 @@ export default function SignupPage() {
       const res = await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        credentials: 'include', // Important: include cookies
+        body: JSON.stringify({ email, password, csrfToken })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || '회원가입 실패');

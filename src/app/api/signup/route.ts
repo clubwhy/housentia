@@ -1,10 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/app/upgrade/contractor-finder/db';
 import bcrypt from 'bcryptjs';
+import { validateCSRFToken } from '@/lib/csrf';
+import { rateLimiters } from '@/lib/rateLimit';
 
 export async function POST(req: NextRequest) {
+  // Apply rate limiting
+  const rateLimitResponse = await rateLimiters.signup(req);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+  
   try {
-    const { email, password } = await req.json();
+    const { email, password, csrfToken } = await req.json();
+    
+    // Validate CSRF token
+    if (!csrfToken || !(await validateCSRFToken(csrfToken))) {
+      return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
+    }
+    
     if (!email || !password) {
       return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
     }
@@ -16,10 +30,12 @@ export async function POST(req: NextRequest) {
     if (!passwordRule.test(password)) {
       return NextResponse.json({ error: 'Password must be 8-15 characters and include at least one uppercase letter, one lowercase letter, one number, and one special character.' }, { status: 400 });
     }
-    // 비밀번호 해시
-    const hashed = await bcrypt.hash(password, 10);
+    // 비밀번호 해시 (increased rounds for security)
+    const hashed = await bcrypt.hash(password, 12);
     // IP 추출
-    const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '';
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+               req.headers.get('x-real-ip') || 
+               'unknown';
     const conn = await pool.getConnection();
     try {
       // 중복 이메일 체크
@@ -36,6 +52,7 @@ export async function POST(req: NextRequest) {
       conn.release();
     }
   } catch (e: any) {
-    return NextResponse.json({ error: e.message || 'Server error' }, { status: 500 });
+    console.error('[SIGNUP ERROR]', e.message);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 } 

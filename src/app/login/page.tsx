@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -10,18 +10,42 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [tooManyFails, setTooManyFails] = useState(false);
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+
+  // Get CSRF token on component mount
+  useEffect(() => {
+    async function fetchCSRFToken() {
+      try {
+        const res = await fetch('/api/csrf-token');
+        const data = await res.json();
+        if (data.csrfToken) {
+          setCsrfToken(data.csrfToken);
+        }
+      } catch (err) {
+        console.error('Failed to fetch CSRF token:', err);
+      }
+    }
+    fetchCSRFToken();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
     setTooManyFails(false);
     setSuccess(false);
+    
+    if (!csrfToken) {
+      setError('Please wait for security token to load');
+      return;
+    }
+    
     setLoading(true);
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        credentials: 'include', // Important: include cookies
+        body: JSON.stringify({ email, password, csrfToken })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -29,13 +53,10 @@ export default function LoginPage() {
         throw new Error(data.error || 'Login failed');
       }
       setSuccess(true);
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('email', email);
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
-      }
+      // Session is now stored in httpOnly cookie, no need for localStorage
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
     } catch (e: any) {
       setError(e.message || 'Login failed');
     } finally {

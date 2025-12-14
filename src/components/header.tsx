@@ -79,27 +79,37 @@ export default function Header() {
   const router = useRouter();
 
   useEffect(() => {
+    // Check authentication status from server
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth/check', {
+          credentials: 'include', // Important: include cookies
+        });
+        const data = await res.json();
+        setIsLoggedIn(data.authenticated === true);
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    }
+    checkAuth();
+    
+    // Check auth on page focus (in case session expired)
     if (typeof window !== 'undefined') {
-      setIsLoggedIn(!!localStorage.getItem('isLoggedIn'));
-      window.addEventListener('storage', () => {
-        setIsLoggedIn(!!localStorage.getItem('isLoggedIn'));
-      });
+      window.addEventListener('focus', checkAuth);
+      return () => window.removeEventListener('focus', checkAuth);
     }
   }, []);
 
   const handleLogout = async () => {
-    const email = typeof window !== 'undefined' ? localStorage.getItem('email') : '';
-    if (email) {
-      try {
-        await fetch('/api/logout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-      } catch {}
+    try {
+      await fetch('/api/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Important: include cookies
+      });
+    } catch (err) {
+      console.error('Logout error:', err);
     }
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('email');
     setIsLoggedIn(false);
     router.push('/');
   };

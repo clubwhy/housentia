@@ -3,52 +3,99 @@ const pool = require('../../app/upgrade/contractor-finder/db');
 
 const PAGE_SIZE = 12;
 
+// Whitelist of allowed sort values
+const ALLOWED_SORTS = ['newest', 'oldest', 'name', 'name-desc', 'price', 'price-desc'] as const;
+type SortType = typeof ALLOWED_SORTS[number];
+
+// Map sort values to safe SQL ORDER BY clauses
+const SORT_MAP: Record<SortType, string> = {
+  'newest': 'p.uid DESC',
+  'oldest': 'p.uid ASC',
+  'name': 'p.name ASC',
+  'name-desc': 'p.name DESC',
+  'price': 'p.retail_price ASC',
+  'price-desc': 'p.retail_price DESC'
+};
+
+/**
+ * Validate and sanitize category input
+ */
+function validateCategory(category: string | string[] | undefined): string | null {
+  if (!category || Array.isArray(category)) {
+    return null;
+  }
+  
+  // Only allow alphanumeric, spaces, hyphens, and underscores
+  const categoryPattern = /^[a-zA-Z0-9\s\-_]{1,50}$/;
+  if (!categoryPattern.test(category)) {
+    return null;
+  }
+  
+  return category.trim();
+}
+
+/**
+ * Validate page number
+ */
+function validatePage(page: string | string[] | undefined): number {
+  if (Array.isArray(page)) {
+    return 1;
+  }
+  
+  const pageNum = parseInt(page || '1', 10);
+  if (isNaN(pageNum) || pageNum < 1 || pageNum > 1000) {
+    return 1;
+  }
+  
+  return pageNum;
+}
+
+/**
+ * Validate sort parameter
+ */
+function validateSort(sort: string | string[] | undefined): SortType {
+  if (Array.isArray(sort)) {
+    return 'newest';
+  }
+  
+  if (sort && ALLOWED_SORTS.includes(sort as SortType)) {
+    return sort as SortType;
+  }
+  
+  return 'newest';
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const { category = '', sort = 'newest', page = '1' } = req.query;
-    const pageNum = parseInt(page as string, 10);
-    const offset = (pageNum - 1) * PAGE_SIZE;
+    // Validate and sanitize inputs
+    const category = validateCategory(req.query.category);
+    const sort = validateSort(req.query.sort);
+    const page = validatePage(req.query.page);
+    const offset = (page - 1) * PAGE_SIZE;
 
+    // Build safe parameterized query
+    const params: any[] = [];
     let whereClause = 'WHERE p.active = 1';
-    let params: any[] = [];
-
+    
     if (category) {
       whereClause += ' AND t.label = ?';
       params.push(category);
     }
-    // Always add LIMIT and OFFSET at the end
+    
+    // Get safe ORDER BY clause from whitelist
+    const orderClause = `ORDER BY ${SORT_MAP[sort]}`;
+    
+    // Add LIMIT and OFFSET as parameters
     params.push(PAGE_SIZE, offset);
-
-    let orderClause = 'ORDER BY p.uid DESC';
-    switch (sort) {
-      case 'oldest':
-        orderClause = 'ORDER BY p.uid ASC';
-        break;
-      case 'name':
-        orderClause = 'ORDER BY p.name ASC';
-        break;
-      case 'name-desc':
-        orderClause = 'ORDER BY p.name DESC';
-        break;
-      case 'price':
-        orderClause = 'ORDER BY p.retail_price ASC';
-        break;
-      case 'price-desc':
-        orderClause = 'ORDER BY p.retail_price DESC';
-        break;
-    }
 
     const connection = await pool.getConnection();
     try {
-      // Debug log for SQL and params
-      console.log('상품 쿼리:', `\n  SELECT \n    p.uid AS id,\n    p.name,\n    p.description,\n    p.retail_price AS price,\n    p.image_url,\n    p.product_url,\n    t.label AS category,\n    v.company AS vendor_name\n  FROM products p\n  JOIN types t ON p.type_uid = t.uid\n  JOIN vendors v ON p.vendor_uid = v.uid\n  ${whereClause}\n  ${orderClause}\n  LIMIT ? OFFSET ?\n`, params);
-
-      // Get products with correct mapping
-      const [rows, fields] = await connection.execute(`
+      // Execute parameterized query (no string concatenation for SQL structure)
+      const [rows] = await connection.execute(`
         SELECT 
           p.uid AS id,
           p.name,
@@ -65,17 +112,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ${orderClause}
         LIMIT ? OFFSET ?
       `, params);
-      console.log('rows:', rows);
-      let products = Array.isArray(rows) ? rows : [];
+      
+      const products = Array.isArray(rows) ? rows : [];
 
-      // Get total count
+      // Get total count with parameterized query
+      const countParams = category ? [category] : [];
+      const countWhere = category ? ' AND t.label = ?' : '';
       const [countRows] = await connection.execute(
-        `SELECT COUNT(*) as count FROM products p JOIN types t ON p.type_uid = t.uid WHERE p.active = 1${category ? ' AND t.label = ?' : ''}`,
-        category ? [category] : []
+        `SELECT COUNT(*) as count 
+         FROM products p 
+         JOIN types t ON p.type_uid = t.uid 
+         WHERE p.active = 1${countWhere}`,
+        countParams
       );
       const count = countRows[0]?.count ?? 0;
 
-      // Get categories
+      // Get categories (safe query, no user input)
       const [categoriesRows] = await connection.execute(`
         SELECT DISTINCT t.label as code, t.label as label
         FROM products p
@@ -95,7 +147,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       connection.release();
     }
   } catch (error) {
-    console.error('Database error:', error);
+    console.error('[PRODUCTS API ERROR]', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 } 

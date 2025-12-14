@@ -18,13 +18,14 @@ export async function GET(
     // Blogger 설정 가져오기
     const config = getBloggerConfig();
     
-    // 먼저 모든 포스트를 가져와서 slug로 찾기
-    const url = `https://www.googleapis.com/blogger/v3/blogs/${config.blogId}/posts?key=${config.apiKey}&maxResults=50&status=LIVE`;
+    // 먼저 모든 포스트를 가져와서 slug로 찾기 (API key in header, not URL)
+    const url = `https://www.googleapis.com/blogger/v3/blogs/${config.blogId}/posts?maxResults=50&status=LIVE`;
     
     console.log('Making request to Blogger API v3...');
     const response = await fetch(url, {
       headers: {
         'Accept': 'application/json',
+        'X-Goog-Api-Key': config.apiKey
       },
     });
     
