@@ -77,3 +77,4 @@ export async function getEmailFromSession(): Promise<string | null> {
   return session?.email || null;
 }
 
+
