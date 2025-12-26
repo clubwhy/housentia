@@ -163,7 +163,10 @@ export default function InquiryForm() {
 
   return (
     <form className="bg-white rounded-2xl shadow p-8 max-w-2xl mx-auto" onSubmit={handleSubmit}>
-      <h3 className="text-xl font-bold mb-6 text-gray-900 text-center">Request a Free Consultation</h3>
+      <h3 className="text-xl font-bold mb-6 text-gray-900 text-center">Connect with a Licensed Mortgage Professional</h3>
+      <p className="text-sm text-gray-600 mb-4 text-center">
+        By submitting this form, you agree that your information may be shared with a licensed third-party mortgage professional.
+      </p>
       {apiError && <div className="text-red-600 text-center mb-4 font-semibold">{apiError}</div>}
       {loading ? (
         <div className="text-center text-gray-400">Loading options…</div>
@@ -233,7 +236,15 @@ export default function InquiryForm() {
           </div>
         </div>
       )}
-      <button type="submit" className="mt-8 w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-60" disabled={submitting}>{submitting ? 'Submitting...' : 'Submit'}</button>
+      <div className="mt-6">
+        <p className="text-xs text-gray-500 mb-3 text-center">
+          By submitting this form, you agree that your information may be shared with a licensed third-party mortgage professional 
+          who can provide personalized guidance based on your situation.
+        </p>
+        <button type="submit" className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-60" disabled={submitting}>
+          {submitting ? 'Submitting...' : 'Connect with a Licensed Mortgage Professional'}
+        </button>
+      </div>
     </form>
   );
 } 

@@ -6,6 +6,7 @@ import React from 'react'; // Added missing import
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import usStates from '@/data/usStates.json';
+import Disclaimer from '@/components/Disclaimer';
 
 export default function AffordabilityCalculatorPage() {
   // 상태 관리
@@ -64,6 +65,12 @@ export default function AffordabilityCalculatorPage() {
       />
       {/* Main Content Area */}
       <main className="max-w-5xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800">
+        {/* Compliance: Disclaimer for calculators */}
+        <Disclaimer variant="compact" className="mb-6" />
+        <p className="text-xs text-gray-500 mb-6 text-center">
+          <strong>Note:</strong> All calculations are estimates for educational purposes only. Actual affordability, rates, and terms may vary based on individual circumstances and lender requirements.
+        </p>
+        
         <div className="bg-white border rounded-2xl shadow p-6 md:p-10 flex flex-col md:flex-row gap-8 items-stretch">
           {/* 좌측 입력폼 */}
           <div className="flex-1 min-w-[300px] max-w-md bg-[#f5f8fc] rounded-xl p-6">
@@ -168,13 +175,14 @@ export default function AffordabilityCalculatorPage() {
               <div className="rounded-xl bg-blue-50 border border-blue-200 shadow flex flex-col items-center py-4 mb-2">
                 <div className="text-gray-500 text-sm mb-1">Estimated monthly payment</div>
                 <div className="text-2xl font-bold text-blue-700">${calcMonthly.toLocaleString()}</div>
+                <div className="text-xs text-gray-500 mt-1">For educational purposes only</div>
               </div>
             </div>
             {/* Breakdown 카드 스타일 - 유니크하게 개선 (간격/패딩 조정) */}
             <div className="w-full max-w-xs mb-6">
               <div className="flex items-center gap-2 mb-2 font-semibold">AFFORDABILITY BREAKDOWN {/* <span className="text-gray-400">ⓘ</span> */}</div>
               <div className="flex flex-col gap-2">
-                {/* Affordable (2줄, 배지는 금액 위로) */}
+                {/* Affordable - Compliance: Removed "Recommended" badge */}
                 <div className="relative flex items-center rounded-xl bg-blue-50 border border-blue-200 shadow-sm px-4 py-3 min-h-[56px]">
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center">
@@ -182,10 +190,7 @@ export default function AffordabilityCalculatorPage() {
                     </span>
                     <span className="font-extrabold text-blue-800 uppercase tracking-wide text-base">Affordable</span>
                   </div>
-                  {/* Recommended 배지 오버레이 (금액 위로) */}
-                  <span className="absolute top-1 right-4 px-2 py-0.5 rounded-full bg-blue-100 text-xs text-blue-700 font-semibold shadow-sm z-10">
-                    Recommended
-                  </span>
+                  {/* Compliance: Removed "Recommended" badge - site does not make recommendations */}
                   {/* 금액은 아래쪽에 block으로 */}
                   <span className="block w-full text-right font-extrabold text-blue-700 text-lg mt-2 whitespace-nowrap">{`$0 - $${affordable.toLocaleString()}`}</span>
                 </div>

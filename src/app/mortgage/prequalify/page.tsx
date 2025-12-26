@@ -1,74 +1,79 @@
 "use client";
 import PageHero from '@/components/PageHero';
 import InquiryWizard from '@/components/InquiryWizard';
+import Disclaimer from '@/components/Disclaimer';
 
 export default function PrequalifyPage() {
   return (
     <div className="min-h-screen bg-white">
       <PageHero 
-        title="Get Prequalified"
+        title="Connect with Licensed Professionals"
         breadcrumbs={[
           { label: 'Mortgage', href: '/mortgage' },
-          { label: 'Get Prequalified' }
+          { label: 'Partner Professionals' }
         ]}
       />
       <main className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-4">
+          {/* Compliance: Disclaimer at top */}
+          <Disclaimer variant="full" className="mb-8" />
+          
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">Get Prequalified for Your Mortgage</h1>
+            <h1 className="text-4xl font-bold mb-4">Connect with Licensed Mortgage Professionals</h1>
             <p className="text-lg text-gray-600 mb-8">
-              Take the first step towards homeownership. Our free consultation will help you understand your mortgage options and get prequalified for the best rates.
+              Learn about mortgage options and connect with licensed professionals who can help you understand prequalification 
+              and explore loan options based on your situation.
             </p>
           </div>
 
-          {/* Benefits Section */}
+          {/* Benefits Section - Updated to neutral, educational tone */}
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold mb-6 text-center">Why Get Prequalified?</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-center">Understanding Prequalification</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg shadow">
-                <h3 className="text-xl font-semibold mb-2 text-blue-800">Know Your Budget</h3>
+                <h3 className="text-xl font-semibold mb-2 text-blue-800">Budget Planning</h3>
                 <p className="text-blue-700">
-                  Understand exactly how much house you can afford before you start looking.
+                  Prequalification can help you understand an estimated price range you may be able to consider when shopping for a home.
                 </p>
               </div>
               <div className="bg-green-50 p-6 rounded-lg shadow">
-                <h3 className="text-xl font-semibold mb-2 text-green-800">Better Negotiating Power</h3>
+                <h3 className="text-xl font-semibold mb-2 text-green-800">Seller Communication</h3>
                 <p className="text-green-700">
-                  Show sellers you're serious with a prequalification letter.
+                  Some sellers may view a prequalification letter as an indicator of buyer readiness.
                 </p>
               </div>
               <div className="bg-purple-50 p-6 rounded-lg shadow">
-                <h3 className="text-xl font-semibold mb-2 text-purple-800">Faster Process</h3>
+                <h3 className="text-xl font-semibold mb-2 text-purple-800">Process Preparation</h3>
                 <p className="text-purple-700">
-                  Speed up your home buying process with pre-approval in hand.
+                  Having prequalification information may help streamline the home buying process.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* What You'll Learn Section */}
+          {/* What You'll Learn Section - Updated to neutral tone */}
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold mb-6 text-center">What You'll Learn</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-center">Topics You May Explore</h2>
             <div className="bg-gray-50 p-6 rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Your maximum home purchase price</li>
-                    <li>Available loan programs for your situation</li>
-                    <li>and more...</li>
+                    <li>Estimated home purchase price range</li>
+                    <li>Loan program options that may be available</li>
+                    <li>General mortgage information</li>
                   </ul>
                 </div>
                 <div>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Estimated monthly mortgage payment</li>
-                    <li>Current interest rates and terms</li>
+                    <li>Estimated monthly payment ranges</li>
+                    <li>Current interest rate information</li>
                   </ul>
                 </div>
                 <div>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Required down payment amount</li>
-                    <li>Steps to improve your qualification</li>
+                    <li>Typical down payment requirements</li>
+                    <li>General qualification factors</li>
                   </ul>
                 </div>
               </div>
@@ -100,11 +105,12 @@ export default function PrequalifyPage() {
             </div>
           </div>
 
-          {/* CTA Section */}
+          {/* CTA Section - Updated to reflect connection with licensed professionals */}
           <div className="text-center bg-blue-50 rounded-2xl p-4">
-            <h3 className="text-xl font-bold mb-2 text-blue-900">Ready to Get Started?</h3>
+            <h3 className="text-xl font-bold mb-2 text-blue-900">Connect with Licensed Professionals</h3>
             <p className="text-blue-700 mb-3">
-              Schedule a free consultation with our mortgage experts. No obligation, no pressure - just honest advice about your home financing options.
+              Get connected with licensed mortgage professionals who can provide personalized guidance based on your situation. 
+              No obligation - explore your options with qualified experts.
             </p>
             <InquiryWizard />
           </div>

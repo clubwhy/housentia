@@ -1,6 +1,7 @@
 "use client";
 import PageHero from '@/components/PageHero';
 import InquiryWizard from '@/components/InquiryWizard';
+import Disclaimer from '@/components/Disclaimer';
 
 export default function FirstTimeHomeBuyerPage() {
   return (
@@ -13,12 +14,18 @@ export default function FirstTimeHomeBuyerPage() {
         ]}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
-        <h2 className="text-2xl font-bold text-center mb-4">Your Guide to Buying Your First Home</h2>
-        <p className="text-center text-gray-600 mb-10">Learn about first-time buyer programs, down payment assistance, and tips for a smooth home buying process.</p>
+        <h2 className="text-2xl font-bold text-center mb-4">First-Time Home Buyer Guide</h2>
+        <p className="text-center text-gray-600 mb-6">
+          Educational information about first-time buyer programs, down payment assistance options, and general tips 
+          for the home buying process.
+        </p>
+        
+        {/* Compliance: Disclaimer at top of mortgage pages */}
+        <Disclaimer variant="compact" className="mb-8" />
         
         {/* Why Start with Mortgage Planning */}
         <section className="mb-12">
-          <h3 className="text-xl font-bold mb-6 text-gray-900">Why You Should Plan Your Mortgage Before House Hunting</h3>
+          <h3 className="text-xl font-bold mb-6 text-gray-900">Planning Your Mortgage Before House Hunting</h3>
           <div className="bg-blue-50 border-l-4 border-blue-400 p-6 mb-6">
             <p className="text-blue-800 font-medium mb-3">Important Reality Check:</p>
             <p className="text-blue-700">Many first-time buyers make the mistake of falling in love with a house first, then trying to figure out how to pay for it. This often leads to disappointment and frustration when they realize the house is beyond their budget.</p>
@@ -35,7 +42,10 @@ export default function FirstTimeHomeBuyerPage() {
               <div className="flex flex-col sm:flex-row sm:items-center gap-6">
                 <div className="sm:basis-2/3">
                   <h4 className="font-bold text-lg mb-3 text-gray-900">Step 1: Check Your Credit Score</h4>
-                  <p className="mb-3">Your credit score is crucial for getting approved and securing the best rates. Aim for a score of 740 or higher for the best terms.</p>
+                  <p className="mb-3">
+                    Your credit score is an important factor in loan approval and rate determination. 
+                    Generally, scores of 740 or higher may qualify for more favorable terms, though actual rates depend on many factors.
+                  </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-1">
                     <li>Get your free credit report from AnnualCreditReport.com</li>
                     <li>Check for errors and dispute any inaccuracies</li>
@@ -85,7 +95,10 @@ export default function FirstTimeHomeBuyerPage() {
               <div className="flex flex-col sm:flex-row sm:items-center gap-6">
                 <div className="sm:basis-2/3">
                   <h4 className="font-bold text-lg mb-3 text-gray-900">Step 3: Save for Down Payment</h4>
-                  <p className="mb-3">While 20% down is ideal, many programs allow much less. Explore your options:</p>
+                  <p className="mb-3">
+                    Down payment requirements vary by loan type. While some conventional loans may require 20% down, 
+                    many programs allow lower down payments. Here are some common options:
+                  </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-1">
                     <li>Conventional loans: 3-5% down</li>
                     <li>FHA loans: 3.5% down</li>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Disclaimer from './Disclaimer';
 
 export default function Footer() {
   return (
@@ -12,6 +13,7 @@ export default function Footer() {
             <ul className="space-y-1">
               <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-white">Terms of Use</Link></li>
+              <li><Link href="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
               <li><Link href="/opt-out" className="hover:text-white">Opt-Out</Link></li>
             </ul>
           </div>
@@ -78,6 +80,16 @@ export default function Footer() {
               <span className="text-2xl font-bold text-white md:text-right select-none" style={{letterSpacing:'-0.01em'}}>Housentia</span>
             </div>
             <div className="text-slate-500 mt-2 md:mt-4 text-xs md:text-right">&copy; {new Date().getFullYear()} Housentia. All rights reserved.</div>
+          </div>
+        </div>
+        
+        {/* Global Disclaimer - Mandatory for compliance */}
+        <div className="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-700">
+          <div className="text-slate-400 text-xs leading-relaxed">
+            <Disclaimer variant="compact" className="bg-slate-800 border-l-slate-600 text-slate-300" />
+            <p className="mt-3 text-slate-500">
+              <strong>Affiliate Disclosure:</strong> Some links on this site may be affiliate links. We may earn a commission at no additional cost to you.
+            </p>
           </div>
         </div>
       </footer>

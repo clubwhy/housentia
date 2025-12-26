@@ -32,6 +32,7 @@ export default function InquiryWizard() {
   const [submitted, setSubmitted] = useState(false);
 
   // Step 0: CTA
+  // Compliance Note: CTA updated to reflect connection with licensed professionals, not free consultation
   if (step === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12">
@@ -39,8 +40,11 @@ export default function InquiryWizard() {
           className="bg-blue-600 text-white text-xl font-bold px-8 py-4 rounded-full shadow-lg hover:bg-blue-700 transition"
           onClick={() => setStep(1)}
         >
-          Schedule an appointment with Free consultant
+          Connect with a Licensed Mortgage Professional
         </button>
+        <p className="text-sm text-gray-600 mt-4 text-center max-w-md">
+          Get connected with licensed mortgage professionals who can provide personalized guidance based on your situation.
+        </p>
       </div>
     );
   }
@@ -224,6 +228,11 @@ export default function InquiryWizard() {
             {(method === 'phone' || method === 'text') && <li><b>Phone:</b> {phone}</li>}
           </ul>
         </div>
+        <div className="mb-4">
+          <p className="text-xs text-gray-500 text-center">
+            By submitting this form, you agree that your information may be shared with a licensed third-party mortgage professional.
+          </p>
+        </div>
         <button
           type="button"
           className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-60"
@@ -265,7 +274,7 @@ export default function InquiryWizard() {
             }
           }}
         >
-          {submitting ? 'Submitting...' : 'Submit'}
+          {submitting ? 'Submitting...' : 'Connect with a Licensed Mortgage Professional'}
         </button>
       </div>
     );

@@ -3,59 +3,50 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+// Compliance Note: Navigation structure updated to reflect educational/informational positioning
+// Avoids terms like "Apply", "Get Approved", "Best Loan", "Recommended"
 const navMenus = [
   {
-    label: 'DIY & Style',
-    href: '/diy-style',
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'Mortgage Guides',
+    href: '/mortgage',
     submenu: [
-      { label: 'DIY Home Projects', href: '/diy-style/home-projects' },
-      { label: 'Interior Decor Ideas', href: '/diy-style/interior-decor' },
-      { label: 'Garden & Outdoor Ideas', href: '/diy-style/garden-ideas' },
-      // { label: 'Before & After', href: '/diy-style/before-after' },
-      // { label: 'Decor Kits & Tools', href: '/diy-style/decor-kits' },
+      { label: "Today's Mortgage Rates", href: '/mortgage/todays-mortgage-rates' },
+      { label: 'Explore Loan Options', href: '/mortgage/find-the-right-loan' },
+      { label: 'Refinance Overview', href: '/mortgage/refinance-cashout' },
+      { label: 'First-Time Home Buyer Guide', href: '/mortgage/first-time-home-buyer' },
+      { label: 'FHA Loan Guide', href: '/mortgage/fha-loan' },
+      { label: 'VA Loan Guide', href: '/mortgage/va-loan' },
+      { label: 'HELOC Overview', href: '/mortgage/heloc' },
+      { label: 'Reverse Mortgage Guide', href: '/mortgage/reverse' },
     ],
   },
   {
-    label: 'Upgrade',
-    href: '/upgrade',
-    submenu: [
-      { label: 'Solar Panel Guide', href: '/upgrade/solar-guide' },
-      // { label: 'Windows, Doors & Roofing', href: '/upgrade/windows-roofing' },
-      // { label: 'Kitchen & Bath Remodel', href: '/upgrade/kitchen-bath' },
-      // { label: 'HVAC & Insulation', href: '/upgrade/hvac-insulation' },
-      { label: 'Find a Local Contractor', href: '/upgrade/contractor-finder' },
-    ],
-  },
-  {
-    label: 'Shop',
-    href: '/shop',
-    submenu: [
-      { label: 'Trending Products', href: '/shop/trending' },
-      { label: 'Interior Accessories', href: '/shop/interior-accessories' },
-      { label: 'DIY Kits & Tools', href: '/shop/diy-kits' },
-      { label: 'Gardening Essentials', href: '/shop/gardening' },
-      { label: 'Gift Ideas', href: '/shop/gift-ideas' },
-    ],
-  },
-  {
-    label: 'Tools',
+    label: 'Mortgage Tools',
     href: '/tools',
     submenu: [
       { label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' },
       { label: 'Affordability Calculator', href: '/tools/affordability-calculator' },
       { label: 'Refinance Analyzer', href: '/tools/refinance-analyzer' },
-      // { label: 'Remodeling Cost Estimator', href: '/tools/remodeling-cost' },
       { label: 'Solar Savings Estimator', href: '/tools/solar-savings-estimator' },
     ],
   },
   {
-    label: 'Mortgage',
+    label: 'Compare Options',
     href: '/mortgage',
     submenu: [
-      { label: "Today's Mortgage Rates", href: '/mortgage/todays-mortgage-rates' },
-      { label: 'Find the Right Loan', href: '/mortgage/find-the-right-loan' },
-      { label: 'Refinance & Cash-Out', href: '/mortgage/refinance-cashout' },
-      { label: 'First time home buyer', href: '/mortgage/first-time-home-buyer' },
+      { label: 'Loan Type Comparison', href: '/mortgage/find-the-right-loan' },
+      { label: 'Rate Information', href: '/mortgage/todays-mortgage-rates' },
+    ],
+  },
+  {
+    label: 'Partner Professionals',
+    href: '/mortgage/prequalify',
+    submenu: [
+      { label: 'Connect with Licensed Professionals', href: '/mortgage/prequalify' },
     ],
   },
   {
@@ -68,6 +59,10 @@ const navMenus = [
       { label: 'DIY & Gardening Tips', href: '/blog?label=DIY%20%26%20Gardening%20Tips' },
       { label: 'News & Regulations', href: '/blog?label=News%20%26%20Regulations' },
     ],
+  },
+  {
+    label: 'Disclaimer',
+    href: '/disclaimer',
   },
 ];
 
@@ -169,9 +164,6 @@ export default function Header() {
                       className="block px-4 py-2 text-gray-700 hover:bg-secondary hover:text-primary first:rounded-t-lg last:rounded-b-lg transition"
                     >
                       {item.label}
-                      {menu.label === 'Mortgage' && item.label === 'Find the Right Loan' && (
-                        <span className="ml-1 px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-bold align-middle animate-ai-glow">AI</span>
-                      )}
                     </a>
                   ))}
                 </div>
@@ -246,9 +238,6 @@ export default function Header() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         {item.label}
-                        {menu.label === 'Mortgage' && item.label === 'Find the Right Loan' && (
-                          <span className="ml-1 px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-bold align-middle animate-ai-glow">AI</span>
-                        )}
                       </a>
                     ))}
                   </div>

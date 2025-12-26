@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { HiHome, HiChevronRight } from 'react-icons/hi';
 import { useState } from 'react';
+import Disclaimer from '@/components/Disclaimer';
 
 export default function MortgageCalculatorPage() {
   const [result, setResult] = useState<any>(null);
@@ -66,10 +67,18 @@ export default function MortgageCalculatorPage() {
       </section>
       <div className="flex items-center justify-center py-8">
         <div className="w-full max-w-5xl rounded-2xl shadow-xl border border-slate-100 bg-white p-6 md:p-10 flex flex-col md:flex-row gap-8">
+          {/* Compliance: Disclaimer for calculators */}
+          <div className="w-full md:hidden mb-4">
+            <Disclaimer variant="compact" />
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              <strong>Note:</strong> All calculations are estimates for educational purposes only. Actual rates and terms may vary.
+            </p>
+          </div>
+          
           {/* 입력폼 */}
           <div className="flex-1 min-w-[320px]">
             <div className="bg-slate-50 rounded-xl p-6">
-              <h2 className="text-xl font-bold text-primary mb-4">Personal info</h2>
+              <h2 className="text-xl font-bold text-primary mb-4">Mortgage Information</h2>
               <form id="calcForm" className="space-y-0" onSubmit={calculate}>
                 <div className="divide-y divide-slate-200">
                   <div className="py-3">
@@ -113,11 +122,20 @@ export default function MortgageCalculatorPage() {
           {/* 결과 영역 */}
           <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center">
             <div className="w-full max-w-md">
+              {/* Compliance: Hidden disclaimer on desktop, shown on mobile */}
+              <div className="hidden md:block mb-4">
+                <Disclaimer variant="compact" />
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  <strong>Note:</strong> All calculations are estimates for educational purposes only. Actual rates and terms may vary.
+                </p>
+              </div>
+              
               <div className="flex flex-col items-center justify-center mb-6">
                 <div className="w-40 h-40 rounded-full border-8 border-slate-100 flex items-center justify-center mb-2">
                   <div className="text-3xl font-extrabold text-primary text-center">${result ? result.totalMonthly : 0}</div>
                 </div>
                 <div className="text-primary font-bold text-lg text-center">Estimated monthly payment</div>
+                <div className="text-xs text-gray-500 mt-1 text-center">For educational purposes only</div>
               </div>
               <div className="bg-blue-50 rounded-xl p-4 text-center shadow mb-4">
                 <div className="font-bold text-slate-700 mb-1">Loan Amount</div>

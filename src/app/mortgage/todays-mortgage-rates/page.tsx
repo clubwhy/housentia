@@ -1,5 +1,6 @@
 "use client";
 import PageHero from '@/components/PageHero';
+import Disclaimer from '@/components/Disclaimer';
 import { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
@@ -195,8 +196,19 @@ export default function TodaysMortgageRatesPage() {
         ]}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
-        <h2 className="text-2xl font-bold text-center mb-4">See the Latest Home Loan Rates</h2>
-        <p className="text-center text-gray-600 mb-10">Compare today's mortgage rates for 30-year, 15-year, FHA, VA, and more. Updated daily to help you make the best decision for your home financing.</p>
+        <h2 className="text-2xl font-bold text-center mb-4">Mortgage Rate Information</h2>
+        <p className="text-center text-gray-600 mb-6">
+          View current mortgage rate information for 30-year, 15-year, FHA, VA, and other loan types. 
+          Rates are updated daily for informational purposes.
+        </p>
+        
+        {/* Compliance: Disclaimer for rate information */}
+        <Disclaimer variant="compact" className="mb-6" />
+        <p className="text-xs text-gray-500 mb-8 text-center">
+          <strong>Important:</strong> Rates shown are for informational purposes only. Actual rates offered to you may vary 
+          based on your credit score, loan amount, property location, and other factors. These rates do not constitute an 
+          offer or commitment from any lender.
+        </p>
         {loading ? (
           <div className="text-center text-gray-400 py-12">Loading rates…</div>
         ) : error ? (
