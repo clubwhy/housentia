@@ -1,64 +1,12 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from "framer-motion";
 import BlogFeed from '@/components/BlogFeed';
-import pool from './upgrade/contractor-finder/db';
-import ProductImage from './shop/products/ProductImage.client';
-
-type Product = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image_url: string;
-  product_url: string;
-  category: string;
-  vendor_name: string;
-};
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  // Fetch latest 4 products
-  let products: Product[] = [];
-  try {
-    const conn = await pool.getConnection();
-    products = await conn.query(
-      `SELECT p.uid AS id, p.name, p.description, p.retail_price AS price, p.image_url, p.product_url, t.label AS category, v.company AS vendor_name
-       FROM products p
-       JOIN types t ON p.type_uid = t.uid
-       JOIN vendors v ON p.vendor_uid = v.uid
-       WHERE p.active = 1 and p.type_uid = 4
-       ORDER BY p.uid DESC
-       LIMIT 4`
-    );
-    conn.release();
-    console.log('[Home] Fetched products:', products.length);
-    console.log('[Home] Product IDs:', products.map(p => p.id));
-  } catch (e) {
-    console.error('[Home] Error fetching products:', e);
-    // handle error or leave products empty
-  }
+  // Products fetching removed - replaced with mortgage-focused content
 
-  // Fetch latest 10 DIY Kits & Tools products
-  let diyKits: Product[] = [];
-  try {
-    const conn = await pool.getConnection();
-    diyKits = await conn.query(
-      `SELECT p.uid AS id, p.name, p.description, p.retail_price AS price, p.image_url, p.product_url, t.label AS category, v.company AS vendor_name
-       FROM products p
-       JOIN types t ON p.type_uid = t.uid
-       JOIN vendors v ON p.vendor_uid = v.uid
-       WHERE p.active = 1 and p.type_uid = 6
-       ORDER BY p.uid DESC
-       LIMIT 10`
-    );
-    conn.release();
-    console.log('[Home] Fetched DIY kits:', diyKits.length);
-  } catch (e) {
-    console.error('[Home] Error fetching DIY kits:', e);
-    // handle error or leave diyKits empty
-  }
+  // DIY kits fetching removed - replaced with mortgage content
 
   return (
     <main className="bg-secondary font-sans">
@@ -93,47 +41,77 @@ export default async function Home() {
               className="flex items-center justify-center gap-2 px-8 py-3 border-2 border-primary text-primary text-base font-semibold rounded-md hover:bg-primary hover:text-white transition bg-transparent"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              Find Out How to Pay for It
+              Explore Financing Tools
             </a>
           </div>
         </div>
       </section>
 
-      {/* Section 1: DIY, Decor, Home Styling */}
+      {/* Section 1: Mortgage Loan Types Guide */}
       <section className="py-8 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-left">Design, Decor, and Do It Yourself Projects</h2>
-          <div className="flex overflow-x-auto gap-6 pb-4">
-            {diyKits.length > 0 ? diyKits.map((product: Product) => (
-              <div key={product.id} className="min-w-[260px] bg-slate-50 rounded-xl shadow hover:scale-105 hover:shadow-lg transition p-6 flex flex-col justify-between">
-                <div className="mb-3 mx-auto flex items-center justify-center">
-                  <Image
-                    src={product.image_url || '/noimg.png'}
-                    alt={product.name}
-                    width={156}
-                    height={156}
-                    className="object-contain rounded-lg"
-                  />
+          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Explore Mortgage Loan Types</h2>
+          <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            Learn about different mortgage options available to homeowners. Each loan type has unique characteristics and eligibility requirements.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
+            {[
+              {
+                title: 'VA Loans',
+                description: 'Government-backed loans for veterans and service members. Commonly features low or no down payment options.',
+                href: '/mortgage/va-loan',
+                icon: '🏠'
+              },
+              {
+                title: 'FHA Loans',
+                description: 'Loans backed by the Federal Housing Administration. Often used by first-time buyers and those with lower credit scores.',
+                href: '/mortgage/fha-loan',
+                icon: '🔑'
+              },
+              {
+                title: 'Refinance',
+                description: 'Explore options to potentially lower your rate, change your term, or access home equity. Learn about refinancing considerations.',
+                href: '/mortgage/refinance',
+                icon: '💼'
+              },
+              {
+                title: 'HELOC',
+                description: 'Home Equity Line of Credit: a type of borrowing that uses your home\'s equity. Some borrowers use HELOCs for projects or expenses.',
+                href: '/mortgage/heloc',
+                icon: '📊'
+              },
+              {
+                title: 'Reverse Mortgage',
+                description: 'A loan type that converts home equity into cash. Available to homeowners age 62 and older.',
+                href: '/mortgage/reverse',
+                icon: '🔄'
+              },
+              {
+                title: 'First-Time Home Buyer',
+                description: 'Educational guide for first-time home buyers covering loan programs, down payment assistance, and the home buying process.',
+                href: '/mortgage/first-time-home-buyer',
+                icon: '✨'
+              }
+            ].map((loan, i) => (
+              <div key={i} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow hover:shadow-lg transition p-6 flex flex-col justify-between border border-blue-100">
+                <div>
+                  <div className="text-3xl mb-3">{loan.icon}</div>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900">{loan.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">{loan.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">{product.description}</p>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-blue-600 font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}</span>
-                  <span className="text-xs text-gray-500">by {product.vendor_name}</span>
-                </div>
-                <Link href={`/shop/products/${product.id}`} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">View Details</Link>
+                <a href={loan.href} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto inline-flex items-center">
+                  Learn More
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
               </div>
-            )) : (
-              <div className="w-full text-center py-8">
-                <div className="text-gray-500 text-lg mb-2">DIY Kits & Tools are coming soon</div>
-                <p className="text-gray-400 text-sm">New DIY kits and tools will be added shortly. Stay tuned!</p>
-              </div>
-            )}
+            ))}
           </div>
           <div className="flex flex-wrap justify-center gap-4 mb-4">
-            <a href="/shop/diy-kits" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">Shop DIY Kits & Tools</a>
-            <a href="#" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">Watch on YouTube</a>
-            <a href="/blog?label=DIY%20%26%20Gardening%20Tips" className="bg-accent text-white font-semibold px-4 py-2 rounded-md hover:bg-accent-hover transition text-sm">See More Blog Posts</a>
+            <a href="/mortgage" className="bg-primary text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">View All Mortgage Guides</a>
+            <a href="/mortgage/todays-mortgage-rates" className="bg-accent text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">Today's Mortgage Rates</a>
+            <a href="/mortgage/prequalify" className="border-2 border-primary text-primary font-semibold px-6 py-2 rounded-md hover:bg-primary hover:text-white transition">Connect with Professionals</a>
           </div>
         </div>
       </section>
@@ -145,7 +123,7 @@ export default async function Home() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
             {["Solar Panel Guide","DIY Home Projects","Garden & Outdoor Ideas"].map((title, i) => (
               <div key={i} className={`bg-white rounded-xl shadow p-6 flex flex-col justify-between relative ${i === 0 ? 'border-2 border-primary' : ''}`}>
-                {i === 0 && <span className="absolute top-2 right-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded">Top Rated</span>}
+                {/* Compliance: Removed "Top Rated" badge - site does not make recommendations */}
                 <h3 className="text-lg font-semibold mb-2">{title}</h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">Quick intro or tip about {title === 'DIY Home Projects' ? 'diy home projects' : title === 'Garden & Outdoor Ideas' ? 'garden & outdoor ideas' : title.toLowerCase()}.</p>
                 <a href={i === 0 ? "/upgrade/solar-guide" : i === 1 ? "/diy-style/home-projects" : i === 2 ? "/diy-style/garden-ideas" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Learn More</a>
@@ -153,36 +131,34 @@ export default async function Home() {
             ))}
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
-            <a href="/tools/solar-savings-estimator" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg font-semibold hover:bg-accent-hover transition">Get a Free Solar Savings Estimate</a>
-            <span className="text-gray-500 text-sm">Rebates & government incentives available</span>
+            <a href="/tools/solar-savings-estimator" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg font-semibold hover:bg-accent-hover transition">Get a Solar Savings Estimate</a>
+            <span className="text-gray-500 text-sm">Rebates & government incentives may be available</span>
           </div>
         </div>
       </section>
 
-      {/* Section 3: Trending Products & Tools */}
-      <section className="py-8">
+      {/* Section 3: Today's Mortgage Rates (Simplified) */}
+      <section className="py-8 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Best-Selling Home Essentials</h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-            {products.length > 0 ? products.map((product: Product) => (
-              <div key={product.id} className="bg-indigo-100 rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition border border-indigo-200">
-                <div className="mb-2 aspect-square flex items-center justify-center relative">
-                  <ProductImage src={product.image_url} alt={product.name} />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">{product.description}</p>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-blue-600 font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price)}</span>
-                  <span className="text-xs text-gray-500">by {product.vendor_name}</span>
-                </div>
-                <Link href={`/shop/products/${product.id}`} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">View Details</Link>
-              </div>
-            )) : (
-              <div className="col-span-full text-center py-8">
-                <div className="text-gray-500 text-lg mb-2">Best-Selling Home Essentials are coming soon</div>
-                <p className="text-gray-400 text-sm">Popular home essentials will be added shortly. Stay tuned!</p>
-              </div>
-            )}
+          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center">Current Mortgage Rate Information</h2>
+          <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            View current mortgage rate information for informational purposes. Actual rates may vary based on your credit score, loan amount, and other factors.
+          </p>
+          <div className="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <div className="text-center mb-6">
+              <p className="text-sm text-gray-500 mb-4">
+                <strong>Note:</strong> Rates shown are for informational purposes only and do not constitute an offer or commitment from any lender.
+              </p>
+              <a 
+                href="/mortgage/todays-mortgage-rates" 
+                className="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-accent-hover transition"
+              >
+                View Today's Mortgage Rates
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -190,28 +166,28 @@ export default async function Home() {
       {/* Section 4: Smart Home Financing Tools */}
       <section className="py-8 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Need Help Paying for Your Home Projects?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Explore Mortgage Tools and Information</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
-            {["Mortgage Calculator","Refinance Analyzer","Remodeling Cost Estimator","Find the Right Loan"].map((tool, i) => (
+            {["Mortgage Calculator","Refinance Analyzer","Remodeling Cost Estimator","Explore Loan Options"].map((tool, i) => (
               <div key={i} className="bg-secondary rounded-xl p-6 flex flex-col justify-between">
                 <h3 className="text-lg font-semibold mb-2">
                   {i === 0 && "Mortgage Calculator"}
                   {i === 1 && "Refinance Analyzer"}
                   {i === 2 && "Solar Savings Calculator"}
-                  {i === 3 && "Find the Right Loan"}
+                  {i === 3 && "Explore Loan Options"}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  {i === 0 && "Estimate your monthly mortgage payments in seconds."}
-                  {i === 1 && "See if refinancing can lower your rate or monthly payment."}
-                  {i === 2 && "Find out how much you could save by going solar over 20 years."}
-                  {i === 3 && "Learn the basics of home loans and how to choose the right one."}
+                  {i === 0 && "Get estimates for monthly mortgage payments. For educational purposes only."}
+                  {i === 1 && "Explore refinancing scenarios and potential savings. Estimates only."}
+                  {i === 2 && "Estimate potential savings from solar over 20 years. For informational purposes."}
+                  {i === 3 && "Learn about different loan types and their characteristics."}
                 </p>
-                <a href={i === 0 ? "/tools/mortgage-calculator" : i === 1 ? "/tools/refinance-analyzer" : i === 2 ? "/tools/solar-savings-estimator" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Try Now</a>
+                <a href={i === 0 ? "/tools/mortgage-calculator" : i === 1 ? "/tools/refinance-analyzer" : i === 2 ? "/tools/solar-savings-estimator" : i === 3 ? "/mortgage/find-the-right-loan" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Explore</a>
               </div>
             ))}
           </div>
           <div className="flex justify-center">
-            <a href="/mortgage/prequalify" className="px-8 py-3 bg-primary text-white text-sm font-medium rounded-xl text-lg font-semibold hover:bg-accent-hover transition">Get Prequalified Today</a>
+            <a href="/mortgage/prequalify" className="px-8 py-3 bg-primary text-white text-sm font-medium rounded-xl text-lg font-semibold hover:bg-accent-hover transition">Connect with Licensed Professionals</a>
           </div>
         </div>
       </section>
@@ -243,11 +219,11 @@ export default async function Home() {
       <section className="py-16 bg-gradient-to-r from-blue-50 to-white">
         <div className="max-w-6xl mx-auto px-4 md:flex md:items-center">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Looking to Finance Your Next Home Project?</h2>
-            <p className="text-gray-700 mb-6">Find out which loan fits your needs — mortgage, HELOC, or a simple cash-out refi.</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Exploring Home Financing Options?</h2>
+            <p className="text-gray-700 mb-6">Learn about different loan types — mortgage, HELOC, or cash-out refinancing — and connect with licensed professionals who can help.</p>
             <div className="flex gap-4 justify-center md:justify-start">
-              <a href="/mortgage/prequalify" className="px-8 py-3 bg-primary text-white text-base font-semibold rounded-md hover:bg-accent-hover transition">Get Prequalified</a>
-              <a href="/mortgage" className="px-8 py-3 border-2 border-primary text-primary text-base font-semibold rounded-md hover:bg-primary hover:text-white transition bg-transparent">Learn More</a>
+              <a href="/mortgage/prequalify" className="px-8 py-3 bg-primary text-white text-base font-semibold rounded-md hover:bg-accent-hover transition">Connect with Licensed Professionals</a>
+              <a href="/mortgage" className="px-8 py-3 border-2 border-primary text-primary text-base font-semibold rounded-md hover:bg-primary hover:text-white transition bg-transparent">Explore Mortgage Guides</a>
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">

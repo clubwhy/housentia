@@ -86,7 +86,7 @@ export default function Footer() {
         {/* Global Disclaimer - Mandatory for compliance */}
         <div className="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-700">
           <div className="text-slate-400 text-xs leading-relaxed">
-            <Disclaimer variant="compact" className="bg-slate-800 border-l-slate-600 text-slate-300" />
+            <Disclaimer variant="compact" className="bg-white border-l-gray-300 text-gray-700" />
             <p className="mt-3 text-slate-500">
               <strong>Affiliate Disclosure:</strong> Some links on this site may be affiliate links. We may earn a commission at no additional cost to you.
             </p>

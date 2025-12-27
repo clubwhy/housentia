@@ -256,7 +256,7 @@ export default function TodaysMortgageRatesPage() {
               <div className="text-xs text-gray-400 text-center mb-2">Last updated: {new Date(scrapedAt).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} PST</div>
             )}
             <div className="text-center text-sm text-gray-500">
-              Source: <a href="https://www.mortgagenewsdaily.com/mortgage-rates" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Mortgage News Daily</a>
+              Source: <a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Federal Reserve Economic Data (FRED)</a>
             </div>
           </>
         )}

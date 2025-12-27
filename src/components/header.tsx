@@ -7,10 +7,6 @@ import { useRouter } from 'next/navigation';
 // Avoids terms like "Apply", "Get Approved", "Best Loan", "Recommended"
 const navMenus = [
   {
-    label: 'Home',
-    href: '/',
-  },
-  {
     label: 'Mortgage Guides',
     href: '/mortgage',
     submenu: [
@@ -59,10 +55,6 @@ const navMenus = [
       { label: 'DIY & Gardening Tips', href: '/blog?label=DIY%20%26%20Gardening%20Tips' },
       { label: 'News & Regulations', href: '/blog?label=News%20%26%20Regulations' },
     ],
-  },
-  {
-    label: 'Disclaimer',
-    href: '/disclaimer',
   },
 ];
 
@@ -126,9 +118,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-4 flex items-center h-16">
-        {/* Left: Logo */}
+        {/* Left: Logo with Home Icon */}
         <div className="flex-1 flex items-center">
-          <a href="/" className="text-2xl font-bold text-primary">Housentia</a>
+          <a href="/" className="flex items-center gap-2 text-2xl font-bold text-primary hover:opacity-80 transition">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-label="Home">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>Housentia</span>
+          </a>
         </div>
         
         {/* Desktop Menu */}
@@ -152,7 +149,7 @@ export default function Header() {
                   <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-20 transition-opacity duration-150 ${openMenu === menu.label ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+                  className={`absolute left-1/2 -translate-x-1/2 mt-2 min-w-[280px] max-w-[320px] bg-white border border-gray-200 rounded-lg shadow-lg z-20 transition-opacity duration-150 ${openMenu === menu.label ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
                   onClick={() => setOpenMenu(null)}
                   onMouseEnter={() => handleMouseEnter(menu.label)}
                   onMouseLeave={handleMouseLeave}
@@ -161,7 +158,7 @@ export default function Header() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="block px-4 py-2 text-gray-700 hover:bg-secondary hover:text-primary first:rounded-t-lg last:rounded-b-lg transition"
+                      className="block px-4 py-2.5 text-gray-700 hover:bg-secondary hover:text-primary first:rounded-t-lg last:rounded-b-lg transition whitespace-nowrap"
                     >
                       {item.label}
                     </a>
