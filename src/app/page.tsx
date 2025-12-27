@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import BlogFeed from '@/components/BlogFeed';
+import MortgageRateChart from '@/components/MortgageRateChart';
 
 export const dynamic = "force-dynamic";
 
@@ -136,16 +137,28 @@ export default async function Home() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
             {[
               {
-                title: 'VA Loans',
-                description: 'Government-backed loans for veterans and service members. Commonly features low or no down payment options.',
-                href: '/mortgage/va-loan',
-                icon: '🏠'
+                title: 'Conventional Loans',
+                description: 'The most common type of mortgage in the U.S. Non-government-backed loans with flexible terms and PMI that can be removed at 80% LTV.',
+                href: '/mortgage/conventional-loan',
+                icon: '🏡'
+              },
+              {
+                title: 'Non-QM Loan Guide',
+                description: 'Alternative loan structures for borrowers whose financial profiles do not fit traditional Qualified Mortgage guidelines.',
+                href: '/mortgage/non-qm-loan',
+                icon: '📋'
               },
               {
                 title: 'FHA Loans',
                 description: 'Loans backed by the Federal Housing Administration. Often used by first-time buyers and those with lower credit scores.',
                 href: '/mortgage/fha-loan',
                 icon: '🔑'
+              },
+              {
+                title: 'VA Loans',
+                description: 'Government-backed loans for veterans and service members. Commonly features low or no down payment options.',
+                href: '/mortgage/va-loan',
+                icon: '🏠'
               },
               {
                 title: 'Refinance',
@@ -198,20 +211,35 @@ export default async function Home() {
       {/* Section 2: Solar & Home Upgrades */}
       <section className="py-8 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Power Up Your Home the Smart Way</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center">Smart Ways to Invest in Your Home</h2>
+          <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            Learn how homeowners often use financing, incentives, and home equity to improve, upgrade, or power their homes more efficiently.
+          </p>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
-            {["Solar Panel Guide","DIY Home Projects","Garden & Outdoor Ideas"].map((title, i) => (
-              <div key={i} className={`bg-white rounded-xl shadow p-6 flex flex-col justify-between relative ${i === 0 ? 'border-2 border-primary' : ''}`}>
-                {/* Compliance: Removed "Top Rated" badge - site does not make recommendations */}
-                <h3 className="text-lg font-semibold mb-2">{title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">Quick intro or tip about {title === 'DIY Home Projects' ? 'diy home projects' : title === 'Garden & Outdoor Ideas' ? 'garden & outdoor ideas' : title.toLowerCase()}.</p>
-                <a href={i === 0 ? "/upgrade/solar-guide" : i === 1 ? "/diy-style/home-projects" : i === 2 ? "/diy-style/garden-ideas" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Learn More</a>
-              </div>
-            ))}
+            <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between relative border-2 border-primary">
+              {/* Compliance: Removed "Top Rated" badge - site does not make recommendations */}
+              <h3 className="text-lg font-semibold mb-2">Solar Panel Guide</h3>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">Learn how solar panels work, what incentives may be available, and how homeowners often evaluate long-term energy savings.</p>
+              <a href="/upgrade/solar-guide" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Explore Solar Basics</a>
+            </div>
+            <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between relative">
+              {/* Compliance: Removed "Top Rated" badge - site does not make recommendations */}
+              <h3 className="text-lg font-semibold mb-2">DIY Home Projects</h3>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">Practical home improvement ideas and DIY projects that homeowners often consider after purchasing a home.</p>
+              <a href="/diy-style/home-projects" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Explore DIY Projects</a>
+            </div>
+            <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between relative">
+              {/* Compliance: Removed "Top Rated" badge - site does not make recommendations */}
+              <h3 className="text-lg font-semibold mb-2">Garden & Outdoor Ideas</h3>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">Outdoor upgrades and landscaping ideas that may improve comfort, usability, and long-term property enjoyment.</p>
+              <a href="/diy-style/garden-ideas" className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Explore Outdoor Ideas</a>
+            </div>
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
-            <a href="/tools/solar-savings-estimator" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg font-semibold hover:bg-accent-hover transition">Get a Solar Savings Estimate</a>
-            <span className="text-gray-500 text-sm">Rebates & government incentives may be available</span>
+            <div className="flex flex-col items-center gap-2">
+              <a href="/tools/solar-savings-estimator" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg font-semibold hover:bg-accent-hover transition">Estimate Potential Solar Savings</a>
+              <span className="text-gray-500 text-xs text-center">Rebates & government incentives may be available<br />(Estimates for informational purposes only)</span>
+            </div>
           </div>
         </div>
       </section>
@@ -223,21 +251,30 @@ export default async function Home() {
           <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
             View current mortgage rate information for informational purposes. Actual rates may vary based on your credit score, loan amount, and other factors.
           </p>
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-6">
-            <div className="text-center mb-6">
-              <p className="text-sm text-gray-500 mb-4">
-                <strong>Note:</strong> Rates shown are for informational purposes only and do not constitute an offer or commitment from any lender.
-              </p>
-              <a 
-                href="/mortgage/todays-mortgage-rates" 
-                className="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-accent-hover transition"
-              >
-                View Today's Mortgage Rates
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
+          
+          {/* Mortgage Rate Trend Chart */}
+          <MortgageRateChart />
+
+          {/* CTAs */}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
+            <a 
+              href="/mortgage/todays-mortgage-rates" 
+              className="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-accent-hover transition"
+            >
+              View Today's Mortgage Rates
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a 
+              href="/tools/mortgage-calculator" 
+              className="inline-flex items-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition bg-transparent"
+            >
+              See How Rates Affect Monthly Payments
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -247,26 +284,26 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mt-8 mb-6 text-center">Explore Mortgage Tools and Information</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
-            {["Mortgage Calculator","Refinance Analyzer","Remodeling Cost Estimator","Explore Loan Options"].map((tool, i) => (
+            {["Mortgage Calculator","Refinance Analyzer","Solar Savings Calculator","Conventional Loan Guide"].map((tool, i) => (
               <div key={i} className="bg-secondary rounded-xl p-6 flex flex-col justify-between">
                 <h3 className="text-lg font-semibold mb-2">
                   {i === 0 && "Mortgage Calculator"}
                   {i === 1 && "Refinance Analyzer"}
                   {i === 2 && "Solar Savings Calculator"}
-                  {i === 3 && "Explore Loan Options"}
+                  {i === 3 && "Conventional Loan Guide"}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
                   {i === 0 && "Get estimates for monthly mortgage payments. For educational purposes only."}
                   {i === 1 && "Explore refinancing scenarios and potential savings. Estimates only."}
                   {i === 2 && "Estimate potential savings from solar over 20 years. For informational purposes."}
-                  {i === 3 && "Learn about different loan types and their characteristics."}
+                  {i === 3 && "Learn about conventional mortgages, the most common U.S. loan type."}
                 </p>
-                <a href={i === 0 ? "/tools/mortgage-calculator" : i === 1 ? "/tools/refinance-analyzer" : i === 2 ? "/tools/solar-savings-estimator" : i === 3 ? "/mortgage/find-the-right-loan" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Explore</a>
+                <a href={i === 0 ? "/tools/mortgage-calculator" : i === 1 ? "/tools/refinance-analyzer" : i === 2 ? "/tools/solar-savings-estimator" : i === 3 ? "/mortgage/conventional-loan" : "#"} className="text-primary font-medium text-sm hover:text-accent hover:underline mt-auto">Explore</a>
               </div>
             ))}
           </div>
           <div className="flex justify-center">
-            <a href="/mortgage/find-the-right-loan" className="px-8 py-3 bg-primary text-white text-sm font-medium rounded-xl text-lg font-semibold hover:bg-accent-hover transition">Explore Your Options Further</a>
+            <a href="/mortgage" className="px-8 py-3 bg-primary text-white text-sm font-medium rounded-xl text-lg font-semibold hover:bg-accent-hover transition">Explore Mortgage Guides</a>
           </div>
         </div>
       </section>

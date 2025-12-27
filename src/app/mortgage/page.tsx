@@ -3,16 +3,22 @@ import Disclaimer from '@/components/Disclaimer';
 export default function MortgagePage() {
   const cards = [
     {
-      title: 'VA Loans',
-      description: 'Government-backed loans for veterans and service members. Commonly features low or no down payment options.',
+      title: 'Conventional Loans',
+      description: 'The most common type of mortgage in the U.S. Non-government-backed loans with flexible terms and PMI that can be removed at 80% LTV.',
       button: 'Learn More',
-      href: '/mortgage/va-loan',
+      href: '/mortgage/conventional-loan',
     },
     {
       title: 'FHA Loans',
       description: 'Loans backed by the Federal Housing Administration. Often used by first-time buyers and those with lower credit scores.',
       button: 'Learn More',
       href: '/mortgage/fha-loan',
+    },
+    {
+      title: 'VA Loans',
+      description: 'Government-backed loans for veterans and service members. Commonly features low or no down payment options.',
+      button: 'Learn More',
+      href: '/mortgage/va-loan',
     },
     {
       title: 'Refinance',

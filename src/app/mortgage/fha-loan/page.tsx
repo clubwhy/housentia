@@ -203,7 +203,7 @@ export default function FHALoanPage() {
         {/* Resources */}
         <section className="mb-12">
           <h3 className="text-xl font-bold mb-6 text-gray-900">Additional Resources</h3>
-          <div className="bg-gray-50 rounded-lg p-6">
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <p className="text-gray-700 mb-4">
               For official FHA loan information and resources, you can visit:
             </p>
@@ -234,6 +234,33 @@ export default function FHALoanPage() {
               </li>
             </ul>
           </div>
+          <div className="bg-gray-50 rounded-lg p-6">
+            <p className="text-gray-700 mb-4">
+              For more information about other mortgage options:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>
+                <Link href="/mortgage/conventional-loan" className="text-blue-600 hover:underline">
+                  Compare with Conventional Loan Guide →
+                </Link>
+              </li>
+              <li>
+                <Link href="/mortgage/va-loan" className="text-blue-600 hover:underline">
+                  Compare with VA Loan Guide →
+                </Link>
+              </li>
+              <li>
+                <Link href="/mortgage/non-qm-loan" className="text-blue-600 hover:underline">
+                  Learn About Non-QM Loan Guide →
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/mortgage-calculator" className="text-blue-600 hover:underline">
+                  Mortgage Calculator →
+                </Link>
+              </li>
+            </ul>
+          </div>
         </section>
 
         {/* CTA Section */}
@@ -245,10 +272,10 @@ export default function FHALoanPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/mortgage/find-the-right-loan" 
+              href="/mortgage/conventional-loan" 
               className="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-accent-hover transition"
             >
-              Explore FHA Scenarios
+              Compare with Conventional Loans
             </Link>
             <Link 
               href="/mortgage" 

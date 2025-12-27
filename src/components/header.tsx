@@ -11,11 +11,13 @@ const navMenus = [
     href: '/mortgage',
     submenu: [
       { label: "Today's Mortgage Rates", href: '/mortgage/todays-mortgage-rates' },
-      { label: 'Explore Loan Options', href: '/mortgage/find-the-right-loan' },
-      { label: 'Refinance Overview', href: '/mortgage/refinance-cashout' },
-      { label: 'First-Time Home Buyer Guide', href: '/mortgage/first-time-home-buyer' },
+      { label: 'Conventional Loan Guide', href: '/mortgage/conventional-loan' },
       { label: 'FHA Loan Guide', href: '/mortgage/fha-loan' },
       { label: 'VA Loan Guide', href: '/mortgage/va-loan' },
+      { label: 'Non-QM Loan Guide', href: '/mortgage/non-qm-loan' },
+      { label: 'Self-Employed Borrower Scenarios', href: '/mortgage/self-employed-borrower' },
+      { label: 'Refinance Overview', href: '/mortgage/refinance-cashout' },
+      { label: 'First-Time Home Buyer Guide', href: '/mortgage/first-time-home-buyer' },
       { label: 'HELOC Overview', href: '/mortgage/heloc' },
       { label: 'Reverse Mortgage Guide', href: '/mortgage/reverse' },
     ],
@@ -25,6 +27,8 @@ const navMenus = [
     href: '/tools',
     submenu: [
       { label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' },
+      { label: 'Loan Qualification Scenario Comparison', href: '/tools/loan-qualification-comparison' },
+      { label: 'Non-QM Qualification Scenario Comparison', href: '/tools/non-qm-scenario-comparison' },
       { label: 'Affordability Calculator', href: '/tools/affordability-calculator' },
       { label: 'Refinance Analyzer', href: '/tools/refinance-analyzer' },
       { label: 'Solar Savings Estimator', href: '/tools/solar-savings-estimator' },
@@ -34,7 +38,7 @@ const navMenus = [
     label: 'Compare Options',
     href: '/mortgage',
     submenu: [
-      { label: 'Loan Type Comparison', href: '/mortgage/find-the-right-loan' },
+      { label: 'Conventional vs FHA', href: '/mortgage/conventional-loan' },
       { label: 'Rate Information', href: '/mortgage/todays-mortgage-rates' },
     ],
   },
@@ -149,7 +153,7 @@ export default function Header() {
                   <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 mt-2 min-w-[280px] max-w-[320px] bg-white border border-gray-200 rounded-lg shadow-lg z-20 transition-opacity duration-150 ${openMenu === menu.label ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+                  className={`absolute left-1/2 -translate-x-1/2 mt-2 min-w-[360px] max-w-[420px] bg-white border border-gray-200 rounded-lg shadow-lg z-20 transition-opacity duration-150 ${openMenu === menu.label ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
                   onClick={() => setOpenMenu(null)}
                   onMouseEnter={() => handleMouseEnter(menu.label)}
                   onMouseLeave={handleMouseLeave}
@@ -158,7 +162,7 @@ export default function Header() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="block px-4 py-2.5 text-gray-700 hover:bg-secondary hover:text-primary first:rounded-t-lg last:rounded-b-lg transition whitespace-nowrap"
+                      className="block px-4 py-2.5 text-gray-700 hover:bg-secondary hover:text-primary first:rounded-t-lg last:rounded-b-lg transition"
                     >
                       {item.label}
                     </a>

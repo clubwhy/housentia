@@ -292,7 +292,7 @@ export default function VALoanPage() {
         {/* Resources */}
         <section className="mb-12">
           <h3 className="text-xl font-bold mb-6 text-gray-900">Additional Resources</h3>
-          <div className="bg-gray-50 rounded-lg p-6">
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <p className="text-gray-700 mb-4">
               For official VA loan information and resources, you can visit:
             </p>
@@ -328,6 +328,33 @@ export default function VALoanPage() {
                    className="text-blue-600 hover:underline">
                   VA - Contact Information for Home Loans
                 </a>
+              </li>
+            </ul>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-6">
+            <p className="text-gray-700 mb-4">
+              For more information about other mortgage options:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>
+                <Link href="/mortgage/conventional-loan" className="text-blue-600 hover:underline">
+                  Compare with Conventional Loan Guide →
+                </Link>
+              </li>
+              <li>
+                <Link href="/mortgage/fha-loan" className="text-blue-600 hover:underline">
+                  Compare with FHA Loan Guide →
+                </Link>
+              </li>
+              <li>
+                <Link href="/mortgage/non-qm-loan" className="text-blue-600 hover:underline">
+                  Learn About Non-QM Loan Guide →
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/mortgage-calculator" className="text-blue-600 hover:underline">
+                  Mortgage Calculator →
+                </Link>
               </li>
             </ul>
           </div>

@@ -205,10 +205,10 @@ export default function MortgageCalculatorPage() {
                       Save this calculation
                     </button>
                     <a
-                      href="/mortgage/find-the-right-loan"
+                      href="/mortgage"
                       className="flex-1 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg font-medium hover:bg-blue-100 transition text-sm text-center"
                     >
-                      See how loan type affects this payment
+                      Explore loan type guides
                     </a>
                     <button
                       onClick={() => {
@@ -228,6 +228,58 @@ export default function MortgageCalculatorPage() {
           </div>
         </div>
       </div>
+      
+      {/* Additional Resources Section */}
+      <section className="max-w-5xl mx-auto px-4 py-8">
+        <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <h3 className="text-xl font-bold mb-4 text-gray-900">Learn More About Loan Types</h3>
+          <p className="text-gray-700 mb-4 text-sm">
+            Understanding different loan types can help you make informed decisions. Explore these educational guides:
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2 text-sm">Common Loan Types</h4>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <Link href="/mortgage/conventional-loan" className="text-blue-600 hover:underline">
+                    Conventional Loan Guide →
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/mortgage/fha-loan" className="text-blue-600 hover:underline">
+                    FHA Loan Guide →
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/mortgage/va-loan" className="text-blue-600 hover:underline">
+                    VA Loan Guide →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2 text-sm">Additional Options</h4>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <Link href="/mortgage/non-qm-loan" className="text-blue-600 hover:underline">
+                    Non-QM Loan Guide →
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/mortgage/todays-mortgage-rates" className="text-blue-600 hover:underline">
+                    Today's Mortgage Rates →
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/mortgage" className="text-blue-600 hover:underline">
+                    All Mortgage Guides →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 } 
