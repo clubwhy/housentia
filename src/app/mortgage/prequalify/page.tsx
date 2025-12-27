@@ -20,10 +20,10 @@ export default function PrequalifyPage() {
           
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">Connect with Licensed Mortgage Professionals</h1>
+            <h1 className="text-4xl font-bold mb-4">Understanding Mortgage Prequalification</h1>
             <p className="text-lg text-gray-600 mb-8">
-              Learn about mortgage options and connect with licensed professionals who can help you understand prequalification 
-              and explore loan options based on your situation.
+              Learn about mortgage prequalification, what it means, and how it can help you understand your home buying options. 
+              This page provides educational information to help you prepare for the mortgage process.
             </p>
           </div>
 
@@ -105,14 +105,20 @@ export default function PrequalifyPage() {
             </div>
           </div>
 
-          {/* CTA Section - Updated to reflect connection with licensed professionals */}
-          <div className="text-center bg-blue-50 rounded-2xl p-4">
-            <h3 className="text-xl font-bold mb-2 text-blue-900">Connect with Licensed Professionals</h3>
-            <p className="text-blue-700 mb-3">
-              Get connected with licensed mortgage professionals who can provide personalized guidance based on your situation. 
-              No obligation - explore your options with qualified experts.
+          {/* Optional Professional Connection - Single CTA at bottom */}
+          <div className="text-center bg-gray-50 rounded-2xl p-8 border border-gray-200">
+            <h3 className="text-2xl font-bold mb-3 text-gray-900">Ready to Explore Your Options Further?</h3>
+            <p className="text-gray-700 mb-2 max-w-2xl mx-auto">
+              If you'd like to explore your options with a licensed mortgage professional, you can connect below. 
+              This is completely optional and there is no obligation.
             </p>
-            <InquiryWizard />
+            <p className="text-sm text-gray-600 mb-6 max-w-2xl mx-auto">
+              <strong>Note:</strong> Housentia does not endorse or recommend any specific mortgage professional. 
+              We simply provide a way for you to connect with licensed professionals if you choose to do so.
+            </p>
+            <div className="max-w-xl mx-auto">
+              <InquiryWizard />
+            </div>
           </div>
         </div>
       </main>

@@ -111,7 +111,7 @@ export default async function Home() {
           <div className="flex flex-wrap justify-center gap-4 mb-4">
             <a href="/mortgage" className="bg-primary text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">View All Mortgage Guides</a>
             <a href="/mortgage/todays-mortgage-rates" className="bg-accent text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">Today's Mortgage Rates</a>
-            <a href="/mortgage/prequalify" className="border-2 border-primary text-primary font-semibold px-6 py-2 rounded-md hover:bg-primary hover:text-white transition">Connect with Professionals</a>
+            <a href="/mortgage/find-the-right-loan" className="border-2 border-primary text-primary font-semibold px-6 py-2 rounded-md hover:bg-primary hover:text-white transition">Explore Your Options Further</a>
           </div>
         </div>
       </section>
@@ -187,7 +187,7 @@ export default async function Home() {
             ))}
           </div>
           <div className="flex justify-center">
-            <a href="/mortgage/prequalify" className="px-8 py-3 bg-primary text-white text-sm font-medium rounded-xl text-lg font-semibold hover:bg-accent-hover transition">Connect with Licensed Professionals</a>
+            <a href="/mortgage/find-the-right-loan" className="px-8 py-3 bg-primary text-white text-sm font-medium rounded-xl text-lg font-semibold hover:bg-accent-hover transition">Explore Your Options Further</a>
           </div>
         </div>
       </section>
@@ -222,7 +222,7 @@ export default async function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Exploring Home Financing Options?</h2>
             <p className="text-gray-700 mb-6">Learn about different loan types — mortgage, HELOC, or cash-out refinancing — and connect with licensed professionals who can help.</p>
             <div className="flex gap-4 justify-center md:justify-start">
-              <a href="/mortgage/prequalify" className="px-8 py-3 bg-primary text-white text-base font-semibold rounded-md hover:bg-accent-hover transition">Connect with Licensed Professionals</a>
+              <a href="/mortgage/find-the-right-loan" className="px-8 py-3 bg-primary text-white text-base font-semibold rounded-md hover:bg-accent-hover transition">Explore Your Options Further</a>
               <a href="/mortgage" className="px-8 py-3 border-2 border-primary text-primary text-base font-semibold rounded-md hover:bg-primary hover:text-white transition bg-transparent">Explore Mortgage Guides</a>
             </div>
           </div>

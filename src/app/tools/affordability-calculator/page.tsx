@@ -212,8 +212,21 @@ export default function AffordabilityCalculatorPage() {
                 </div>
               </div>
             </div>
-            {/* <button className="mt-2 px-8 py-3 rounded bg-primary text-white font-bold text-lg shadow hover:bg-blue-700 transition">Prequalify</button> */}
-            {/* <div className="text-xs text-gray-400 mt-2">Prequalification doesn’t affect your credit score.</div> */}
+            {/* Educational Note and CTA */}
+            <div className="mt-6 w-full max-w-xs">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-blue-800 text-center">
+                  <strong>Note:</strong> Different loan programs can significantly change affordability results. 
+                  FHA, VA, and conventional loans may have different qualification requirements and down payment options.
+                </p>
+              </div>
+              <a
+                href="/mortgage/find-the-right-loan"
+                className="block w-full px-4 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-accent-hover transition text-center text-sm"
+              >
+                Compare loan types that may fit this budget
+              </a>
+            </div>
           </div>
         </div>
       </main>

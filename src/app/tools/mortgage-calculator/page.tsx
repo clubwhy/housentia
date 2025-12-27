@@ -176,6 +176,54 @@ export default function MortgageCalculatorPage() {
                   <span className="text-yellow-700">{result ? result.payoffDate : '-'}</span>
                 </div>
               </div>
+              {/* Secondary Actions - Educational Engagement */}
+              {result && (
+                <div className="mt-6 space-y-3">
+                  <div className="text-center text-sm text-gray-600 mb-3">
+                    <strong>Next Steps:</strong> Explore how different loan types affect your payment
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      onClick={() => {
+                        // Save calculation to localStorage (client-side only)
+                        const calcData = {
+                          timestamp: new Date().toISOString(),
+                          homePrice: (document.querySelector('input[name="homePrice"]') as HTMLInputElement)?.value,
+                          downPayment: (document.querySelector('input[name="downPaymentPercent"]') as HTMLInputElement)?.value,
+                          loanTerm: (document.querySelector('select[name="loanTermYears"]') as HTMLSelectElement)?.value,
+                          interestRate: (document.querySelector('input[name="interestRate"]') as HTMLInputElement)?.value,
+                          monthlyPayment: result.totalMonthly,
+                          loanAmount: result.loanAmount
+                        };
+                        const saved = JSON.parse(localStorage.getItem('savedCalculations') || '[]');
+                        saved.push(calcData);
+                        localStorage.setItem('savedCalculations', JSON.stringify(saved.slice(-5))); // Keep last 5
+                        alert('Calculation saved! You can compare this with other scenarios.');
+                      }}
+                      className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition text-sm"
+                    >
+                      Save this calculation
+                    </button>
+                    <a
+                      href="/mortgage/find-the-right-loan"
+                      className="flex-1 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg font-medium hover:bg-blue-100 transition text-sm text-center"
+                    >
+                      See how loan type affects this payment
+                    </a>
+                    <button
+                      onClick={() => {
+                        // Reset form
+                        const form = document.getElementById('calcForm') as HTMLFormElement;
+                        form.reset();
+                        setResult(null);
+                      }}
+                      className="flex-1 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition text-sm"
+                    >
+                      Compare another scenario
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

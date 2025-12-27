@@ -87,6 +87,24 @@ export default function SolarSavingsEstimatorPage() {
             <li>• Consult with local solar installers for precise quotes</li>
           </ul>
         </div>
+
+        {/* Educational CTAs - After results */}
+        <div className="mt-8 grid md:grid-cols-2 gap-4">
+          <a
+            href="/upgrade/solar-guide"
+            className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 hover:shadow-lg transition text-center"
+          >
+            <h3 className="font-semibold text-blue-900 mb-2">Explore Local Solar Incentives</h3>
+            <p className="text-sm text-blue-700">Learn about federal, state, and local rebates and tax credits that may be available in your area.</p>
+          </a>
+          <a
+            href="/blog?label=Smart%20Financing%20Tips"
+            className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200 hover:shadow-lg transition text-center"
+          >
+            <h3 className="font-semibold text-green-900 mb-2">Compare Solar Installation Options</h3>
+            <p className="text-sm text-green-700">Read educational articles about financing solar installations and comparing different solar providers.</p>
+          </a>
+        </div>
       </main>
     </div>
   );

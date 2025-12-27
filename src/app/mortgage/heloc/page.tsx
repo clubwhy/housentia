@@ -343,10 +343,10 @@ export default function HELOCPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/mortgage/prequalify" 
+              href="/mortgage/find-the-right-loan" 
               className="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-accent-hover transition"
             >
-              Connect with Licensed Professionals
+              Estimate Available Home Equity
             </Link>
             <Link 
               href="/mortgage" 

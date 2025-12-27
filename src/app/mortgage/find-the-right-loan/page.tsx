@@ -25,6 +25,16 @@ export default function FindTheRightLoanPage() {
         title="Find the Right Loan"
         breadcrumbs={[{ label: 'Mortgage', href: '/mortgage' }, { label: 'Find the Right Loan' }]}
       />
+      {/* Educational Disclaimer */}
+      <div className="max-w-4xl mx-auto px-4 mb-4">
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+          <p className="text-sm text-gray-700">
+            <strong>Educational Guidance Only:</strong> Ask Habi provides general educational guidance only and does not recommend specific lenders, products, or loan terms. 
+            This tool is designed to help you understand different loan options and ask clarifying questions. 
+            Housentia is not a licensed mortgage broker, lender, or loan originator.
+          </p>
+        </div>
+      </div>
       {/* 오른쪽 하단 워터마크 로고 (더 잘 보이게, 클릭 시 이동) */}
       {/**
       <a

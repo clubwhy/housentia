@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { HiHome, HiChevronRight } from 'react-icons/hi';
 import PageHero from '@/components/PageHero';
+import Disclaimer from '@/components/Disclaimer';
 import { useState } from 'react';
 
 
@@ -83,6 +84,12 @@ export default function RefinanceAnalyzerPage() {
           { label: 'Refinance Analyzer' }
         ]}
       />
+      <div className="max-w-5xl mx-auto px-4 py-4">
+        <Disclaimer variant="compact" />
+        <p className="text-xs text-gray-500 mt-2 text-center">
+          <strong>Note:</strong> All calculations are estimates for educational purposes only. Actual rates, terms, and refinance outcomes may vary based on individual circumstances and lender requirements.
+        </p>
+      </div>
       <div className="flex items-center justify-center py-8">
         <div className="w-full max-w-5xl rounded-2xl shadow-xl border border-slate-100 bg-white p-6 md:p-10 flex flex-col md:flex-row gap-8 items-start">
           {/* 입력폼 */}
@@ -136,7 +143,29 @@ export default function RefinanceAnalyzerPage() {
             <div className="w-full max-w-md">
               {result && (
                 <div className="bg-white rounded-xl p-6 shadow mb-4">
-                  <h3 className="text-lg font-bold text-primary mb-2">By refinancing, you will:</h3>
+                  <h3 className="text-lg font-bold text-primary mb-2">Refinance Analysis Summary</h3>
+                  <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    {result.breakEven ? (
+                      <div>
+                        <p className="text-base font-semibold text-blue-900 mb-2">
+                          Estimated break-even point: <span className="text-blue-700">{result.breakEven} months</span>
+                        </p>
+                        <p className="text-sm text-blue-800">
+                          {result.breakEven <= 24 
+                            ? "This refinance may make sense if you plan to stay in your home long-term." 
+                            : result.breakEven <= 60
+                            ? "Consider your long-term plans. This refinance may make sense if you plan to stay in your home for several years."
+                            : "This refinance may not make sense long-term unless you plan to stay in your home for many years."}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-blue-800">
+                        {result.diffMonthly < 0 
+                          ? "Your monthly payment would decrease, but consider total interest costs and upfront fees." 
+                          : "Your monthly payment would increase. Consider whether this refinance aligns with your financial goals."}
+                      </p>
+                    )}
+                  </div>
                   <ul className="mb-4 text-base">
                     <li>Pay <span className={result.diffMonthly < 0 ? 'text-green-600 font-bold' : 'text-red-600 font-bold'}>{result.diffMonthly < 0 ? `$${Math.abs(result.diffMonthly).toFixed(2)} less` : `$${Math.abs(result.diffMonthly).toFixed(2)} more`}</span> each month</li>
                     <li>Spend <span className={result.diffInterest < 0 ? 'text-green-600 font-bold' : 'text-red-600 font-bold'}>{result.diffInterest < 0 ? `$${Math.abs(result.diffInterest).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} less` : `$${Math.abs(result.diffInterest).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} more`}</span> over the lifetime of the loan</li>
@@ -197,6 +226,30 @@ export default function RefinanceAnalyzerPage() {
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+                  {/* Secondary Actions */}
+                  <div className="mt-6 space-y-3">
+                    <div className="text-center text-sm text-gray-600 mb-3">
+                      <strong>Next Steps:</strong> Explore different refinance scenarios
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <button
+                        onClick={() => {
+                          const form = document.getElementById('refiForm') as HTMLFormElement;
+                          form.reset();
+                          setResult(null);
+                        }}
+                        className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition text-sm"
+                      >
+                        Compare refinance scenarios
+                      </button>
+                      <a
+                        href="/mortgage/find-the-right-loan"
+                        className="w-full px-4 py-2 bg-blue-50 text-blue-700 rounded-lg font-medium hover:bg-blue-100 transition text-sm text-center"
+                      >
+                        Learn about refinance options
+                      </a>
+                    </div>
                   </div>
                 </div>
               )}
