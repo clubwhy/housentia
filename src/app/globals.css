@@ -98,3 +98,52 @@ body {
   color: #14532d;
   text-decoration: underline;
 }
+
+/* Sequential fade animations - House, Sun, Family */
+@keyframes house-fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  5%, 30% {
+    opacity: 0.4;
+  }
+  15% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes sun-fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  25%, 50% {
+    opacity: 0.5;
+  }
+  37% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes family-fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  45%, 70% {
+    opacity: 0.4;
+  }
+  57% {
+    opacity: 0.6;
+  }
+}
+
+.animate-house-fade {
+  animation: house-fade 10s ease-in-out infinite;
+}
+
+.animate-sun-fade {
+  animation: sun-fade 10s ease-in-out infinite;
+}
+
+.animate-family-fade {
+  animation: family-fade 10s ease-in-out infinite;
+}

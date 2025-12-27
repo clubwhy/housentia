@@ -11,37 +11,116 @@ export default async function Home() {
   return (
     <main className="bg-secondary font-sans">
       {/* Modern Minimal Hero Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#312e81] to-[#7c3aed]">
-        <div className="w-full max-w-4xl px-4 mx-auto flex flex-col items-center text-center mb-4">
+      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#312e81] to-[#7c3aed] relative overflow-hidden">
+        {/* Animated Silhouette Background */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <svg 
+            width="1200" 
+            height="800" 
+            viewBox="0 0 1200 800" 
+            className="w-full max-w-5xl h-auto"
+            style={{ filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.15))' }}
+          >
+            {/* Large Building - Multi-story house (moved to left) - Appears first */}
+            <g fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 animate-house-fade">
+              {/* Building base - Much larger, positioned left */}
+              <rect x="100" y="300" width="600" height="400" />
+              {/* Roof */}
+              <polygon points="100,300 400,100 700,300" />
+              {/* Second floor division */}
+              <line x1="100" y1="500" x2="700" y2="500" />
+              {/* Main door (larger) */}
+              <rect x="320" y="580" width="160" height="120" />
+              {/* First floor windows (larger) */}
+              <rect x="160" y="540" width="100" height="100" />
+              <rect x="540" y="540" width="100" height="100" />
+              {/* First floor window crosses */}
+              <line x1="210" y1="590" x2="250" y2="590" />
+              <line x1="230" y1="540" x2="230" y2="640" />
+              <line x1="590" y1="590" x2="630" y2="590" />
+              <line x1="610" y1="540" x2="610" y2="640" />
+              {/* Second floor windows (larger) */}
+              <rect x="160" y="360" width="100" height="100" />
+              <rect x="320" y="360" width="100" height="100" />
+              <rect x="480" y="360" width="100" height="100" />
+              {/* Second floor window crosses */}
+              <line x1="210" y1="410" x2="250" y2="410" />
+              <line x1="230" y1="360" x2="230" y2="460" />
+              <line x1="370" y1="410" x2="410" y2="410" />
+              <line x1="390" y1="360" x2="390" y2="460" />
+              <line x1="530" y1="410" x2="570" y2="410" />
+              <line x1="550" y1="360" x2="550" y2="460" />
+            </g>
+            
+            {/* Sun with smile - Top right, appears second */}
+            <g fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 animate-sun-fade">
+              {/* Sun circle */}
+              <circle cx="1000" cy="150" r="80" />
+              {/* Sun rays */}
+              <line x1="1000" y1="50" x2="1000" y2="30" />
+              <line x1="1000" y1="250" x2="1000" y2="270" />
+              <line x1="900" y1="150" x2="880" y2="150" />
+              <line x1="1100" y1="150" x2="1120" y2="150" />
+              <line x1="940" y1="80" x2="925" y2="65" />
+              <line x1="1060" y1="80" x2="1075" y2="65" />
+              <line x1="940" y1="220" x2="925" y2="235" />
+              <line x1="1060" y1="220" x2="1075" y2="235" />
+              {/* Smiling face */}
+              <ellipse cx="980" cy="140" rx="8" ry="12" />
+              <ellipse cx="1020" cy="140" rx="8" ry="12" />
+              <path d="M 970 170 Q 1000 185 1030 170" />
+            </g>
+            
+            {/* Family Silhouettes - Together on the right, facing left (towards house) - Appears last */}
+            <g fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 animate-family-fade">
+              {/* Child (leftmost, smallest) */}
+              <circle cx="850" cy="620" r="30" />
+              <line x1="850" y1="650" x2="850" y2="720" />
+              <line x1="850" y1="680" x2="820" y2="660" />
+              <line x1="850" y1="680" x2="880" y2="660" />
+              <line x1="850" y1="720" x2="820" y2="750" />
+              <line x1="850" y1="720" x2="880" y2="750" />
+              
+              {/* Parent 1 (center, taller - mother/father) */}
+              <circle cx="950" cy="580" r="45" />
+              <line x1="950" y1="625" x2="950" y2="720" />
+              <line x1="950" y1="670" x2="915" y2="645" />
+              <line x1="950" y1="670" x2="985" y2="645" />
+              <line x1="950" y1="720" x2="915" y2="750" />
+              <line x1="950" y1="720" x2="985" y2="750" />
+              
+              {/* Parent 2 (rightmost, tallest - father/mother) */}
+              <circle cx="1050" cy="560" r="50" />
+              <line x1="1050" y1="610" x2="1050" y2="720" />
+              <line x1="1050" y1="660" x2="1010" y2="635" />
+              <line x1="1050" y1="660" x2="1090" y2="635" />
+              <line x1="1050" y1="720" x2="1010" y2="750" />
+              <line x1="1050" y1="720" x2="1090" y2="750" />
+            </g>
+          </svg>
+        </div>
+        
+        <div className="w-full max-w-4xl px-4 mx-auto flex flex-col items-center text-center mb-4 relative z-10">
           <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
-            Turn Your House
-          </div>
-          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
-            into the Home You Love
-          </div>
-          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 leading-tight">
-            &
-          </div>
-          <div className="font-extrabold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
-            Learn How to Afford It Too.
+            Understand Before You Decide.
           </div>
           <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 mt-6 max-w-2xl mx-auto px-4">
-            Discover smart home upgrades, DIY tips, and financing tools to help you build a better living space — and save money along the way.
+            Mortgage guides, calculators, and comparisons — built to help you understand your options, not sell you a loan.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
             <a
-              href="/diy-style"
+              href="/mortgage"
               className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-white text-base font-semibold rounded-md hover:bg-accent-hover transition"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 9l5-5 5 5M12 4.5V15" /></svg>
-              Explore DIY & Upgrades
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+              Explore Mortgage Guides
             </a>
             <a
               href="/tools"
               className="flex items-center justify-center gap-2 px-8 py-3 border-2 border-primary text-primary text-base font-semibold rounded-md hover:bg-primary hover:text-white transition bg-transparent"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              Explore Financing Tools
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+              Explore Mortgage Tools
             </a>
           </div>
         </div>
