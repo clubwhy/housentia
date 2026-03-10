@@ -2,8 +2,8 @@ import '@fontsource/inter/index.css'
 import './globals.css'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import SiteStructuredData from '@/components/SiteStructuredData'
 import type { Metadata } from 'next'
-import { usePathname } from 'next/navigation'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
@@ -15,12 +15,22 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const adsenseClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT
   // Use Next.js usePathname to conditionally set background
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
   const isRefiPage = pathname.startsWith('/mortgage/refinance-cashout');
   return (
     <html lang="en">
       <head>
+        {adsenseClient && (
+          <Script
+            id="google-adsense"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+            strategy="beforeInteractive"
+            async
+            crossOrigin="anonymous"
+          />
+        )}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2FTZDTF1BN"
           strategy="afterInteractive"
@@ -35,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body className={isRefiPage ? 'min-h-screen flex flex-col bg-white' : 'min-h-screen flex flex-col bg-gray-100'}>
+        <SiteStructuredData />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

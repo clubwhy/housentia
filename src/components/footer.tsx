@@ -7,13 +7,17 @@ export default function Footer() {
     <>
       <footer className="bg-slate-900 text-slate-300 py-10 px-6 mt-0 border-t-0">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-sm">
-          {/* Legal */}
+          {/* Trust & Legal */}
           <div>
-            <h3 className="text-white font-semibold mb-3">Legal</h3>
+            <h3 className="text-white font-semibold mb-3">Trust & Legal</h3>
             <ul className="space-y-1">
+              <li><Link href="/about-housentia" className="hover:text-white">About Housentia</Link></li>
+              <li><Link href="/editorial-methodology" className="hover:text-white">Editorial Methodology</Link></li>
+              <li><Link href="/research-sources" className="hover:text-white">Research Sources</Link></li>
+              <li><Link href="/how-housentia-tools-work" className="hover:text-white">How Tools Work</Link></li>
+              <li><Link href="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
               <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-white">Terms of Use</Link></li>
-              <li><Link href="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
               <li><Link href="/opt-out" className="hover:text-white">Opt-Out</Link></li>
             </ul>
           </div>
@@ -21,11 +25,13 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-3">Explore</h3>
             <ul className="space-y-1">
+              <li><Link href="/mortgage" className="hover:text-white">Mortgage Guides</Link></li>
+              <li><Link href="/mortgage-tools" className="hover:text-white">Mortgage Tools</Link></li>
+              <li><Link href="/mortgage-glossary" className="hover:text-white">Mortgage Glossary</Link></li>
+              <li><Link href="/tools" className="hover:text-white">Tools</Link></li>
               <li><Link href="/diy-style" className="hover:text-white">DIY & Style</Link></li>
               <li><Link href="/upgrade" className="hover:text-white">Upgrade</Link></li>
               <li><Link href="/shop" className="hover:text-white">Shop</Link></li>
-              <li><Link href="/tools" className="hover:text-white">Tools</Link></li>
-              <li><Link href="/mortgage" className="hover:text-white">Mortgage</Link></li>
               <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
               <li><Link href="/contactus" className="hover:text-white">Contact Us</Link></li>
             </ul>

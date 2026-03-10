@@ -2,6 +2,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { BloggerPost } from '@/lib/blogger';
+import { StructuredData, buildBreadcrumbSchema, buildArticleSchema } from '@/components/StructuredData';
 
 export default function BlogPostPage() {
   const params = useParams<{ slug: string }>();
@@ -88,8 +89,24 @@ export default function BlogPostPage() {
     );
   }
 
+  const postUrl = `https://housentia.com/blog/${post.slug}`;
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Blog', href: '/blog' }, { label: post.title }],
+    'https://housentia.com',
+    postUrl
+  );
+  const articleSchema = buildArticleSchema({
+    headline: post.title,
+    description: post.summary || post.title,
+    url: postUrl,
+    datePublished: post.published,
+    dateModified: post.updated,
+    image: post.featuredImage || undefined,
+  });
+
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
+      <StructuredData data={[breadcrumbSchema, articleSchema]} />
       {/* Featured Image */}
       {post.featuredImage && (
         <div className="mb-6">
@@ -146,6 +163,9 @@ export default function BlogPostPage() {
 
       {/* Footer */}
       <footer className="mt-8 pt-6 border-t border-gray-200">
+        <p className="text-xs text-gray-500 mb-4">
+          This content is provided for general educational purposes only and does not constitute financial or mortgage advice.
+        </p>
         <div className="flex items-center justify-between">
       <button
         onClick={() => router.back()}

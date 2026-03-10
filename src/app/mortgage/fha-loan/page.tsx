@@ -2,16 +2,32 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import Link from 'next/link';
+import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
+
+const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'FHA Loan Guide' }];
+const FAQ_ITEMS = [
+  { question: 'What is an FHA loan?', answer: 'An FHA loan is a mortgage insured by the Federal Housing Administration (FHA), part of the U.S. Department of Housing and Urban Development (HUD). FHA-approved lenders make the loans; the FHA insures them, which can allow lower down payments and more flexible credit requirements than some conventional loans.' },
+  { question: 'What is the minimum down payment for an FHA loan?', answer: 'FHA loans may allow down payments as low as 3.5% for borrowers who meet certain credit score requirements (generally 580 or higher). Borrowers with lower scores may need a larger down payment. Requirements vary by lender.' },
+  { question: 'Is Housentia an FHA lender?', answer: 'No. Housentia is not a lender, mortgage broker, or loan originator. We provide educational information only. For FHA loan applications and personalized terms, consult an FHA-approved lender or licensed mortgage professional.' },
+];
 
 export default function FHALoanPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', 'https://housentia.com/mortgage/fha-loan');
+  const articleSchema = buildArticleSchema({
+    headline: 'FHA Loan Guide',
+    description: 'Educational information about FHA loans: characteristics, eligibility, and considerations. Housentia is not a lender.',
+    url: 'https://housentia.com/mortgage/fha-loan',
+    datePublished: '2024-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
+  });
+  const faqSchema = buildFAQSchema(FAQ_ITEMS);
+
   return (
     <div className="min-h-screen bg-white">
+      <StructuredData data={[breadcrumbSchema, articleSchema, faqSchema]} />
       <PageHero 
         title="FHA Loan Guide"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: 'FHA Loan Guide' }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
         <h2 className="text-2xl font-bold text-center mb-4">FHA Loan Overview</h2>
@@ -22,6 +38,9 @@ export default function FHALoanPage() {
         
         {/* Compliance: Disclaimer at top of mortgage pages */}
         <Disclaimer variant="compact" className="mb-8" />
+        <p className="text-sm text-gray-600 mb-8 italic">
+          This content is provided for general educational purposes only and does not constitute financial or mortgage advice.
+        </p>
         
         {/* What is FHA Loan */}
         <section className="mb-12">
@@ -198,6 +217,32 @@ export default function FHALoanPage() {
               professionals can help you understand which loan type may be appropriate for your circumstances.
             </p>
           </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mb-12" aria-label="Frequently asked questions about FHA loans">
+          <h3 className="text-xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h3>
+          <dl className="space-y-4">
+            {FAQ_ITEMS.map((faq) => (
+              <div key={faq.question} className="bg-gray-50 rounded-lg p-4">
+                <dt className="font-semibold text-gray-900 mb-2">{faq.question}</dt>
+                <dd className="text-gray-700">{faq.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* Sources */}
+        <section className="mb-12">
+          <h3 className="text-xl font-bold mb-4 text-gray-900">Sources</h3>
+          <p className="text-gray-700 mb-2">
+            This guide was developed using information from the following authoritative sources (for educational purposes only):
+          </p>
+          <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <li>U.S. Department of Housing and Urban Development (HUD) — FHA programs and loan limits</li>
+            <li>Consumer Financial Protection Bureau (CFPB) — consumer mortgage information</li>
+            <li>Federal Housing Finance Agency (FHFA) — conforming loan limits and housing finance context</li>
+          </ul>
         </section>
 
         {/* Resources */}
