@@ -10,6 +10,7 @@ const navMenus = [
     label: 'Mortgage Guides',
     href: '/mortgage',
     submenu: [
+      { label: 'Mortgage Education Guides', href: '/mortgage-guides' },
       { label: "Today's Mortgage Rates", href: '/mortgage/todays-mortgage-rates' },
       { label: 'Conventional Loan Guide', href: '/mortgage/conventional-loan' },
       { label: 'FHA Loan Guide', href: '/mortgage/fha-loan' },
