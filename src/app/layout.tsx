@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import SiteStructuredData from '@/components/SiteStructuredData'
+import GoogleAnalyticsPageView from '@/components/GoogleAnalyticsPageView'
 import type { Metadata } from 'next'
 import Script from 'next/script'
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={isRefiPage ? 'min-h-screen flex flex-col bg-white' : 'min-h-screen flex flex-col bg-gray-100'}>
         <SiteStructuredData />
+        <GoogleAnalyticsPageView />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
