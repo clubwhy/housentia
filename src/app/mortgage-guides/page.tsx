@@ -32,13 +32,22 @@ const GUIDE_CATEGORIES = [
     guides: [
       { label: 'What is APR', href: '/mortgage/what-is-apr' },
       { label: 'What is DTI', href: '/mortgage/what-is-dti' },
+      { label: 'What is LTV', href: '/mortgage/what-is-ltv' },
+      { label: 'What is PMI', href: '/mortgage/what-is-pmi' },
+      { label: 'What is Amortization', href: '/mortgage/what-is-amortization' },
+      { label: 'What is a Rate Lock', href: '/mortgage/what-is-rate-lock' },
+      { label: 'What are Mortgage Points', href: '/mortgage/what-is-mortgage-points' },
     ],
   },
   {
     id: 'mortgage-process',
     title: 'Mortgage Process',
     description: 'Steps and considerations from application through closing.',
-    guides: [] as { label: string; href: string }[], // Placeholder: add guides as published (e.g. pre-approval, closing process)
+    guides: [
+      { label: 'What are Closing Costs', href: '/mortgage/what-is-closing-costs' },
+      { label: 'What is a Loan Estimate', href: '/mortgage/what-is-loan-estimate' },
+      { label: 'What is a Closing Disclosure', href: '/mortgage/what-is-closing-disclosure' },
+    ],
   },
   {
     id: 'loan-types',
@@ -56,6 +65,9 @@ const GUIDE_CATEGORIES = [
     description: 'Information about refinancing your existing mortgage.',
     guides: [
       { label: 'Refinance Overview', href: '/mortgage/refinance' },
+      { label: 'What is a Refinance', href: '/mortgage/what-is-refinance' },
+      { label: 'What is a Cash-Out Refinance', href: '/mortgage/what-is-cash-out-refinance' },
+      { label: 'Refinance & Cash-Out', href: '/mortgage/refinance-cashout' },
     ],
   },
   {
