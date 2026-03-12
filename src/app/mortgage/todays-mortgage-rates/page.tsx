@@ -1,6 +1,8 @@
 "use client";
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { useEffect, useState } from 'react';
 import { HiHome, HiRefresh, HiKey } from 'react-icons/hi';
 import {
@@ -19,6 +21,17 @@ import 'chartjs-adapter-date-fns';
 import { Line, Bar } from 'react-chartjs-2';
 
 ChartJS.register(LineElement, PointElement, LinearScale, TimeScale, Tooltip, Legend, Filler, CategoryScale, BarElement);
+
+const ARTICLE_SLUG = 'todays-mortgage-rates';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: "Today's Mortgage Rates",
+  });
+})();
 
 interface RateItem {
   name: string;
@@ -249,10 +262,7 @@ export default function TodaysMortgageRatesPage() {
     <div className="min-h-screen bg-white">
       <PageHero 
         title="Today's Mortgage Rates"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: "Today's Mortgage Rates" }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
         <h2 className="text-2xl font-bold text-center mb-4">Mortgage Rate Information</h2>
@@ -708,6 +718,7 @@ export default function TodaysMortgageRatesPage() {
             </section>
           </>
         )}
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mt-10" />
       </main>
     </div>
   );

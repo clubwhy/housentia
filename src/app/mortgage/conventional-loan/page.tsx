@@ -2,16 +2,26 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import Link from 'next/link';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
+
+const ARTICLE_SLUG = 'conventional-loan';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'Conventional Loan Guide',
+  });
+})();
 
 export default function ConventionalLoanPage() {
   return (
     <div className="min-h-screen bg-white">
       <PageHero 
         title="Conventional Loan Guide"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: 'Conventional Loan Guide' }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
         <h2 className="text-2xl font-bold text-center mb-4">Conventional Loan Overview</h2>
@@ -497,6 +507,8 @@ export default function ConventionalLoanPage() {
             </ul>
           </div>
         </section>
+
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
 
         {/* CTA Section */}
         <section className="text-center bg-blue-50 rounded-2xl p-8">

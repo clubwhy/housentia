@@ -1,6 +1,8 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 
@@ -15,7 +17,16 @@ export const metadata: Metadata = {
   },
 };
 
-const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'What Is a Cash-Out Refinance?' }];
+const ARTICLE_SLUG = 'what-is-cash-out-refinance';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'What Is a Cash-Out Refinance?',
+  });
+})();
 const PAGE_URL = 'https://housentia.com/mortgage/what-is-cash-out-refinance';
 
 const FAQ_ITEMS = [
@@ -47,7 +58,11 @@ const FAQ_ITEMS = [
 ];
 
 export default function WhatIsCashOutRefinancePage() {
-  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', PAGE_URL);
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Home', href: '/' }, ...BREADCRUMBS],
+    'https://housentia.com',
+    PAGE_URL
+  );
   const articleSchema = buildArticleSchema({
     headline: 'What Is a Cash-Out Refinance? A Guide for U.S. Homeowners',
     description:
@@ -214,11 +229,8 @@ export default function WhatIsCashOutRefinancePage() {
           </ul>
         </section>
 
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
         <RelatedLinks
-          guides={[
-            { label: 'Refinance & Cash-Out', href: '/mortgage/refinance-cashout' },
-            { label: 'HELOC Overview', href: '/mortgage/heloc' },
-          ]}
           glossary={[{ label: 'Cash-Out Refinance', href: '/mortgage-glossary/cash-out-refinance' }]}
           calculator={{ label: 'Refinance Analyzer', href: '/tools/refinance-analyzer' }}
           className="mb-10"

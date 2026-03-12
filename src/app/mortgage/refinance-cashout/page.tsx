@@ -2,16 +2,26 @@
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { HiOutlineCurrencyDollar, HiOutlineDocumentText, HiOutlineHomeModern, HiOutlineCheckCircle, HiOutlineArrowRightCircle } from 'react-icons/hi2';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
+
+const ARTICLE_SLUG = 'refinance-cashout';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'Refinance & Cash-Out',
+  });
+})();
 
 export default function RefinanceCashOutPage() {
   return (
     <div className="min-h-screen bg-white" style={{ background: '#fff' }}>
       <PageHero 
         title="Refinance & Cash-Out"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: 'Refinance & Cash-Out' }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       {/* Hero Section */}
 
@@ -72,6 +82,10 @@ export default function RefinanceCashOutPage() {
         </ul>
         <div className="text-sm text-gray-500 mt-2">Some documents may not be needed for VA/FHA streamline refi.</div>
       </section>
+
+      <div className="max-w-4xl mx-auto px-4 my-8">
+        <RelatedGuides articleSlug={ARTICLE_SLUG} />
+      </div>
 
       {/* Final CTA Section */}
       <section className="max-w-4xl mx-auto bg-gradient-to-br from-primary/10 to-blue-50 rounded-2xl p-8 my-12 text-center">

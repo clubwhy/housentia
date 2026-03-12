@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllGlossarySlugs } from '@/data/glossary';
+import { VALID_CATEGORY_SLUGS } from '@/lib/mortgage-guides';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://housentia.com';
 
@@ -18,6 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const glossarySlugs = getAllGlossarySlugs();
   const glossaryUrls: SitemapEntry[] = glossarySlugs.map((slug) =>
     url(`/mortgage-glossary/${slug}`, { changefreq: 'monthly', priority: 0.7 })
+  );
+
+  const mortgageGuideCategoryUrls: SitemapEntry[] = VALID_CATEGORY_SLUGS.map((slug) =>
+    url(`/mortgage-guides/${slug}`, { changefreq: 'weekly', priority: 0.85 })
   );
 
   const staticEntries: SitemapEntry[] = [
@@ -75,5 +80,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url('/opt-out', { lastmod: '2025-12-28', changefreq: 'yearly', priority: 0.2 }),
   ];
 
-  return [...staticEntries, ...glossaryUrls];
+  return [...staticEntries, ...mortgageGuideCategoryUrls, ...glossaryUrls];
 }

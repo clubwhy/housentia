@@ -1,6 +1,8 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 
@@ -14,7 +16,16 @@ export const metadata: Metadata = {
   },
 };
 
-const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'What Is a Rate Lock?' }];
+const ARTICLE_SLUG = 'what-is-rate-lock';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'What Is a Rate Lock?',
+  });
+})();
 const PAGE_URL = 'https://housentia.com/mortgage/what-is-rate-lock';
 
 const FAQ_ITEMS = [
@@ -46,7 +57,11 @@ const FAQ_ITEMS = [
 ];
 
 export default function WhatIsRateLockPage() {
-  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', PAGE_URL);
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Home', href: '/' }, ...BREADCRUMBS],
+    'https://housentia.com',
+    PAGE_URL
+  );
   const articleSchema = buildArticleSchema({
     headline: 'What Is a Rate Lock? A Guide for U.S. Homebuyers',
     description:
@@ -204,11 +219,8 @@ export default function WhatIsRateLockPage() {
           </ul>
         </section>
 
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
         <RelatedLinks
-          guides={[
-            { label: "Today's Mortgage Rates", href: '/mortgage/todays-mortgage-rates' },
-            { label: 'What is APR', href: '/mortgage/what-is-apr' },
-          ]}
           glossary={[{ label: 'Rate Lock', href: '/mortgage-glossary/rate-lock' }]}
           calculator={{ label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' }}
           className="mb-10"

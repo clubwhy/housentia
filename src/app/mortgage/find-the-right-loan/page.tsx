@@ -1,6 +1,19 @@
 "use client";
 import PageHero from '@/components/PageHero';
 import GeminiChatBot from '@/components/GeminiChatBot';
+import { buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
+
+const ARTICLE_SLUG = 'find-the-right-loan';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'Find the Right Loan',
+  });
+})();
 
 export default function FindTheRightLoanPage() {
   return (
@@ -23,7 +36,7 @@ export default function FindTheRightLoanPage() {
       </div>
       <PageHero 
         title="Find the Right Loan"
-        breadcrumbs={[{ label: 'Mortgage', href: '/mortgage' }, { label: 'Find the Right Loan' }]}
+        breadcrumbs={BREADCRUMBS}
       />
       {/* Educational Disclaimer */}
       <div className="max-w-4xl mx-auto px-4 mb-4">

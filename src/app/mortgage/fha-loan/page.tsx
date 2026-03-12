@@ -2,9 +2,20 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import Link from 'next/link';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
 
-const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'FHA Loan Guide' }];
+const ARTICLE_SLUG = 'fha-loan';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'FHA Loan Guide',
+  });
+})();
 const FAQ_ITEMS = [
   { question: 'What is an FHA loan?', answer: 'An FHA loan is a mortgage insured by the Federal Housing Administration (FHA), part of the U.S. Department of Housing and Urban Development (HUD). FHA-approved lenders make the loans; the FHA insures them, which can allow lower down payments and more flexible credit requirements than some conventional loans.' },
   { question: 'What is the minimum down payment for an FHA loan?', answer: 'FHA loans may allow down payments as low as 3.5% for borrowers who meet certain credit score requirements (generally 580 or higher). Borrowers with lower scores may need a larger down payment. Requirements vary by lender.' },
@@ -12,7 +23,11 @@ const FAQ_ITEMS = [
 ];
 
 export default function FHALoanPage() {
-  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', 'https://housentia.com/mortgage/fha-loan');
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Home', href: '/' }, ...BREADCRUMBS],
+    'https://housentia.com',
+    'https://housentia.com/mortgage/fha-loan'
+  );
   const articleSchema = buildArticleSchema({
     headline: 'FHA Loan Guide',
     description: 'Educational information about FHA loans: characteristics, eligibility, and considerations. Housentia is not a lender.',
@@ -307,6 +322,8 @@ export default function FHALoanPage() {
             </ul>
           </div>
         </section>
+
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
 
         {/* CTA Section */}
         <section className="text-center bg-blue-50 rounded-2xl p-8">

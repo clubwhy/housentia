@@ -1,6 +1,8 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 
@@ -15,7 +17,16 @@ export const metadata: Metadata = {
   },
 };
 
-const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'What Is LTV?' }];
+const ARTICLE_SLUG = 'what-is-ltv';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'What Is LTV?',
+  });
+})();
 const PAGE_URL = 'https://housentia.com/mortgage/what-is-ltv';
 
 const FAQ_ITEMS = [
@@ -47,7 +58,11 @@ const FAQ_ITEMS = [
 ];
 
 export default function WhatIsLTVPage() {
-  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', PAGE_URL);
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Home', href: '/' }, ...BREADCRUMBS],
+    'https://housentia.com',
+    PAGE_URL
+  );
   const articleSchema = buildArticleSchema({
     headline: 'What Is LTV? A Guide for U.S. Homebuyers',
     description:
@@ -302,11 +317,8 @@ export default function WhatIsLTVPage() {
           </ul>
         </section>
 
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
         <RelatedLinks
-          guides={[
-            { label: 'Conventional Loan Guide', href: '/mortgage/conventional-loan' },
-            { label: 'FHA Loan Guide', href: '/mortgage/fha-loan' },
-          ]}
           glossary={[{ label: 'LTV', href: '/mortgage-glossary/ltv' }]}
           calculator={{ label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' }}
           className="mb-10"

@@ -1,6 +1,8 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 
@@ -14,7 +16,16 @@ export const metadata: Metadata = {
   },
 };
 
-const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'What Are Closing Costs?' }];
+const ARTICLE_SLUG = 'what-is-closing-costs';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'What Are Closing Costs?',
+  });
+})();
 const PAGE_URL = 'https://housentia.com/mortgage/what-is-closing-costs';
 
 const FAQ_ITEMS = [
@@ -46,7 +57,11 @@ const FAQ_ITEMS = [
 ];
 
 export default function WhatIsClosingCostsPage() {
-  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', PAGE_URL);
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Home', href: '/' }, ...BREADCRUMBS],
+    'https://housentia.com',
+    PAGE_URL
+  );
   const articleSchema = buildArticleSchema({
     headline: 'What Are Closing Costs? A Guide for U.S. Homebuyers',
     description:
@@ -214,11 +229,8 @@ export default function WhatIsClosingCostsPage() {
           </ul>
         </section>
 
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
         <RelatedLinks
-          guides={[
-            { label: 'First Time Home Buyer Guide', href: '/mortgage/first-time-home-buyer' },
-            { label: 'What is APR', href: '/mortgage/what-is-apr' },
-          ]}
           glossary={[{ label: 'Closing Costs', href: '/mortgage-glossary/closing-costs' }]}
           calculator={{ label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' }}
           className="mb-10"

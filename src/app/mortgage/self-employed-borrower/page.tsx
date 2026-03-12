@@ -2,16 +2,26 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import Link from 'next/link';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
+
+const ARTICLE_SLUG = 'self-employed-borrower';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'Self-Employed Borrower Scenarios',
+  });
+})();
 
 export default function SelfEmployedBorrowerPage() {
   return (
     <div className="min-h-screen bg-white">
       <PageHero 
         title="Self-Employed Borrower Scenarios"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: 'Self-Employed Borrower Scenarios' }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
         <h2 className="text-2xl font-bold text-center mb-4">Self-Employed Borrower Overview</h2>
@@ -359,6 +369,8 @@ export default function SelfEmployedBorrowerPage() {
             </Link>
           </div>
         </section>
+
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
       </main>
     </div>
   );

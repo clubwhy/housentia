@@ -2,16 +2,26 @@
 import PageHero from '@/components/PageHero';
 import InquiryWizard from '@/components/InquiryWizard';
 import Disclaimer from '@/components/Disclaimer';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
+
+const ARTICLE_SLUG = 'prequalify';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'Mortgage Prequalification',
+  });
+})();
 
 export default function PrequalifyPage() {
   return (
     <div className="min-h-screen bg-white">
       <PageHero 
         title="Connect with Licensed Professionals"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: 'Partner Professionals' }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       <main className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-4">
@@ -104,6 +114,8 @@ export default function PrequalifyPage() {
               </div>
             </div>
           </div>
+
+          <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-12" />
 
           {/* Optional Professional Connection - Single CTA at bottom */}
           <div className="text-center bg-gray-50 rounded-2xl p-8 border border-gray-200">

@@ -2,16 +2,26 @@
 import PageHero from '@/components/PageHero';
 import InquiryWizard from '@/components/InquiryWizard';
 import Disclaimer from '@/components/Disclaimer';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
+
+const ARTICLE_SLUG = 'first-time-home-buyer';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'First Time Home Buyer Guide',
+  });
+})();
 
 export default function FirstTimeHomeBuyerPage() {
   return (
     <div className="min-h-screen bg-white">
       <PageHero 
         title="First time home buyer"
-        breadcrumbs={[
-          { label: 'Mortgage', href: '/mortgage' },
-          { label: 'First time home buyer' }
-        ]}
+        breadcrumbs={BREADCRUMBS}
       />
       <main className="max-w-4xl mx-auto px-4 py-10 font-sans text-[17px] text-gray-800" style={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.7 }}>
         <h2 className="text-2xl font-bold text-center mb-4">First-Time Home Buyer Guide</h2>
@@ -337,6 +347,8 @@ export default function FirstTimeHomeBuyerPage() {
             </a>
           </div>
         </section>
+
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
 
         {/* Inquiry Wizard Section */}
         <div className="mt-16">

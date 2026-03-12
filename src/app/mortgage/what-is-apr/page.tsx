@@ -1,6 +1,8 @@
 import PageHero from '@/components/PageHero';
 import Disclaimer from '@/components/Disclaimer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
+import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 
@@ -13,7 +15,16 @@ export const metadata: Metadata = {
   },
 };
 
-const BREADCRUMBS = [{ label: 'Mortgage', href: '/mortgage' }, { label: 'What Is APR?' }];
+const ARTICLE_SLUG = 'what-is-apr';
+const BREADCRUMBS = (() => {
+  const article = getArticle(ARTICLE_SLUG);
+  const category = article ? getCategory(article.category) : undefined;
+  return buildGuideBreadcrumbs({
+    categorySlug: category?.slug,
+    categoryTitle: category?.title,
+    currentTitle: 'What Is APR?',
+  });
+})();
 const PAGE_URL = 'https://housentia.com/mortgage/what-is-apr';
 
 const FAQ_ITEMS = [
@@ -40,7 +51,11 @@ const FAQ_ITEMS = [
 ];
 
 export default function WhatIsAPRPage() {
-  const breadcrumbSchema = buildBreadcrumbSchema(BREADCRUMBS, 'https://housentia.com', PAGE_URL);
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [{ label: 'Home', href: '/' }, ...BREADCRUMBS],
+    'https://housentia.com',
+    PAGE_URL
+  );
   const articleSchema = buildArticleSchema({
     headline: 'What Is APR? A Guide for U.S. Homebuyers',
     description: 'APR (Annual Percentage Rate) is a standardized measure of the yearly cost of borrowing for a mortgage, including interest and certain fees. This guide explains how APR works and how to use it when comparing loan offers.',
@@ -276,12 +291,11 @@ export default function WhatIsAPRPage() {
           </ul>
         </section>
 
-        {/* Related links: 2 guides, 1 glossary, 1 calculator */}
+        {/* Related Guides — topic cluster internal linking */}
+        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
+
+        {/* Related links: glossary, calculator */}
         <RelatedLinks
-          guides={[
-            { label: 'Loan Estimate Explained', href: '/mortgage/loan-estimate-explained' },
-            { label: 'Mortgage Rate vs APR', href: '/mortgage/mortgage-rate-vs-apr' },
-          ]}
           glossary={[{ label: 'APR', href: '/mortgage-glossary/apr' }]}
           calculator={{ label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' }}
           className="mb-10"
