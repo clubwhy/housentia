@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
-    "setup-blogger": "node scripts/setup-blogger.js"
+    "setup-blogger": "node scripts/setup-blogger.js",
+    "generate-guide": "node scripts/generate-mortgage-guide.js"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.6",

@@ -75,7 +75,28 @@ export const GUIDE_CATEGORIES: GuideCategory[] = [
 
 /** All mortgage guide articles. Add new guides here as they are published. */
 export const GUIDE_ARTICLES: GuideArticle[] = [
+  {
+    slug: 'apr-vs-interest-rate',
+    title: 'APR vs Interest Rate',
+    description: 'APR vs Interest Rate is a key concept for mortgage borrowers. Learn how it works and how it affects your loan.',
+    category: 'basics',
+    relatedSlugs: ['what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-amortization'],
+  },
+  {
+    slug: 'how-mortgages-work',
+    title: 'How Mortgages Work',
+    description: 'How Mortgages Work is a key concept for mortgage borrowers. Learn how it works and how it affects your loan.',
+    category: 'basics',
+    relatedSlugs: ['what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-amortization'],
+  },
   // Mortgage Basics
+  {
+    slug: 'what-is-a-mortgage',
+    title: 'What Is a Mortgage',
+    description: 'A mortgage is a loan secured by real property. Learn how mortgages work, key terms, types of loans, and the regulatory framework that protects U.S. borrowers.',
+    category: 'basics',
+    relatedSlugs: ['what-is-apr', 'what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'mortgage-application-process'],
+  },
   {
     slug: 'what-is-dti',
     title: 'What is DTI',
@@ -306,7 +327,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is APR',
     description: 'Annual Percentage Rate helps you compare mortgage costs. Learn how it differs from the interest rate.',
     category: 'rates',
-    relatedSlugs: ['what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-rate-lock'],
+    relatedSlugs: ['what-is-a-mortgage', 'what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-rate-lock'],
   },
   {
     slug: 'what-is-interest-rate',
