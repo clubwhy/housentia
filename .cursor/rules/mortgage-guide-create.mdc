@@ -1,0 +1,51 @@
+---
+description: Mortgage guide creation workflow — duplicate check, category, internal linking
+globs: src/app/mortgage/**/*.tsx, src/lib/mortgage-guides.ts
+alwaysApply: false
+---
+
+# Mortgage Guide Creation Workflow
+
+When the user asks to create a new mortgage education guide (e.g. "에스크로 가이드 만들어줘", "What is Escrow 글 작성해줘"):
+
+## Step 1: Duplicate Check (필수)
+
+1. Import and call `findPotentialDuplicates(subject)` from `@/lib/mortgage-guides`
+2. If duplicates found: **STOP**. Tell the user: "이미 비슷한 글이 있습니다: [list]. 기존 글을 수정하거나 다른 주제를 선택해 주세요."
+3. If no duplicates: proceed to Step 2
+
+## Step 2: Category Assignment
+
+1. Call `suggestCategory(subject)` for a hint
+2. If null, use `docs/SEO-ARCHITECTURE.md` and `docs/MORTGAGE-GUIDE-WORKFLOW.md` category mapping
+3. Confirm category with user if ambiguous
+
+## Step 3: Create page + Register
+
+1. Create `src/app/mortgage/[slug]/page.tsx` (slug: kebab-case, e.g. `what-is-escrow`)
+2. Add to `GUIDE_ARTICLES` in `src/lib/mortgage-guides.ts`:
+   - slug, title, description, category
+   - relatedSlugs: use `suggestRelatedForNewArticle(category, 4)` for initial suggestions
+   - keywords: add search terms for duplicate detection (e.g. `['escrow', '에스크로']`)
+
+## Step 4: Update Related Articles
+
+1. For each slug in the new article's relatedSlugs, add the new article's slug to that article's relatedSlugs (bidirectional linking)
+2. Keep relatedSlugs at 4–6 items per article
+
+## Step 5: Update Sitemap
+
+Add the new URL to `staticEntries` in `src/app/sitemap.ts` if not auto-generated.
+
+## Page Template
+
+Use existing article structure: PageHero, Disclaimer, buildGuideBreadcrumbs, RelatedGuides, StructuredData.
+
+## Example Prompt
+
+User: "What is Escrow 가이드 만들어줘"
+
+1. `findPotentialDuplicates("What is Escrow")` → [] (empty)
+2. `suggestCategory("What is Escrow")` → 'costs'
+3. Create `/mortgage/what-is-escrow`, add to GUIDE_ARTICLES with relatedSlugs from `suggestRelatedForNewArticle('costs', 4)`
+4. Update related articles (e.g. what-is-closing-costs) to include 'what-is-escrow'

@@ -56,6 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url('/mortgage/what-is-dti', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-ltv', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-pmi', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
+    url('/mortgage/what-is-mortgage-insurance', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-amortization', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-rate-lock', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-mortgage-points', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),

@@ -20,6 +20,8 @@ export interface GuideArticle {
   category: CategorySlug;
   /** Slugs of related guides for internal linking (same or adjacent topics) */
   relatedSlugs: string[];
+  /** Optional: search keywords for duplicate detection (e.g. "escrow", "에스크로", "escrow account") */
+  keywords?: string[];
 }
 
 export interface GuideCategory {
@@ -86,7 +88,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is LTV',
     description: 'Loan-to-value compares your mortgage amount to the home\'s value. Learn how it affects underwriting and PMI.',
     category: 'basics',
-    relatedSlugs: ['what-is-dti', 'what-is-pmi', 'what-is-apr', 'what-is-mortgage-points'],
+    relatedSlugs: ['what-is-dti', 'what-is-pmi', 'what-is-mortgage-insurance', 'what-is-apr', 'what-is-mortgage-points'],
   },
   {
     slug: 'what-is-amortization',
@@ -101,7 +103,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What are Closing Costs',
     description: 'Fees and prepaid items paid to finalize a mortgage. Learn what\'s included and how to review them.',
     category: 'costs',
-    relatedSlugs: ['what-is-loan-estimate', 'what-is-closing-disclosure', 'what-is-mortgage-points', 'what-is-apr'],
+    relatedSlugs: ['what-is-loan-estimate', 'what-is-closing-disclosure', 'what-is-mortgage-insurance', 'what-is-mortgage-points', 'what-is-apr'],
   },
   {
     slug: 'what-is-loan-estimate',
@@ -137,7 +139,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'Conventional Loan Guide',
     description: 'Non-government-backed loans with flexible terms. PMI can be removed at 80% LTV.',
     category: 'loan-types',
-    relatedSlugs: ['fha-loan', 'va-loan', 'what-is-pmi', 'what-is-ltv'],
+    relatedSlugs: ['fha-loan', 'va-loan', 'what-is-pmi', 'what-is-mortgage-insurance', 'what-is-ltv'],
   },
   {
     slug: 'heloc',
@@ -210,7 +212,15 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is PMI',
     description: 'Private Mortgage Insurance for conventional loans with less than 20% down.',
     category: 'costs',
-    relatedSlugs: ['what-is-ltv', 'what-is-closing-costs', 'conventional-loan', 'what-is-mortgage-points'],
+    relatedSlugs: ['what-is-mortgage-insurance', 'what-is-ltv', 'what-is-closing-costs', 'conventional-loan', 'what-is-mortgage-points'],
+  },
+  {
+    slug: 'what-is-mortgage-insurance',
+    title: 'What is Mortgage Insurance',
+    description: 'Overview of mortgage insurance: PMI, FHA MIP, and how it protects lenders when you put down less than 20%.',
+    category: 'costs',
+    relatedSlugs: ['what-is-pmi', 'what-is-ltv', 'what-is-closing-costs', 'conventional-loan'],
+    keywords: ['mortgage insurance', 'PMI', 'MIP', 'mortgage insurance premium'],
   },
   {
     slug: 'what-is-mortgage-points',
@@ -298,3 +308,113 @@ export function getArticlePath(slug: string): string {
 
 /** Valid category slugs for dynamic routing */
 export const VALID_CATEGORY_SLUGS: CategorySlug[] = GUIDE_CATEGORIES.map((c) => c.slug);
+
+// --- Duplicate detection & workflow helpers ---
+
+/** Normalize subject for comparison: lowercase, collapse spaces, remove punctuation */
+function normalizeForSearch(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Extract core terms from subject (e.g. "What is Escrow?" -> ["escrow"]) */
+function extractCoreTerms(subject: string): string[] {
+  const normalized = normalizeForSearch(subject);
+  const stopWords = new Set(['what', 'is', 'are', 'a', 'an', 'the', 'how', 'when', 'why', 'guide', 'explained', 'overview']);
+  return normalized
+    .split(/\s+/)
+    .filter((w) => w.length > 1 && !stopWords.has(w));
+}
+
+/**
+ * Find potential duplicate articles for a given subject.
+ * Checks: slug, title, description, keywords.
+ * Returns articles that might cover the same topic (for human review).
+ */
+export function findPotentialDuplicates(subject: string): GuideArticle[] {
+  const terms = extractCoreTerms(subject);
+  const normalizedSubject = normalizeForSearch(subject);
+  const slugCandidate = normalizedSubject.replace(/\s+/g, '-').replace(/-+/g, '-');
+
+  return GUIDE_ARTICLES.filter((article) => {
+    const slugNorm = normalizeForSearch(article.slug.replace(/-/g, ' '));
+    const titleNorm = normalizeForSearch(article.title);
+    const descNorm = normalizeForSearch(article.description);
+    const keywordsNorm = (article.keywords || []).map((k) => normalizeForSearch(k));
+
+    // Exact slug match
+    if (article.slug === slugCandidate || article.slug.includes(slugCandidate) || slugCandidate.includes(article.slug)) {
+      return true;
+    }
+    // All core terms appear in slug/title/description
+    const searchable = [slugNorm, titleNorm, descNorm, ...keywordsNorm].join(' ');
+    const allTermsMatch = terms.every((term) => searchable.includes(term));
+    if (allTermsMatch && terms.length > 0) return true;
+    // Subject is contained in title or vice versa
+    if (titleNorm.includes(normalizedSubject) || normalizedSubject.includes(titleNorm)) return true;
+    return false;
+  });
+}
+
+/**
+ * Suggest related articles for a new guide (same category + cross-category).
+ * Use these to populate relatedSlugs when creating a new article.
+ */
+export function suggestRelatedForNewArticle(
+  categorySlug: CategorySlug,
+  limit = 4,
+  excludeSlug?: string
+): GuideArticle[] {
+  const sameCategory = getArticlesByCategory(categorySlug).filter((a) => a.slug !== excludeSlug);
+  // Prefer same category; if not enough, add from adjacent (e.g. costs <-> process)
+  const adjacent: CategorySlug[] =
+    categorySlug === 'costs' ? ['process', 'rates'] : categorySlug === 'process' ? ['costs', 'basics'] : ['basics', 'costs'];
+  const fromAdjacent = adjacent.flatMap((c) => getArticlesByCategory(c)).filter((a) => a.slug !== excludeSlug);
+  const combined = [...sameCategory, ...fromAdjacent].filter((a, i, arr) => arr.findIndex((b) => b.slug === a.slug) === i);
+  return combined.slice(0, limit);
+}
+
+/**
+ * Category hints for common topics. Use with human judgment.
+ * See docs/MORTGAGE-GUIDE-WORKFLOW.md for full mapping.
+ */
+export const CATEGORY_HINTS: Record<string, CategorySlug> = {
+  escrow: 'costs',
+  'closing costs': 'costs',
+  pmi: 'costs',
+  points: 'costs',
+  apr: 'rates',
+  'rate lock': 'rates',
+  dti: 'basics',
+  ltv: 'basics',
+  amortization: 'basics',
+  'loan estimate': 'process',
+  'closing disclosure': 'process',
+  fha: 'loan-types',
+  va: 'loan-types',
+  conventional: 'loan-types',
+  usda: 'loan-types',
+  jumbo: 'loan-types',
+  heloc: 'loan-types',
+  refinance: 'refinance',
+  'cash-out': 'refinance',
+  'first-time': 'home-buying',
+  prequalify: 'credit',
+  'self-employed': 'credit',
+  credit: 'credit',
+};
+
+/**
+ * Suggest category for a new guide based on subject keywords.
+ * Returns best guess; always verify with docs/MORTGAGE-GUIDE-WORKFLOW.md.
+ */
+export function suggestCategory(subject: string): CategorySlug | null {
+  const normalized = normalizeForSearch(subject);
+  for (const [keyword, category] of Object.entries(CATEGORY_HINTS)) {
+    if (normalized.includes(keyword)) return category;
+  }
+  return null;
+}
