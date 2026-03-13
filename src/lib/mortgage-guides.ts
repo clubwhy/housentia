@@ -112,18 +112,26 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     relatedSlugs: ['what-is-dti', 'what-is-pmi', 'what-is-mortgage-insurance', 'what-is-apr', 'what-is-mortgage-points'],
   },
   {
+    slug: 'what-is-mortgage-principal',
+    title: 'What Is Mortgage Principal',
+    description: 'Principal is the amount you borrow. Learn how it differs from interest, how payments reduce it, and how extra principal payments work.',
+    category: 'basics',
+    relatedSlugs: ['what-is-amortization', 'what-is-interest-rate', 'what-is-loan-term', 'what-is-apr'],
+    keywords: ['principal', 'mortgage principal', 'loan balance'],
+  },
+  {
     slug: 'what-is-amortization',
     title: 'What is Amortization',
     description: 'How loan principal and interest are paid over time. Understand amortization schedules.',
     category: 'basics',
-    relatedSlugs: ['what-is-loan-term', 'what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points'],
+    relatedSlugs: ['what-is-mortgage-principal', 'what-is-loan-term', 'what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points'],
   },
   {
     slug: 'what-is-loan-term',
     title: 'What is a Loan Term',
     description: 'How long you have to repay. Learn about 15-year vs 30-year terms and how they affect your payment.',
     category: 'basics',
-    relatedSlugs: ['what-is-amortization', 'what-is-interest-rate', 'what-is-apr', 'refinance'],
+    relatedSlugs: ['what-is-mortgage-principal', 'what-is-amortization', 'what-is-interest-rate', 'what-is-apr', 'refinance'],
   },
   // Mortgage Process
   {
@@ -327,14 +335,14 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is APR',
     description: 'Annual Percentage Rate helps you compare mortgage costs. Learn how it differs from the interest rate.',
     category: 'rates',
-    relatedSlugs: ['what-is-a-mortgage', 'what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-rate-lock'],
+    relatedSlugs: ['what-is-mortgage-principal', 'what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-rate-lock'],
   },
   {
     slug: 'what-is-interest-rate',
     title: 'What is an Interest Rate',
     description: 'The cost of borrowing. Learn how it differs from APR and how it affects your monthly payment.',
     category: 'rates',
-    relatedSlugs: ['what-is-apr', 'what-is-rate-lock', 'what-is-mortgage-points', 'todays-mortgage-rates'],
+    relatedSlugs: ['what-is-mortgage-principal', 'what-is-apr', 'what-is-rate-lock', 'what-is-mortgage-points', 'todays-mortgage-rates'],
   },
   {
     slug: 'what-is-rate-lock',

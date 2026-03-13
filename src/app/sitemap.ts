@@ -74,6 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url('/mortgage/what-lenders-look-at-mortgage-approval', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/how-income-verified-mortgage', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-amortization', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
+    url('/mortgage/what-is-mortgage-principal', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-rate-lock', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-mortgage-points', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
     url('/mortgage/what-is-closing-costs', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
