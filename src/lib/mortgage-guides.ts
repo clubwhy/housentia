@@ -102,7 +102,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is DTI',
     description: 'Debt-to-Income ratio compares monthly debt payments to gross income. Learn how lenders use it in underwriting.',
     category: 'basics',
-    relatedSlugs: ['what-is-apr', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-pmi'],
+    relatedSlugs: ['what-is-piti', 'what-is-apr', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-pmi'],
   },
   {
     slug: 'what-is-ltv',
@@ -116,8 +116,16 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What Is Mortgage Principal',
     description: 'Principal is the amount you borrow. Learn how it differs from interest, how payments reduce it, and how extra principal payments work.',
     category: 'basics',
-    relatedSlugs: ['what-is-amortization', 'what-is-interest-rate', 'what-is-loan-term', 'what-is-apr'],
+    relatedSlugs: ['what-is-piti', 'what-is-amortization', 'what-is-interest-rate', 'what-is-loan-term', 'what-is-apr'],
     keywords: ['principal', 'mortgage principal', 'loan balance'],
+  },
+  {
+    slug: 'what-is-piti',
+    title: 'What Is PITI',
+    description: 'PITI stands for Principal, Interest, Taxes, and Insurance. Learn how it is calculated and how lenders use it to assess affordability.',
+    category: 'basics',
+    relatedSlugs: ['what-is-mortgage-principal', 'what-is-interest-rate', 'what-is-escrow', 'what-is-dti'],
+    keywords: ['piti', 'principal interest taxes insurance', 'housing payment'],
   },
   {
     slug: 'what-is-amortization',
@@ -146,7 +154,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is Escrow',
     description: 'Escrow holds funds for property taxes and insurance. Learn how mortgage escrow accounts work.',
     category: 'costs',
-    relatedSlugs: ['what-is-closing-costs', 'what-is-mortgage-insurance', 'what-is-loan-estimate', 'what-is-pmi'],
+    relatedSlugs: ['what-is-piti', 'what-is-closing-costs', 'what-is-mortgage-insurance', 'what-is-loan-estimate', 'what-is-pmi'],
     keywords: ['escrow', '에스크로', 'escrow account'],
   },
   {
@@ -342,7 +350,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is an Interest Rate',
     description: 'The cost of borrowing. Learn how it differs from APR and how it affects your monthly payment.',
     category: 'rates',
-    relatedSlugs: ['what-is-mortgage-principal', 'what-is-apr', 'what-is-rate-lock', 'what-is-mortgage-points', 'todays-mortgage-rates'],
+    relatedSlugs: ['what-is-piti', 'what-is-mortgage-principal', 'what-is-apr', 'what-is-rate-lock', 'what-is-mortgage-points', 'todays-mortgage-rates'],
   },
   {
     slug: 'what-is-rate-lock',
