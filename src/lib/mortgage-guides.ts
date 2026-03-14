@@ -85,9 +85,9 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
   {
     slug: 'how-mortgages-work',
     title: 'How Mortgages Work',
-    description: 'How Mortgages Work is a key concept for mortgage borrowers. Learn how it works and how it affects your loan.',
+    description: 'Learn how mortgages work from application to payoff. Understand principal, interest, amortization, and the process from application through closing.',
     category: 'basics',
-    relatedSlugs: ['what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-amortization'],
+    relatedSlugs: ['what-is-a-mortgage-servicer', 'what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-amortization'],
   },
   // Mortgage Basics
   {
@@ -95,7 +95,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What Is a Mortgage',
     description: 'A mortgage is a loan secured by real property. Learn how mortgages work, key terms, types of loans, and the regulatory framework that protects U.S. borrowers.',
     category: 'basics',
-    relatedSlugs: ['what-is-apr', 'what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'mortgage-application-process'],
+    relatedSlugs: ['what-is-a-mortgage-lender', 'what-is-a-mortgage-servicer', 'what-is-apr', 'what-is-interest-rate', 'what-is-dti', 'what-is-ltv', 'mortgage-application-process'],
   },
   {
     slug: 'what-is-dti',
@@ -116,7 +116,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What Is Mortgage Principal',
     description: 'Principal is the amount you borrow. Learn how it differs from interest, how payments reduce it, and how extra principal payments work.',
     category: 'basics',
-    relatedSlugs: ['what-is-piti', 'what-is-amortization', 'what-is-interest-rate', 'what-is-loan-term', 'what-is-apr'],
+    relatedSlugs: ['what-is-a-mortgage-payment', 'what-is-piti', 'what-is-amortization', 'what-is-interest-rate', 'what-is-loan-term', 'what-is-apr'],
     keywords: ['principal', 'mortgage principal', 'loan balance'],
   },
   {
@@ -124,7 +124,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What Is PITI',
     description: 'PITI stands for Principal, Interest, Taxes, and Insurance. Learn how it is calculated and how lenders use it to assess affordability.',
     category: 'basics',
-    relatedSlugs: ['what-is-mortgage-principal', 'what-is-interest-rate', 'what-is-escrow', 'what-is-dti'],
+    relatedSlugs: ['what-is-a-mortgage-payment', 'what-is-mortgage-principal', 'what-is-interest-rate', 'what-is-escrow', 'what-is-dti'],
     keywords: ['piti', 'principal interest taxes insurance', 'housing payment'],
   },
   {
@@ -132,7 +132,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is Amortization',
     description: 'How loan principal and interest are paid over time. Understand amortization schedules.',
     category: 'basics',
-    relatedSlugs: ['what-is-mortgage-principal', 'what-is-loan-term', 'what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points'],
+    relatedSlugs: ['what-is-a-mortgage-payment', 'what-is-mortgage-principal', 'what-is-loan-term', 'what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-mortgage-points'],
   },
   {
     slug: 'what-is-loan-term',
@@ -154,7 +154,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is Escrow',
     description: 'Escrow holds funds for property taxes and insurance. Learn how mortgage escrow accounts work.',
     category: 'costs',
-    relatedSlugs: ['what-is-piti', 'what-is-closing-costs', 'what-is-mortgage-insurance', 'what-is-loan-estimate', 'what-is-pmi'],
+    relatedSlugs: ['what-is-a-mortgage-payment', 'what-is-a-mortgage-servicer', 'what-is-piti', 'what-is-closing-costs', 'what-is-mortgage-insurance', 'what-is-loan-estimate', 'what-is-pmi'],
     keywords: ['escrow', '에스크로', 'escrow account'],
   },
   {
@@ -162,7 +162,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is a Loan Estimate',
     description: 'The standardized form lenders provide within 3 days of application. Understand its sections.',
     category: 'process',
-    relatedSlugs: ['loan-estimate-explained', 'what-is-closing-disclosure', 'what-is-closing-costs', 'what-is-apr', 'what-is-rate-lock'],
+    relatedSlugs: ['what-is-a-mortgage-broker', 'loan-estimate-explained', 'what-is-closing-disclosure', 'what-is-closing-costs', 'what-is-apr', 'what-is-rate-lock'],
   },
   {
     slug: 'what-is-closing-disclosure',
@@ -176,14 +176,14 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'Mortgage Pre-Approval',
     description: 'Pre-approval means a lender has reviewed your finances and conditionally approved a loan amount.',
     category: 'credit',
-    relatedSlugs: ['prequalify', 'mortgage-application-process', 'credit-score-for-mortgage', 'first-time-home-buyer'],
+    relatedSlugs: ['mortgage-pre-approval-vs-pre-qualification', 'prequalify', 'mortgage-application-process', 'credit-score-for-mortgage', 'first-time-home-buyer'],
   },
   {
     slug: 'mortgage-application-process',
     title: 'Mortgage Application Process',
     description: 'Steps from pre-approval to closing. Understand Loan Estimate, underwriting, and what to expect.',
     category: 'process',
-    relatedSlugs: ['mortgage-pre-approval', 'mortgage-underwriting-explained', 'what-is-loan-estimate', 'mortgage-closing-process'],
+    relatedSlugs: ['what-is-a-mortgage-lender', 'mortgage-pre-approval', 'mortgage-underwriting-explained', 'what-is-loan-estimate', 'mortgage-closing-process'],
   },
   {
     slug: 'mortgage-underwriting-explained',
@@ -211,7 +211,47 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'Mortgage Closing Process',
     description: 'What happens at closing: signing documents, funding the loan, and taking ownership.',
     category: 'process',
-    relatedSlugs: ['closing-disclosure-explained', 'mortgage-application-process', 'what-is-closing-disclosure', 'what-is-closing-costs'],
+    relatedSlugs: ['what-is-a-mortgage-servicer', 'closing-disclosure-explained', 'mortgage-application-process', 'what-is-closing-disclosure', 'what-is-closing-costs'],
+  },
+  {
+    slug: 'what-is-a-mortgage-servicer',
+    title: 'What Is a Mortgage Servicer',
+    description: 'The servicer collects payments, manages escrow, and handles customer service. Learn how servicing works and your rights under CFPB rules.',
+    category: 'process',
+    relatedSlugs: ['what-is-a-mortgage-lender', 'what-is-a-mortgage', 'what-is-escrow', 'mortgage-closing-process', 'how-mortgages-work'],
+    keywords: ['mortgage servicer', 'servicing', 'loan servicer'],
+  },
+  {
+    slug: 'what-is-a-mortgage-lender',
+    title: 'What Is a Mortgage Lender',
+    description: 'The lender funds your loan. Learn how lenders differ from brokers and servicers, and how to compare and choose one.',
+    category: 'basics',
+    relatedSlugs: ['what-is-a-mortgage-broker', 'what-is-a-mortgage-servicer', 'what-is-a-mortgage', 'mortgage-application-process'],
+    keywords: ['mortgage lender', 'lender', 'loan originator'],
+  },
+  {
+    slug: 'what-is-a-mortgage-broker',
+    title: 'What Is a Mortgage Broker',
+    description: 'A broker connects borrowers with lenders. Learn how brokers work, how they are compensated, and when using one may make sense.',
+    category: 'basics',
+    relatedSlugs: ['what-is-a-mortgage-lender', 'what-is-loan-estimate', 'mortgage-application-process', 'prequalify'],
+    keywords: ['mortgage broker', 'broker', 'loan broker'],
+  },
+  {
+    slug: 'mortgage-pre-approval-vs-pre-qualification',
+    title: 'Mortgage Pre-Approval vs Pre-Qualification',
+    description: 'Pre-approval and prequalification both estimate how much you can borrow. Learn the key differences and when each matters.',
+    category: 'credit',
+    relatedSlugs: ['mortgage-pre-approval', 'prequalify', 'mortgage-application-process', 'first-time-home-buyer'],
+    keywords: ['pre-approval vs prequalification', 'preapproval', 'prequalification'],
+  },
+  {
+    slug: 'what-is-a-mortgage-payment',
+    title: 'What Is a Mortgage Payment',
+    description: 'A mortgage payment typically includes principal, interest, taxes, and insurance (PITI). Learn how payments are calculated and what to expect.',
+    category: 'basics',
+    relatedSlugs: ['what-is-piti', 'what-is-mortgage-principal', 'what-is-amortization', 'what-is-escrow'],
+    keywords: ['mortgage payment', 'monthly payment', 'PITI'],
   },
   // Loan Types
   {
@@ -291,7 +331,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'First Time Home Buyer Guide',
     description: 'Steps, programs, and tips for first-time homebuyers.',
     category: 'home-buying',
-    relatedSlugs: ['fha-loan', 'what-is-dti', 'what-is-ltv', 'prequalify'],
+    relatedSlugs: ['mortgage-pre-approval-vs-pre-qualification', 'fha-loan', 'what-is-dti', 'what-is-ltv', 'prequalify'],
   },
   {
     slug: 'find-the-right-loan',
@@ -372,7 +412,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'Mortgage Prequalification',
     description: 'Learn about prequalification, what it means, and how it helps you understand your options.',
     category: 'credit',
-    relatedSlugs: ['what-is-dti', 'first-time-home-buyer', 'self-employed-borrower', 'find-the-right-loan'],
+    relatedSlugs: ['mortgage-pre-approval-vs-pre-qualification', 'what-is-dti', 'first-time-home-buyer', 'self-employed-borrower', 'find-the-right-loan'],
   },
   {
     slug: 'self-employed-borrower',
