@@ -4,6 +4,7 @@ import RelatedLinks from '@/components/RelatedLinks';
 import { RelatedGuides, buildGuideBreadcrumbs } from '@/components/mortgage-guides';
 import { getArticle, getCategory } from '@/lib/mortgage-guides';
 import { StructuredData, buildBreadcrumbSchema, buildArticleSchema, buildFAQSchema } from '@/components/StructuredData';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -52,7 +53,22 @@ const FAQ_ITEMS = [
   {
     question: 'Who pays closing costs?',
     answer:
-      'In many cases, buyers pay most closing costs, but sellers may pay some costs through concessions depending on negotiation and program rules. Lenders may also provide credits tied to pricing.',
+      'In many cases, buyers pay most closing costs, but sellers may pay some costs through concessions depending on negotiation and program rules. Lenders may also provide credits tied to pricing. See Who Pays Closing Costs.',
+  },
+  {
+    question: 'What is the average closing cost in the U.S.?',
+    answer:
+      'Closing costs typically range from 2% to 5% of the loan amount. A $300,000 loan might have $6,000 to $15,000 in closing costs. Actual amounts vary by location, loan type, and lender.',
+  },
+  {
+    question: 'Can I reduce my closing costs?',
+    answer:
+      'Some fees are negotiable. Lender credits can offset costs in exchange for a higher interest rate. Mortgage points can lower your rate but increase upfront costs. Compare Loan Estimates from multiple lenders. See What Are Mortgage Points.',
+  },
+  {
+    question: 'Are prepaid items part of closing costs?',
+    answer:
+      'Yes. Prepaid interest, homeowner insurance premiums, and initial escrow deposits for taxes and insurance appear on the Loan Estimate and Closing Disclosure. They are required at closing but are separate from lender and third-party fees.',
   },
 ];
 
@@ -88,12 +104,13 @@ export default function WhatIsClosingCostsPage() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
           <p className="text-gray-700 mb-4">
-            Many first-time homebuyers focus on the home price and interest rate, but a mortgage also includes additional costs at closing.
-            These costs are called <strong>closing costs</strong>, and they can materially affect how much cash is needed to complete the transaction.
+            Many first-time homebuyers focus on the home price and <Link href="/mortgage/what-is-interest-rate" className="text-primary hover:underline font-medium">interest rate</Link>, but a mortgage also includes additional costs at closing. These costs are called <strong>closing costs</strong>, and they can materially affect how much cash is needed to complete the transaction.
+          </p>
+          <p className="text-gray-700 mb-4">
+            U.S. consumer protection rules (including TRID disclosures overseen by the CFPB) require lenders to present estimated and final costs in standardized forms so borrowers can review and compare loan offers more consistently. Your <strong>Loan Estimate</strong> shows your <strong>loan amount</strong>, <strong>interest rate</strong>, <strong>mortgage payment</strong>, and closing costs within three business days of applying.
           </p>
           <p className="text-gray-700">
-            U.S. consumer protection rules (including TRID disclosures overseen by the CFPB) require lenders to present estimated and final costs
-            in standardized forms so borrowers can review and compare loan offers more consistently.
+            The <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">APR (Annual Percentage Rate)</Link> on the Loan Estimate reflects the cost of credit, including some fees. Use it alongside the interest rate and closing costs when comparing offers.
           </p>
         </section>
 
@@ -105,7 +122,7 @@ export default function WhatIsClosingCostsPage() {
           </p>
           <p className="text-gray-700 mb-4">Common categories include:</p>
           <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
-            <li><strong>Lender/origination charges</strong> (processing, underwriting, points/credits)</li>
+            <li><strong>Lender/origination charges</strong> (processing, underwriting, <Link href="/mortgage/what-is-mortgage-points" className="text-primary hover:underline font-medium">mortgage points</Link>/credits)</li>
             <li><strong>Third-party services</strong> (appraisal, title search, title insurance, settlement/escrow)</li>
             <li><strong>Government fees</strong> (recording fees, transfer taxes where applicable)</li>
             <li><strong>Prepaids</strong> (prepaid interest, insurance premiums)</li>
@@ -127,29 +144,108 @@ export default function WhatIsClosingCostsPage() {
             and by how much (tolerances). If a lender issues a revised Loan Estimate due to a valid “changed circumstance,” updated estimates may apply.
           </p>
           <p className="text-gray-700">
-            Closing costs vary by loan type, location, property details, and lender. Because they include third-party services, some items may be shoppable,
-            while others are selected by the lender or required by law.
+            Closing costs vary by loan type, location, property details, and lender. Your <Link href="/mortgage/what-is-loan-term" className="text-primary hover:underline font-medium">loan term</Link> affects your monthly payment; closing costs are separate and due at closing. Because they include third-party services, some items may be shoppable, while others are selected by the lender or required by law.
+          </p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Closing Costs Breakdown</h2>
+          <p className="text-gray-700 mb-4">
+            Closing costs fall into several categories. Your Loan Estimate and Closing Disclosure list each fee. Understanding what each category covers helps you review your costs and compare offers.
+          </p>
+          <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm mb-4">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Fee Category</th>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">What It Covers</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 bg-white">
+                <tr>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">Lender fees</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Origination, processing, underwriting. Covers the cost of evaluating your application and preparing the loan. May include discount <Link href="/mortgage/what-is-mortgage-points" className="text-primary hover:underline font-medium">mortgage points</Link>.</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">Appraisal</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Professional valuation of the property. The lender orders it to verify the home supports the loan amount.</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">Title search and insurance</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Title search checks for liens and ownership issues. Title insurance protects the lender (and optionally you) if a defect appears later.</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">Escrow / settlement</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">The closing agent coordinates the signing, disburses funds, and records the deed. Fees vary by provider and location.</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">Government fees</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Recording fees to file the deed and mortgage with the county. Some areas have transfer taxes; who pays varies.</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-900">Prepaid items</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Prepaid interest (from closing to first payment), homeowner insurance, and initial escrow deposits for taxes and insurance.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-gray-600 text-sm italic">Fees vary by lender, location, and loan type. Your Loan Estimate shows the breakdown for your transaction.</p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Buyer vs Seller Closing Costs</h2>
+          <p className="text-gray-700 mb-4">
+            Who pays which closing costs depends on local custom, negotiation, and sometimes program rules. This is a general overview; practices vary by market and state.
+          </p>
+          <p className="text-gray-700 mb-4">
+            <strong>Buyers typically pay:</strong> Lender fees (origination, processing, underwriting), appraisal, credit report, and often the lender&apos;s title policy. Buyers also pay prepaid interest, homeowner insurance, and initial escrow deposits. Recording fees are often split or paid by the buyer.
+          </p>
+          <p className="text-gray-700 mb-4">
+            <strong>Sellers typically pay:</strong> Real estate commissions (usually the largest cost), transfer taxes in some areas, and sometimes the owner&apos;s title policy or a portion of title costs. In some markets, sellers contribute to buyer closing costs as a concession.
+          </p>
+          <p className="text-gray-700 mb-4">
+            <strong>Negotiation:</strong> The purchase contract can specify who pays what. Seller concessions (seller-paid closing costs) are common when negotiated. Program rules (e.g., FHA, VA) may limit how much the seller can contribute. See <Link href="/mortgage/who-pays-closing-costs" className="text-primary hover:underline font-medium">Who Pays Closing Costs</Link> and <Link href="/mortgage/seller-paid-closing-costs-explained" className="text-primary hover:underline font-medium">Seller Paid Closing Costs Explained</Link>.
+          </p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Average Closing Costs in the U.S.</h2>
+          <p className="text-gray-700 mb-4">
+            Closing costs typically range from <strong>2% to 5%</strong> of the loan amount. On a $300,000 loan, that could mean roughly $6,000 to $15,000. Actual amounts vary widely.
+          </p>
+          <p className="text-gray-700 mb-4">
+            <strong>What affects the total:</strong> Location (title and recording fees vary by county and state), loan type (FHA and VA have upfront fees; conventional varies), property value, and lender pricing. The interest rate you choose also matters—paying <Link href="/mortgage/what-is-mortgage-points" className="text-primary hover:underline font-medium">mortgage points</Link> increases upfront costs but can lower your rate. Lender credits do the opposite: they reduce closing costs but raise the rate.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Your <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">APR (Annual Percentage Rate)</Link> on the Loan Estimate reflects the cost of credit, including some fees. Use it alongside the <Link href="/mortgage/what-is-interest-rate" className="text-primary hover:underline font-medium">interest rate</Link> and total closing costs to compare offers.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Example Scenario</h2>
           <p className="text-gray-700 mb-4">
-            A borrower buying a home might see these simplified estimates on a Loan Estimate:
+            Alex is buying a $350,000 home with a 10% down payment. The <strong>loan amount</strong> is $315,000. Alex selects a 30-year <Link href="/mortgage/what-is-loan-term" className="text-primary hover:underline font-medium">loan term</Link> at 6.5% <Link href="/mortgage/what-is-interest-rate" className="text-primary hover:underline font-medium">interest rate</Link>. Here is a simplified estimated breakdown:
           </p>
           <div className="bg-gray-50 rounded-lg p-6 border border-gray-200 mb-4">
             <ul className="text-gray-700 space-y-1">
               <li>Home price: $350,000</li>
               <li>Down payment: $35,000</li>
-              <li>Estimated loan costs (origination + services): $4,500</li>
-              <li>Estimated other costs (taxes, government, prepaids): $3,500</li>
+              <li>Loan amount: $315,000</li>
+              <li>Lender fees (origination, processing, underwriting): $2,100</li>
+              <li>Appraisal: $550</li>
+              <li>Title search and insurance: $1,850</li>
+              <li>Escrow / settlement: $650</li>
+              <li>Government fees (recording): $225</li>
+              <li>Prepaid interest (approx. 15 days): $850</li>
+              <li>Homeowner insurance (first year): $1,200</li>
+              <li>Initial escrow deposit (taxes/insurance): $1,800</li>
             </ul>
-            <p className="text-gray-700 mt-3">
-              Estimated closing costs in this example would be about <strong>$8,000</strong>, separate from the down payment. The final amounts are shown on the Closing Disclosure.
+            <p className="text-gray-700 mt-4 font-medium">
+              Estimated total closing costs: about <strong>$9,775</strong>. Cash to close: down payment ($35,000) + closing costs ($9,775) = <strong>$44,775</strong> (minus any credits).
             </p>
           </div>
           <p className="text-gray-700">
-            This is a simplified illustration. Actual closing costs vary by loan type, location, and transaction specifics.
+            This is a simplified illustration. Actual closing costs vary by loan type, location, and transaction specifics. The final amounts appear on the Closing Disclosure.
           </p>
         </section>
 
@@ -184,7 +280,7 @@ export default function WhatIsClosingCostsPage() {
             </li>
             <li>
               <strong className="text-gray-900">Mistake 2: Only comparing interest rates</strong>
-              <p className="text-gray-700 mt-1">Fees and credits can meaningfully change the total cost of borrowing.</p>
+              <p className="text-gray-700 mt-1">Fees and credits can meaningfully change the total cost of borrowing. Compare the <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">APR (Annual Percentage Rate)</Link> and <Link href="/mortgage/what-is-interest-rate" className="text-primary hover:underline font-medium">interest rate</Link> across offers, along with total closing costs.</p>
             </li>
             <li>
               <strong className="text-gray-900">Mistake 3: Ignoring “prepaids”</strong>
@@ -217,10 +313,10 @@ export default function WhatIsClosingCostsPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Sources</h2>
           <p className="text-gray-700 mb-4">This guide is based on publicly available consumer education and regulatory resources, including:</p>
           <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
-            <li>Consumer Financial Protection Bureau (CFPB)</li>
-            <li>U.S. Department of Housing and Urban Development (HUD)</li>
-            <li>Truth in Lending Act (TILA)</li>
-            <li>RESPA and TRID disclosure resources</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Loan Estimate and Closing Disclosure (TRID)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Truth in Lending Act (TILA)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Real Estate Settlement Procedures Act (RESPA)</li>
+            <li>U.S. Department of Housing and Urban Development (HUD) – Buying a home</li>
           </ul>
           <p className="text-gray-700 mb-4">Additional resources:</p>
           <ul className="list-disc list-inside text-gray-700 space-y-1">

@@ -147,7 +147,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What are Closing Costs',
     description: 'Fees and prepaid items paid to finalize a mortgage. Learn what\'s included and how to review them.',
     category: 'costs',
-    relatedSlugs: ['what-is-loan-estimate', 'what-is-closing-disclosure', 'what-is-escrow', 'what-is-mortgage-insurance', 'what-is-mortgage-points', 'what-is-apr', 'what-is-an-appraisal-fee', 'what-is-a-credit-report-fee', 'what-is-a-title-insurance-fee', 'what-is-a-recording-fee'],
+    relatedSlugs: ['prepaid-costs-vs-closing-costs', 'who-pays-closing-costs-home-purchase', 'how-to-reduce-closing-costs-legally', 'what-is-loan-estimate', 'what-is-closing-disclosure', 'what-is-escrow', 'what-is-mortgage-insurance', 'what-is-mortgage-points', 'what-is-apr', 'what-is-an-appraisal-fee', 'what-is-a-credit-report-fee', 'what-is-a-title-insurance-fee', 'what-is-a-recording-fee'],
   },
   {
     slug: 'what-is-escrow',
@@ -964,7 +964,28 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'Who Pays Closing Costs',
     description: 'Buyers typically pay most closing costs; sellers may contribute. Learn how it works.',
     category: 'costs',
-    relatedSlugs: ['seller-paid-closing-costs-explained', 'what-is-closing-costs', 'mortgage-closing-cost-breakdown'],
+    relatedSlugs: ['who-pays-closing-costs-home-purchase', 'seller-paid-closing-costs-explained', 'what-is-closing-costs', 'mortgage-closing-cost-breakdown'],
+  },
+  {
+    slug: 'prepaid-costs-vs-closing-costs',
+    title: 'What Are Prepaid Costs vs Closing Costs',
+    description: 'Prepaid costs and closing costs both appear at closing. Learn the difference and how they affect cash to close.',
+    category: 'costs',
+    relatedSlugs: ['what-is-closing-costs', 'what-is-escrow', 'what-is-loan-estimate', 'what-is-closing-disclosure'],
+  },
+  {
+    slug: 'who-pays-closing-costs-home-purchase',
+    title: 'Who Pays Closing Costs in a Home Purchase',
+    description: 'In a home purchase, buyers typically pay most closing costs; sellers may contribute. Learn who pays what and how to negotiate.',
+    category: 'costs',
+    relatedSlugs: ['what-is-closing-costs', 'who-pays-closing-costs', 'seller-paid-closing-costs-explained', 'what-is-closing-disclosure'],
+  },
+  {
+    slug: 'how-to-reduce-closing-costs-legally',
+    title: 'How to Reduce Closing Costs Legally',
+    description: 'Legal strategies to reduce mortgage closing costs: shop lenders, negotiate fees, use lender credits, and request seller concessions.',
+    category: 'costs',
+    relatedSlugs: ['what-is-closing-costs', 'mortgage-lender-credits-explained', 'seller-paid-closing-costs-explained', 'who-pays-closing-costs'],
   },
   {
     slug: 'seller-paid-closing-costs-explained',
