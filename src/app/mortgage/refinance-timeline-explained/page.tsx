@@ -58,6 +58,45 @@ export default function RefinanceTimelineExplainedPage() {
           </p>
         </section>
 
+        {/* Design object 1: Timeline phases table */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Typical Refinance Timeline Phases</h2>
+          <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Phase</th>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Typical Duration</th>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Key Milestone</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 bg-white">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Application to Loan Estimate</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Within 3 business days</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">TRID requirement</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Document submission & underwriting</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">1–2 weeks</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Loan amount, rate verified</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Appraisal (if required)</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">5–10 days</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">LTV established</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Clear to close → Closing Disclosure</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">3+ business days before closing</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">TRID requirement</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-gray-600 text-sm mt-3 italic">Total: typically 30–45 days. Streamline programs may be faster. Your Loan Estimate shows loan amount, interest rate, mortgage payment, and closing costs.</p>
+        </section>
+
         {/* What This Means */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">What This Means</h2>
@@ -83,7 +122,7 @@ export default function RefinanceTimelineExplainedPage() {
             <li><strong>Rate lock:</strong> You lock your rate to protect against market changes. Lock terms vary; 30–45 days is common.</li>
             <li><strong>Document submission:</strong> You provide pay stubs, tax returns, bank statements, and other items the lender requests. The sooner you respond, the faster underwriting can proceed.</li>
             <li><strong>Underwriting:</strong> The lender reviews your file, verifies income and assets, and may issue conditions (additional documents or explanations).</li>
-            <li><strong>Appraisal (if required):</strong> For most non-streamline refinances, an appraiser visits the property to confirm value. This can add several days to the timeline.</li>
+            <li><strong>Appraisal (if required):</strong> For most non-streamline refinances, an appraiser visits the property to confirm value for LTV. This can add several days to the timeline. See <Link href="/mortgage/refinance-appraisal-requirements" className="text-primary hover:underline font-medium">Refinance Appraisal Requirements</Link>.</li>
             <li><strong>Clear to close:</strong> Once all conditions are satisfied, the lender approves the loan and prepares closing documents.</li>
             <li><strong>Closing:</strong> You sign the Closing Disclosure and other documents. Under TRID, you must receive the Closing Disclosure at least 3 business days before closing.</li>
             <li><strong>Funding:</strong> The lender wires funds to pay off your old loan. Your new <strong>mortgage payment</strong> typically begins the following month.</li>
@@ -110,17 +149,27 @@ export default function RefinanceTimelineExplainedPage() {
           </p>
         </section>
 
-        {/* Why This Matters for Homebuyers */}
+        {/* Design object 2: Key takeaway callout */}
+        <div className="mb-10 rounded-xl border-l-4 border-teal-500 bg-teal-50/80 p-5 shadow-sm">
+          <h3 className="text-lg font-bold text-teal-900 mb-2">Key Takeaway</h3>
+          <p className="text-teal-800 text-[15px] leading-relaxed">
+            A typical refinance takes <strong>30–45 days</strong> from application to funding. You receive a <strong>Loan Estimate</strong> within 3 business days (TRID)
+            and a Closing Disclosure at least 3 business days before closing. Your <strong>rate lock</strong> (often 30–60 days) protects your{' '}
+            <strong>interest rate</strong>. Respond quickly to document requests to stay on track. Streamline programs may close in 2–3 weeks.
+          </p>
+        </div>
+
+        {/* Why This Matters for Homeowners */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Why This Matters for Homebuyers</h2>
           <p className="text-gray-700 mb-4">
             If you are considering a refinance—whether you bought your home recently or years ago—understanding the timeline helps you plan. You may want to refinance before a rate lock expires, before an adjustable rate resets, or to lower your payment before a major expense. Knowing that a typical refinance takes 30–45 days (or less for streamline programs) helps you decide when to start.
           </p>
           <p className="text-gray-700 mb-4">
-            The timeline also affects your <strong>closing costs</strong>. Some costs are incurred during the process (appraisal, credit report, etc.). If you refinance again soon after, you may pay these costs twice. Calculating your <Link href="/mortgage/refinance-break-even-point-explained" className="text-primary hover:underline font-medium">refinance break-even point</Link>—how long it takes for monthly savings to offset <strong>closing costs</strong>—can help you decide if refinancing makes sense for your situation.
+            The timeline also affects your <strong>closing costs</strong>. Some costs are incurred during the process (appraisal, credit report, etc.). If you refinance again soon after, you may pay these costs twice. Calculating your <Link href="/mortgage/refinance-break-even-point-explained" className="text-primary hover:underline font-medium">refinance break-even point</Link>—how long it takes for monthly savings to offset <strong>closing costs</strong>—can help you decide if refinancing makes sense. See <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">What Is APR</Link> and <Link href="/mortgage/what-is-dti" className="text-primary hover:underline font-medium">What Is DTI</Link> when comparing offers.
           </p>
           <p className="text-gray-700">
-            First-time homebuyers who later refinance will go through a similar process to their purchase: application, disclosures, underwriting, and closing. The main difference is that you are replacing an existing loan rather than financing a new purchase. The regulatory framework (TILA, RESPA, TRID) applies in both cases.
+            First-time homebuyers who later refinance will go through a similar process to their purchase: application, disclosures, underwriting, and closing. The main difference is that you are replacing an existing loan rather than financing a new purchase. The regulatory framework (TILA, RESPA, TRID) applies in both cases. See <Link href="/mortgage/what-is-amortization" className="text-primary hover:underline font-medium">What Is Amortization</Link> when comparing your new loan term.
           </p>
         </section>
 
@@ -158,6 +207,7 @@ export default function RefinanceTimelineExplainedPage() {
             <li><strong>Ignoring the rate lock:</strong> Know when your lock expires. If you are close to the deadline, ask your lender about extension options.</li>
             <li><strong>Making big financial changes during the process:</strong> Avoid large new debts, job changes, or big withdrawals from accounts. Lenders may re-verify and that can delay or complicate approval.</li>
             <li><strong>Assuming streamline is always faster:</strong> Streamline programs can be quicker, but lender volume and document requirements still affect the timeline.</li>
+            <li><strong>Not reviewing the Loan Estimate and Closing Disclosure:</strong> TRID requires both forms. Compare them before closing—your <strong>loan amount</strong>, <strong>interest rate</strong>, <strong>mortgage payment</strong>, and <strong>closing costs</strong> should match your expectations. See <Link href="/mortgage/what-is-ltv" className="text-primary hover:underline font-medium">What Is LTV</Link> and <Link href="/mortgage/what-is-mortgage-principal" className="text-primary hover:underline font-medium">What Is Mortgage Principal</Link>.</li>
           </ul>
         </section>
 
@@ -176,9 +226,13 @@ export default function RefinanceTimelineExplainedPage() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Sources</h2>
           <ul className="list-disc list-inside text-gray-700 space-y-1 text-sm">
-            <li>Consumer Financial Protection Bureau (CFPB) – TILA-RESPA Integrated Disclosure (TRID) rules</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Loan Estimate and Closing Disclosure (TRID)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Truth in Lending Act (TILA)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Real Estate Settlement Procedures Act (RESPA)</li>
             <li>U.S. Department of Housing and Urban Development (HUD) – FHA streamline refinance guidelines</li>
             <li>U.S. Department of Veterans Affairs (VA) – VA IRRRL program information</li>
+            <li>Fannie Mae – Selling Guide (refinance timeline and process)</li>
+            <li>Freddie Mac – Single-Family Seller/Servicer Guide (refinance)</li>
           </ul>
         </section>
 
