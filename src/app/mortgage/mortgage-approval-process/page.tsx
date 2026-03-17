@@ -33,17 +33,17 @@ const FAQ_ITEMS = [
   {
     question: 'What is conditional approval?',
     answer:
-      'Conditional approval means the lender has approved you subject to certain conditions—for example, providing additional documents, a satisfactory appraisal, or clearing title issues. Once conditions are met, you may receive clear to close.',
+      'Conditional approval means the lender has approved you subject to certain conditions—for example, providing additional documents, a satisfactory appraisal, or clearing title issues. Once conditions are met, you may receive clear to close. Your loan amount, interest rate, and mortgage payment are typically set at this stage.',
   },
   {
     question: 'What is clear to close?',
     answer:
-      'Clear to close means the lender has approved the loan and all conditions have been satisfied. You can proceed to closing. You will receive the Closing Disclosure and schedule the signing.',
+      'Clear to close means the lender has approved the loan and all conditions have been satisfied. You can proceed to closing. You will receive the Closing Disclosure at least 3 business days before closing. Review it and compare to your Loan Estimate.',
   },
   {
     question: 'How long does mortgage approval take?',
     answer:
-      'From application to conditional approval often takes one to two weeks. Final approval (clear to close) depends on how quickly conditions are met—typically a few days to a week after conditional approval.',
+      'From application to conditional approval often takes one to two weeks. Final approval (clear to close) depends on how quickly conditions are met—typically a few days to a week after conditional approval. Total application to closing is often 30–45 days.',
   },
   {
     question: 'Can my approval be denied after conditional approval?',
@@ -53,7 +53,12 @@ const FAQ_ITEMS = [
   {
     question: 'What should I avoid after conditional approval?',
     answer:
-      'Avoid major purchases, new credit, job changes, or large deposits that cannot be explained. These can affect your qualification and delay or derail approval.',
+      'Avoid major purchases, new credit, job changes, or large deposits that cannot be explained. These can affect your qualification and delay or derail approval. Your lender may perform a final verification before closing.',
+  },
+  {
+    question: 'How does approval affect my Loan Estimate?',
+    answer:
+      'Under TRID, your Loan Estimate shows the loan amount, interest rate, mortgage payment, and closing costs. If underwriting finds different information, the lender may issue a revised Loan Estimate. Your final numbers appear on the Closing Disclosure.',
   },
 ];
 
@@ -86,88 +91,180 @@ export default function MortgageApprovalProcessPage() {
           This content is provided for general educational purposes only and does not constitute financial, legal, or mortgage advice.
         </p>
 
+        {/* Introduction */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
           <p className="text-gray-700 mb-4">
-            The <strong>mortgage approval process</strong> moves from application through underwriting to conditional approval, then final approval (clear to close). Understanding each stage helps you know what to expect, when to provide documents, and what to avoid during the process.
+            The <strong>mortgage approval process</strong> moves from application through <strong>underwriting</strong> to
+            conditional approval, then final approval (clear to close). Understanding each stage helps you know what to
+            expect, when to provide documents, and what to avoid. Your <strong>loan amount</strong>,{' '}
+            <strong>interest rate</strong>, and <strong>mortgage payment</strong> are typically set at conditional
+            approval—but they can change if conditions are not met or if the lender finds new information.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Under TRID (TILA-RESPA Integrated Disclosure), your <strong>Loan Estimate</strong> shows the estimated terms
+            and <strong>closing costs</strong> early in the process. Your Closing Disclosure—at least 3 business days
+            before closing—shows the final numbers. See <Link href="/mortgage/mortgage-application-process" className="text-primary hover:underline font-medium">Mortgage Application Process</Link> and{' '}
+            <Link href="/mortgage/mortgage-underwriting-explained" className="text-primary hover:underline font-medium">Mortgage Underwriting Explained</Link>.
+          </p>
+        </section>
+
+        {/* What This Means */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">What This Means</h2>
+          <p className="text-gray-700 mb-4">
+            <strong>Conditional approval</strong> means the lender has approved you subject to conditions—appraisal,
+            title, additional documents, or verifications. Your <strong>loan amount</strong> and{' '}
+            <strong>interest rate</strong> are typically locked at this stage unless something changes. <strong>Clear to
+            close</strong> means all conditions are satisfied and you can proceed to closing.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Approval can be withdrawn if conditions are not met—for example, a low appraisal, a change in your financial
+            situation, or new credit issues. The TILA (Truth in Lending Act) and RESPA (Real Estate Settlement
+            Procedures Act) require accurate disclosure of the cost of credit. Your <strong>Loan Estimate</strong> and
+            Closing Disclosure reflect the terms at each stage. See <Link href="/mortgage/what-is-dti" className="text-primary hover:underline font-medium">What Is DTI</Link>,{' '}
+            <Link href="/mortgage/what-is-ltv" className="text-primary hover:underline font-medium">What Is LTV</Link>, and{' '}
+            <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">What Is APR</Link>.
+          </p>
+        </section>
+
+        {/* Design object 1: Approval stages visual */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Approval Stages</h2>
+          <div className="grid gap-3">
+            {[
+              { label: 'Application', desc: 'Documents submitted; underwriting begins' },
+              { label: 'Underwriting', desc: 'Lender evaluates credit, income, assets, property' },
+              { label: 'Conditional approval', desc: 'Approved subject to appraisal, title, docs' },
+              { label: 'Conditions satisfied', desc: 'You provide requested items' },
+              { label: 'Clear to close', desc: 'All conditions met; Closing Disclosure sent' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-violet-100 text-violet-700 font-bold text-sm flex items-center justify-center">
+                  {i + 1}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">{item.label}</h3>
+                  <p className="text-sm text-gray-600">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
+          <p className="text-gray-700 mb-4">
+            After you apply, the lender begins <strong>underwriting</strong>—evaluating your credit, income, assets,{' '}
+            <Link href="/mortgage/what-is-dti" className="text-primary hover:underline font-medium">DTI</Link>, and the
+            property. They order an appraisal and title search. When the initial review is complete, they may issue
+            <strong> conditional approval</strong>—approval subject to conditions such as: appraisal satisfactory to
+            the lender, title clear, additional documentation (e.g., letter of explanation, updated bank statement), or
+            verification of employment.
+          </p>
+          <p className="text-gray-700 mb-4">
+            You respond to condition requests. Once all conditions are satisfied, the lender issues <strong>clear to
+            close</strong>. You receive the Closing Disclosure at least 3 business days before closing. Review it and
+            compare to your <strong>Loan Estimate</strong>. At closing, you sign the mortgage documents and the loan
+            funds. See <Link href="/mortgage/mortgage-closing-process" className="text-primary hover:underline font-medium">Mortgage Closing Process</Link>,{' '}
+            <Link href="/mortgage/what-is-mortgage-principal" className="text-primary hover:underline font-medium">What Is Mortgage Principal</Link>, and{' '}
+            <Link href="/mortgage/what-is-amortization" className="text-primary hover:underline font-medium">What Is Amortization</Link>.
           </p>
           <p className="text-gray-700">
-            This guide explains conditional approval, final approval, clear to close, and what happens if conditions are not met.
+            The <strong>mortgage payment</strong> and <strong>closing costs</strong> on your Loan Estimate are based on
+            the information at application. If underwriting finds different income or a lower appraisal, your terms
+            could change. See <Link href="/mortgage/what-is-interest-rate" className="text-primary hover:underline font-medium">What Is Interest Rate</Link>.
           </p>
         </section>
 
+        {/* Realistic Example Scenario */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Stages of Mortgage Approval</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Realistic Example Scenario</h2>
           <p className="text-gray-700 mb-4">
-            Approval typically follows these stages:
+            Taylor applies for a $340,000 loan and receives a <strong>Loan Estimate</strong> within 3 business days:
+            7% <strong>interest rate</strong>, <strong>mortgage payment</strong> of about $2,262 (P&I). Underwriting
+            runs for 10 days. Taylor receives conditional approval—subject to appraisal and title. The appraisal comes
+            in at value; title is clear. Taylor provides a letter of explanation for a large deposit. Conditions are
+            satisfied within 5 days.
           </p>
-          <ol className="list-decimal list-inside text-gray-700 space-y-4">
-            <li>
-              <strong>Application submitted</strong> — You have applied and the lender has received your documents. Underwriting begins.
-            </li>
-            <li>
-              <strong>Underwriting review</strong> — The lender evaluates credit, income, assets, debt, and the property. See{' '}
-              <Link href="/mortgage/mortgage-underwriting-explained" className="text-primary hover:underline font-medium">
-                Mortgage Underwriting Explained
-              </Link>
-            </li>
-            <li>
-              <strong>Conditional approval</strong> — The lender approves you subject to conditions (e.g., appraisal, title, additional documents).
-            </li>
-            <li>
-              <strong>Conditions satisfied</strong> — You submit requested items; appraisal and title are completed.
-            </li>
-            <li>
-              <strong>Clear to close</strong> — All conditions are met. The lender approves the loan for closing. You receive the Closing Disclosure.</li>
-          </ol>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Conditional Approval</h2>
           <p className="text-gray-700 mb-4">
-            <strong>Conditional approval</strong> (or &quot;approval with conditions&quot;) means the lender has approved your application based on the information provided, but certain items must be completed before you can close. Common conditions include:
-          </p>
-          <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
-            <li>Appraisal satisfactory to the lender</li>
-            <li>Title search and insurance clear</li>
-            <li>Additional documentation (e.g., letter of explanation, updated bank statement)</li>
-            <li>Verification of employment (VOE) or other verifications</li>
-          </ul>
-          <p className="text-gray-700">
-            Respond to condition requests promptly. Delays in providing documents can push back your closing date.
+            Taylor receives clear to close. The Closing Disclosure arrives 4 days before closing. The final{' '}
+            <strong>closing costs</strong> are close to the Loan Estimate. Taylor closes on schedule. If the appraisal
+            had come in low, the lender might have reduced the <strong>loan amount</strong> or required a larger down
+            payment—a revised Loan Estimate would have been issued. The example is illustrative.
           </p>
         </section>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Clear to Close</h2>
-          <p className="text-gray-700 mb-4">
-            <strong>Clear to close</strong> means the lender has approved the loan and all conditions have been satisfied. You can proceed to closing. You will receive the Closing Disclosure at least 3 business days before closing. Review it carefully and compare it to your Loan Estimate.
-          </p>
-          <p className="text-gray-700">
-            For more on what happens at closing, see our{' '}
-            <Link href="/mortgage/mortgage-closing-process" className="text-primary hover:underline font-medium">
-              Mortgage Closing Process
-            </Link>
-            {' '}guide.
-          </p>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">What to Avoid After Conditional Approval</h2>
-          <p className="text-gray-700 mb-4">
+        {/* Design object 2: What to avoid callout */}
+        <div className="mb-10 rounded-xl border-l-4 border-rose-400 bg-rose-50/80 p-5 shadow-sm">
+          <h3 className="text-lg font-bold text-rose-900 mb-2">After Conditional Approval: What to Avoid</h3>
+          <p className="text-rose-800 text-[15px] leading-relaxed mb-3">
             Lenders may perform a final credit check or verification before closing. To avoid derailing your approval:
           </p>
-          <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
+          <ul className="text-rose-800 text-[15px] space-y-1 list-disc list-inside">
             <li>Do not make large purchases or open new credit</li>
             <li>Do not change jobs without discussing with your lender</li>
-            <li>Do not make large, unexplained deposits into your bank accounts</li>
+            <li>Do not make large, unexplained deposits</li>
             <li>Do not miss payments on existing debts</li>
           </ul>
-          <p className="text-gray-700">
-            If your situation changes, inform your lender. Transparency helps avoid surprises at closing.
+        </div>
+
+        {/* Why This Matters for Homebuyers */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Why This Matters for Homebuyers</h2>
+          <p className="text-gray-700 mb-4">
+            For first-time homebuyers, conditional approval can feel like the finish line—but it is not. Conditions must
+            be satisfied. Respond promptly to document requests. If the appraisal comes in low, you may need to
+            renegotiate with the seller, bring more money to closing, or walk away. Understanding the process helps
+            you plan.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Your <strong>mortgage payment</strong> and <strong>loan amount</strong> depend on verified information. If
+            underwriting finds different income or a lower appraisal, your terms could change. Stay in contact with your
+            lender. See <Link href="/mortgage/how-dti-affects-mortgage-approval" className="text-primary hover:underline font-medium">How DTI Affects Mortgage Approval</Link> and{' '}
+            <Link href="/mortgage/how-credit-score-affects-mortgage-rates" className="text-primary hover:underline font-medium">How Credit Score Affects Mortgage Rates</Link>.
           </p>
         </section>
 
+        {/* Pros and Cons */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Pros and Cons of Understanding Approval</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Benefits</h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>Know when to provide documents</li>
+                <li>Understand conditional vs. clear to close</li>
+                <li>Avoid actions that derail approval</li>
+                <li>Plan for typical timeline</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Challenges</h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>Approval can be withdrawn if conditions fail</li>
+                <li>Low appraisal can change terms</li>
+                <li>Final verification can uncover issues</li>
+                <li>Timeline varies by lender</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Common Mistakes */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Common Mistakes</h2>
+          <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <li><strong>Not responding to conditions promptly:</strong> Delays can push back your closing. Provide requested documents as soon as possible.</li>
+            <li><strong>Making big financial changes after conditional approval:</strong> New debt, job changes, or large purchases can affect your qualification. Stay stable until closing.</li>
+            <li><strong>Ignoring the Closing Disclosure:</strong> Compare it to your <strong>Loan Estimate</strong>. Ensure the final <strong>loan amount</strong>, <strong>interest rate</strong>, and <strong>closing costs</strong> match what you expect.</li>
+            <li><strong>Assuming conditional approval means approval:</strong> Conditions must be satisfied. A low appraisal or title issue can derail the loan.</li>
+            <li><strong>Not informing your lender of changes:</strong> If your situation changes, tell your lender. Transparency helps avoid surprises at closing.</li>
+          </ul>
+        </section>
+
+        {/* FAQ */}
         <section className="mb-10" aria-label="Frequently asked questions about mortgage approval">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
           <dl className="space-y-4">
@@ -180,11 +277,15 @@ export default function MortgageApprovalProcessPage() {
           </dl>
         </section>
 
+        {/* Sources */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Sources</h2>
-          <p className="text-gray-700 mb-4">This guide is based on publicly available consumer education resources.</p>
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li><a href="https://www.consumerfinance.gov" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">consumerfinance.gov</a></li>
+          <ul className="list-disc list-inside text-gray-700 space-y-1 text-sm">
+            <li>Consumer Financial Protection Bureau (CFPB) – Loan Estimate and Closing Disclosure (TRID)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Truth in Lending Act (TILA)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Real Estate Settlement Procedures Act (RESPA)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Mortgage process and approval</li>
+            <li>Fannie Mae – Selling Guide (underwriting and approval)</li>
           </ul>
         </section>
 
