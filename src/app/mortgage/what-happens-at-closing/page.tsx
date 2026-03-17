@@ -33,22 +33,27 @@ const FAQ_ITEMS = [
   {
     question: 'What documents do I sign at closing?',
     answer:
-      'You typically sign the promissory note (your promise to repay), the deed of trust or mortgage (securing the loan), the Closing Disclosure, and other settlement documents. The closing agent will guide you through each.',
+      'You typically sign the promissory note (your promise to repay), the deed of trust or mortgage (securing the loan), the Closing Disclosure, and other settlement documents. The closing agent will guide you through each. Your Closing Disclosure (TRID) shows your loan amount, interest rate, mortgage payment, and closing costs.',
   },
   {
     question: 'How long does closing take?',
     answer:
-      'The signing often takes 30 to 60 minutes. Funding and recording may happen the same day or the next business day. You receive the keys once the loan is funded and the deed is recorded (for a purchase).',
+      'The signing often takes 30 to 60 minutes. Funding and recording may happen the same day or the next business day. You receive the keys once the loan is funded and the deed is recorded (for a purchase). See Mortgage Funding Process.',
   },
   {
     question: 'What do I need to bring to closing?',
     answer:
-      'Bring a government-issued ID, the Closing Disclosure (if you have it), and a certified or cashier\'s check or wire confirmation for the amount due at closing. Your lender or title company will tell you the exact amount.',
+      'Bring a government-issued ID, the Closing Disclosure (if you have it), and a certified or cashier\'s check or wire confirmation for the amount due at closing. Your lender or title company will tell you the exact amount. Avoid last-minute wire instructions from unknown sources—verify with your title company.',
   },
   {
     question: 'When do I get the keys?',
     answer:
-      'For a purchase, you typically receive the keys after the loan is funded and the deed is recorded. In some states, this happens the same day; in others, it may be the next business day.',
+      'For a purchase, you typically receive the keys after the loan is funded and the deed is recorded. In some states, this happens the same day; in others, it may be the next business day. See What Happens After Closing.',
+  },
+  {
+    question: 'What if the Closing Disclosure differs from my Loan Estimate?',
+    answer:
+      'Under TRID, certain changes between the Loan Estimate and Closing Disclosure can trigger a new 3-day waiting period. Compare the two documents before closing. If you see unexpected changes to your loan amount, interest rate, or closing costs, ask your lender or closing agent for an explanation.',
   },
 ];
 
@@ -86,17 +91,32 @@ export default function WhatHappensAtClosingPage() {
           <p className="text-gray-700 mb-4">
             <strong>Closing</strong> (or settlement) is when you sign the loan documents, the lender funds the loan, and—for a purchase—you receive the keys and become the owner. Understanding what happens at the closing table helps you know what to expect and what to bring.
           </p>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Before You Arrive</h2>
           <p className="text-gray-700 mb-4">
-            You must receive the Closing Disclosure at least 3 business days before closing. Review it and compare it to your Loan Estimate. Confirm the amount you need to bring (cash to close) and how to pay it—certified check, cashier&apos;s check, or wire. Avoid last-minute wire instructions from unknown sources; verify with your title company or lender.
+            Under TILA (Truth in Lending Act), RESPA (Real Estate Settlement Procedures Act), and TRID (TILA-RESPA Integrated Disclosure), you receive a <strong>Closing Disclosure</strong> at least 3 business days before closing. It shows your <strong>loan amount</strong>, <strong>interest rate</strong>, <strong>mortgage payment</strong>, and <strong>closing costs</strong>. Review it and compare it to your Loan Estimate. See{' '}
+            <Link href="/mortgage/what-is-closing-disclosure" className="text-primary hover:underline font-medium">What Is Closing Disclosure</Link>,{' '}
+            <Link href="/mortgage/what-is-closing-costs" className="text-primary hover:underline font-medium">What Is Closing Costs</Link>, and{' '}
+            <Link href="/mortgage/mortgage-closing-process" className="text-primary hover:underline font-medium">Mortgage Closing Process</Link>.
           </p>
         </section>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">What You Sign</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">What This Means</h2>
+          <p className="text-gray-700 mb-4">
+            &quot;What happens at closing&quot; refers to the final step—signing the loan documents, funding, and—for a purchase—receiving the keys. At closing, your <strong>loan amount</strong>, <strong>interest rate</strong>, and <strong>mortgage payment</strong> become final. You sign the promissory note (your promise to repay) and the deed of trust or mortgage (securing the loan with the property).
+          </p>
+          <p className="text-gray-700 mb-4">
+            The closing agent (title company or attorney) coordinates the signing. The lender funds the loan, the deed is recorded, and you receive the keys. After closing, your loan is boarded with the servicer and you set up your <strong>mortgage payment</strong>. See{' '}
+            <Link href="/mortgage/what-is-amortization" className="text-primary hover:underline font-medium">What Is Amortization</Link>,{' '}
+            <Link href="/mortgage/what-is-mortgage-principal" className="text-primary hover:underline font-medium">What Is Mortgage Principal</Link>, and{' '}
+            <Link href="/mortgage/what-happens-after-closing" className="text-primary hover:underline font-medium">What Happens After Closing</Link>.
+          </p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
+          <p className="text-gray-700 mb-4">
+            Before you arrive, you must receive the Closing Disclosure at least 3 business days before closing. Review it and compare it to your Loan Estimate. Confirm the amount you need to bring (cash to close) and how to pay it—certified check, cashier&apos;s check, or wire. Avoid last-minute wire instructions from unknown sources; verify with your title company or lender.
+          </p>
           <p className="text-gray-700 mb-4">
             At closing you typically sign:
           </p>
@@ -106,23 +126,115 @@ export default function WhatHappensAtClosingPage() {
             <li><strong>Closing Disclosure</strong> — Acknowledges receipt of the final terms</li>
             <li><strong>Other documents</strong> — May include affidavits, tax forms, or state-specific forms</li>
           </ul>
-          <p className="text-gray-700">
-            The closing agent (title company or attorney) will walk you through each document. Ask questions if anything is unclear.
+          <p className="text-gray-700 mb-4">
+            After you sign, the lender funds the loan—sending the money to the closing agent. The deed is then recorded with the county. For a purchase, you receive the keys once funding and recording are complete. In some states this happens the same day; in others, the next business day. See{' '}
+            <Link href="/mortgage/mortgage-funding-process" className="text-primary hover:underline font-medium">Mortgage Funding Process</Link>.
+          </p>
+        </section>
+
+        {/* Design object 1: Documents table */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Documents at Closing</h2>
+          <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Document</th>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Purpose</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 bg-white">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Promissory note</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Your promise to repay the loan amount</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Deed of trust / mortgage</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Secures the loan with the property</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Closing Disclosure</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Final loan terms, interest rate, mortgage payment, closing costs</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Deed (purchase)</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Transfers ownership from seller to buyer</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-gray-600 text-sm mt-3 italic">The closing agent will walk you through each document. Ask questions if anything is unclear.</p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Realistic Example Scenario</h2>
+          <p className="text-gray-700 mb-4">
+            Taylor arrives at closing for a $350,000 purchase. The <strong>loan amount</strong> is $315,000 (10% down), <strong>interest rate</strong> 6.5%, and <strong>mortgage payment</strong> about $1,991 (P&I + PMI). Taylor received the Closing Disclosure four days earlier and reviewed it against the Loan Estimate—the numbers match.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Taylor brings a government-issued ID and a cashier&apos;s check for $12,800 (cash to close, including <strong>closing costs</strong> and prepaid items). The closing agent takes 45 minutes to walk through each document. Taylor signs the promissory note, deed of trust, Closing Disclosure, and other forms. The lender funds the loan the same afternoon; the deed is recorded; Taylor receives the keys. This is illustrative. See{' '}
+            <Link href="/mortgage/what-is-dti" className="text-primary hover:underline font-medium">What Is DTI</Link>,{' '}
+            <Link href="/mortgage/what-is-ltv" className="text-primary hover:underline font-medium">What Is LTV</Link>, and{' '}
+            <Link href="/mortgage/what-happens-after-closing" className="text-primary hover:underline font-medium">What Happens After Closing</Link>.
+          </p>
+        </section>
+
+        {/* Design object 2: Key takeaway callout */}
+        <div className="mb-10 rounded-xl border-l-4 border-teal-500 bg-teal-50/80 p-5 shadow-sm">
+          <h3 className="text-lg font-bold text-teal-900 mb-2">Key Takeaway</h3>
+          <p className="text-teal-800 text-[15px] leading-relaxed">
+            At closing you sign the loan documents, the lender funds the loan, and—for a purchase—you receive the keys. Bring a government-issued ID and funds for closing. Your <strong>Closing Disclosure</strong> (TRID) shows your <strong>loan amount</strong>, <strong>interest rate</strong>, <strong>mortgage payment</strong>, and <strong>closing costs</strong>. Review it before closing. See{' '}
+            <Link href="/mortgage/what-is-closing-disclosure" className="text-teal-700 underline font-medium">What Is Closing Disclosure</Link>.
+          </p>
+        </div>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Why This Matters for Homebuyers</h2>
+          <p className="text-gray-700 mb-4">
+            Knowing what happens at closing helps you prepare. You will need to bring the right documents and funds. Reviewing the Closing Disclosure before closing lets you catch any surprises and compare it to your Loan Estimate. Wire fraud is a risk—never wire funds based on last-minute email instructions; verify with your title company or lender by phone.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Your <strong>loan amount</strong>, <strong>interest rate</strong>, and <strong>mortgage payment</strong> are set at closing. After closing, you set up payments with the servicer. See{' '}
+            <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">What Is APR</Link>,{' '}
+            <Link href="/mortgage/what-is-interest-rate" className="text-primary hover:underline font-medium">What Is Interest Rate</Link>, and{' '}
+            <Link href="/mortgage/mortgage-payment-setup-after-closing" className="text-primary hover:underline font-medium">Mortgage Payment Setup After Closing</Link>.
           </p>
         </section>
 
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Funding and Recording</h2>
-          <p className="text-gray-700 mb-4">
-            After you sign, the lender funds the loan—sending the money to the closing agent. The deed is then recorded with the county. For a purchase, you receive the keys once funding and recording are complete. In some states this happens the same day; in others, the next business day.
-          </p>
-          <p className="text-gray-700">
-            For more on the funding process, see our{' '}
-            <Link href="/mortgage/mortgage-funding-process" className="text-primary hover:underline font-medium">
-              Mortgage Funding Process
-            </Link>
-            {' '}guide.
-          </p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Pros and Cons</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Benefits of Being Prepared</h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>You know what to bring and what to expect</li>
+                <li>You can review the Closing Disclosure before signing</li>
+                <li>You can ask questions before committing</li>
+                <li>You reduce the risk of wire fraud</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">What Can Go Wrong</h3>
+              <ul className="list-disc list-inside text-gray-700 space-y-1">
+                <li>Missing funds or wrong amount delays closing</li>
+                <li>Wire fraud if you follow unverified instructions</li>
+                <li>Unexpected changes in Closing Disclosure</li>
+                <li>Recording delays push back key receipt</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Common Mistakes</h2>
+          <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <li><strong>Not reviewing the Closing Disclosure before closing:</strong> You receive it at least 3 days before closing. Compare it to your Loan Estimate. Verify your <strong>loan amount</strong>, <strong>interest rate</strong>, <strong>mortgage payment</strong>, and <strong>closing costs</strong>. Ask about any changes.</li>
+            <li><strong>Wiring funds based on unverified instructions:</strong> Wire fraud is common. Scammers send fake emails with changed wiring instructions. Always verify wire instructions by calling your title company or lender using a phone number you looked up yourself—never from the email.</li>
+            <li><strong>Bringing the wrong amount or wrong payment method:</strong> Your lender or title company will tell you the exact amount and how to pay. Bring a certified or cashier&apos;s check, or wire. Personal checks are often not accepted.</li>
+            <li><strong>Forgetting a government-issued ID:</strong> You need a valid ID to sign. Without it, closing may be delayed.</li>
+            <li><strong>Not asking questions:</strong> The closing agent will walk you through each document. If something is unclear, ask. You are signing a legally binding contract.</li>
+            <li><strong>Assuming you get keys immediately:</strong> In some states, funding and recording happen the same day. In others, it may be the next business day. Confirm with your closing agent when you will receive the keys. See <Link href="/mortgage/what-happens-after-closing" className="text-primary hover:underline font-medium">What Happens After Closing</Link>.</li>
+          </ul>
         </section>
 
         <section className="mb-10" aria-label="Frequently asked questions about closing">
@@ -135,6 +247,17 @@ export default function WhatHappensAtClosingPage() {
               </div>
             ))}
           </dl>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Sources</h2>
+          <ul className="list-disc list-inside text-gray-700 space-y-1 text-sm">
+            <li>Consumer Financial Protection Bureau (CFPB) – Loan Estimate and Closing Disclosure (TRID)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Truth in Lending Act (TILA)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Real Estate Settlement Procedures Act (RESPA)</li>
+            <li>Consumer Financial Protection Bureau (CFPB) – Owning a home</li>
+            <li>U.S. Department of Housing and Urban Development (HUD) – Buying a home</li>
+          </ul>
         </section>
 
         <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
