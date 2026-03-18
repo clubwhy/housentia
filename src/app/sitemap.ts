@@ -1,219 +1,107 @@
 import { MetadataRoute } from 'next';
 import { getAllGlossarySlugs } from '@/data/glossary';
-import { VALID_CATEGORY_SLUGS } from '@/lib/mortgage-guides';
+import { GUIDE_ARTICLES, VALID_CATEGORY_SLUGS } from '@/lib/mortgage-guides';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://housentia.com';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://housentia.com';
 
-type SitemapEntry = MetadataRoute.Sitemap[number];
+/** YYYY-MM-DD format for lastmod - Google compliant */
+const currentDate = new Date().toISOString().split('T')[0];
 
-function url(path: string, opts?: { lastmod?: string; changefreq?: SitemapEntry['changeFrequency']; priority?: number }): SitemapEntry {
+type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+
+interface SitemapRoute {
+  path: string;
+  changeFrequency: ChangeFrequency;
+  priority: number;
+}
+
+function createEntry(route: SitemapRoute): MetadataRoute.Sitemap[number] {
   return {
-    url: `${BASE_URL}${path}`,
-    lastModified: opts?.lastmod ? new Date(opts.lastmod) : undefined,
-    changeFrequency: opts?.changefreq,
-    priority: opts?.priority,
+    url: `${baseUrl}${route.path}`,
+    lastModified: currentDate,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
   };
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const glossarySlugs = getAllGlossarySlugs();
-  const glossaryUrls: SitemapEntry[] = glossarySlugs.map((slug) =>
-    url(`/mortgage-glossary/${slug}`, { changefreq: 'monthly', priority: 0.7 })
-  );
+  const routes: SitemapRoute[] = [
+    // Homepage
+    { path: '/', changeFrequency: 'daily', priority: 1.0 },
 
-  const mortgageGuideCategoryUrls: SitemapEntry[] = VALID_CATEGORY_SLUGS.map((slug) =>
-    url(`/mortgage-guides/${slug}`, { changefreq: 'weekly', priority: 0.85 })
-  );
+    // Tool pages
+    { path: '/tools', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/mortgage-calculator', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/affordability-calculator', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/refinance-analyzer', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/solar-savings-estimator', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/loan-qualification-comparison', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/non-qm-scenario-comparison', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tools/remodeling-cost', changeFrequency: 'weekly', priority: 0.9 },
 
-  const staticEntries: SitemapEntry[] = [
-    url('/', { lastmod: '2025-12-28', changefreq: 'daily', priority: 1.0 }),
-    url('/blog', { lastmod: '2025-12-28', changefreq: 'daily', priority: 0.9 }),
-    url('/mortgage', { lastmod: '2025-02-12', changefreq: 'weekly', priority: 0.95 }),
-    url('/mortgage-guides', { lastmod: '2025-02-12', changefreq: 'weekly', priority: 0.9 }),
-    url('/mortgage-glossary', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.9 }),
-    url('/mortgage-tools', { lastmod: '2025-02-12', changefreq: 'weekly', priority: 0.9 }),
-    url('/about-housentia', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.7 }),
-    url('/editorial-methodology', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.6 }),
-    url('/research-sources', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.6 }),
-    url('/how-housentia-tools-work', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.6 }),
-    url('/disclaimer', { lastmod: '2025-02-12', changefreq: 'yearly', priority: 0.5 }),
-    url('/tools', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.9 }),
-    url('/tools/mortgage-calculator', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.9 }),
-    url('/tools/affordability-calculator', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.9 }),
-    url('/tools/refinance-analyzer', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.9 }),
-    url('/tools/solar-savings-estimator', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.8 }),
-    url('/tools/loan-qualification-comparison', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.8 }),
-    url('/tools/non-qm-scenario-comparison', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.8 }),
-    url('/tools/remodeling-cost', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.7 }),
-    url('/mortgage/todays-mortgage-rates', { lastmod: '2025-12-28', changefreq: 'daily', priority: 0.95 }),
-    url('/mortgage/find-the-right-loan', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.9 }),
-    url('/mortgage/fha-loan', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/va-loan', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/conventional-loan', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/non-qm-loan', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/usda-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/jumbo-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-fixed-rate-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-an-adjustable-rate-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/fixed-vs-adjustable-rate-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/fha-vs-conventional-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/va-vs-conventional-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/usda-vs-fha-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/15-vs-30-year-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-balloon-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-an-interest-only-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-portfolio-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-bridge-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/construction-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/renovation-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/fha-203k-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/homeready-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/home-possible-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/piggyback-loan', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-second-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-apr', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-mortgage', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-dti', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-ltv', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-pmi', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-insurance', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-interest-rate', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-escrow', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-loan-term', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-pre-approval', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-application-process', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-underwriting-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/loan-estimate-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/closing-disclosure-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-closing-process', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/discount-points-vs-origination-fee', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-origination-fee', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-an-appraisal-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-credit-report-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-title-insurance-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-recording-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/credit-score-for-mortgage', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/how-dti-affects-mortgage-approval', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-lenders-look-at-mortgage-approval', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/how-income-verified-mortgage', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/minimum-credit-score-for-fha-loan', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/minimum-credit-score-for-conventional-loan', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/how-credit-score-affects-mortgage-rates', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-credit-score-needed-to-buy-house', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-income-requirements', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/how-self-employed-income-is-verified', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/w2-vs-self-employed-mortgage-qualification', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-reserve-requirement', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-assets-count-for-mortgage-approval', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/gift-funds-for-down-payment-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/down-payment-requirements-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/can-you-buy-a-house-with-no-down-payment', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-compensating-factors-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-automated-underwriting', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-desktop-underwriter', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-loan-product-advisor', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-manual-underwriting', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-qualification-checklist', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-amortization', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-principal', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-piti', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-mortgage-servicer', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-mortgage-lender', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-mortgage-broker', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-pre-approval-vs-pre-qualification', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-mortgage-payment', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-equity', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-default', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-delinquency', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-approval-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/steps-to-get-a-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/steps-to-buy-a-house-with-a-mortgage', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-pre-approval-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-happens-after-mortgage-approval', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-happens-at-closing', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-processing-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-loan-timeline', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-application-documents', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-income-verification', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-asset-verification', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-employment-verification', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-conditional-approval-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-final-approval-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-funding-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-happens-after-closing', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-servicing-transfer-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-payment-setup-after-closing', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-escrow-setup-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-loan-boarding-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-loan-delivery-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-investor-guidelines-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-compliance-checks-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-quality-control-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-audit-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-file-review-process', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-an-escrow-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-processing-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-an-underwriting-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-flood-certification-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-tax-service-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-loan-discount-fee', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-insurance-premium', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/upfront-mortgage-insurance-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/monthly-mortgage-insurance-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-closing-cost-breakdown', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/average-mortgage-closing-costs', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/who-pays-closing-costs', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/seller-paid-closing-costs-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-lender-credits-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-points-vs-rate-trade-off', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/mortgage-rate-buydown-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/temporary-rate-buydown-explained', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-rate-lock', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-mortgage-points', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-closing-costs', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/prepaid-costs-vs-closing-costs', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/who-pays-closing-costs-home-purchase', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/how-to-reduce-closing-costs-legally', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-loan-estimate', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-closing-disclosure', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-refinance', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-cash-out-refinance', { lastmod: '2025-02-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-cashout', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.85 }),
-    url('/mortgage/how-mortgage-refinancing-works', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/when-to-refinance-a-mortgage', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/what-is-a-rate-and-term-refinance', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/cash-out-vs-rate-and-term-refinance', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-closing-costs-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-break-even-point-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-vs-home-equity-loan', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-vs-heloc', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/can-you-refinance-with-bad-credit', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-after-home-value-increase', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-after-interest-rates-drop', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-timeline-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-documentation-requirements', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/streamline-refinance-explained', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/fha-streamline-refinance', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/va-irrrl-refinance', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-appraisal-requirements', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/refinance-waiting-periods', { lastmod: '2025-03-12', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/heloc', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.8 }),
-    url('/mortgage/reverse', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.8 }),
-    url('/mortgage/first-time-home-buyer', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/self-employed-borrower', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.8 }),
-    url('/mortgage/prequalify', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.75 }),
-    url('/mortgage/how-mortgages-work', { lastmod: '2025-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/mortgage/apr-vs-interest-rate', { lastmod: '2026-03-13', changefreq: 'monthly', priority: 0.85 }),
-    url('/upgrade/solar-guide', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.7 }),
-    url('/upgrade/contractor-finder', { lastmod: '2025-12-28', changefreq: 'monthly', priority: 0.6 }),
-    url('/shop', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.7 }),
-    url('/diy-style', { lastmod: '2025-12-28', changefreq: 'weekly', priority: 0.6 }),
-    url('/contactus', { lastmod: '2025-12-28', changefreq: 'yearly', priority: 0.3 }),
-    url('/privacy-policy', { lastmod: '2025-12-28', changefreq: 'yearly', priority: 0.2 }),
-    url('/terms', { lastmod: '2025-12-28', changefreq: 'yearly', priority: 0.2 }),
-    url('/opt-out', { lastmod: '2025-12-28', changefreq: 'yearly', priority: 0.2 }),
+    // Blog
+    { path: '/blog', changeFrequency: 'weekly', priority: 0.8 },
+
+    // Mortgage hub and guides
+    { path: '/mortgage', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/mortgage-guides', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/mortgage-glossary', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/mortgage-tools', changeFrequency: 'weekly', priority: 0.9 },
+
+    // Static pages
+    { path: '/about-housentia', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/editorial-methodology', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/research-sources', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/how-housentia-tools-work', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/disclaimer', changeFrequency: 'yearly', priority: 0.7 },
+    { path: '/contactus', changeFrequency: 'yearly', priority: 0.7 },
+    { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.7 },
+    { path: '/terms', changeFrequency: 'yearly', priority: 0.7 },
+    { path: '/opt-out', changeFrequency: 'yearly', priority: 0.7 },
+
+    // Upgrade and shop
+    { path: '/upgrade/solar-guide', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/upgrade/contractor-finder', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/shop', changeFrequency: 'weekly', priority: 0.7 },
+
+    // DIY
+    { path: '/diy-style', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/diy-style/home-projects', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/diy-style/garden-ideas', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/diy-style/decor-kits', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/diy-style/before-after', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/diy-style/interior-decor', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/garden', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/remodeling', changeFrequency: 'weekly', priority: 0.7 },
   ];
 
-  return [...staticEntries, ...mortgageGuideCategoryUrls, ...glossaryUrls];
+  // Mortgage guide articles from GUIDE_ARTICLES
+  const mortgageGuideRoutes: SitemapRoute[] = GUIDE_ARTICLES.map((article) => ({
+    path: `/mortgage/${article.slug}`,
+    changeFrequency: 'monthly' as ChangeFrequency,
+    priority: 0.7,
+  }));
+
+  // Mortgage guide category pages
+  const mortgageCategoryRoutes: SitemapRoute[] = VALID_CATEGORY_SLUGS.map((slug) => ({
+    path: `/mortgage-guides/${slug}`,
+    changeFrequency: 'weekly' as ChangeFrequency,
+    priority: 0.7,
+  }));
+
+  // Glossary pages
+  const glossaryRoutes: SitemapRoute[] = getAllGlossarySlugs().map((slug) => ({
+    path: `/mortgage-glossary/${slug}`,
+    changeFrequency: 'monthly' as ChangeFrequency,
+    priority: 0.7,
+  }));
+
+  const allRoutes = [
+    ...routes,
+    ...mortgageGuideRoutes,
+    ...mortgageCategoryRoutes,
+    ...glossaryRoutes,
+  ];
+
+  return allRoutes.map((route) => createEntry(route));
 }
