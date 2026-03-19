@@ -55,6 +55,16 @@ const FAQ_ITEMS = [
     answer:
       'Yes. Prepaid costs are included in your cash to close. Your Closing Disclosure shows the total amount due, which includes down payment, closing costs (lender and third-party fees), and prepaid items. All of these affect how much you bring to closing.',
   },
+  {
+    question: 'Can seller concessions cover prepaid costs?',
+    answer:
+      'Yes. Seller concessions can often be applied to prepaid items (insurance, escrow, prepaid interest) within program limits. See Who Pays Closing Costs and How to Reduce Closing Costs for more on negotiation.',
+  },
+  {
+    question: 'Why does my closing date affect prepaid interest?',
+    answer:
+      'Prepaid interest covers the period from closing until your first payment. Closing earlier in the month means more days of interest due at closing; closing later means fewer days. Your lender calculates the exact amount based on your loan amount and rate.',
+  },
 ];
 
 export default function PrepaidCostsVsClosingCostsPage() {
@@ -129,6 +139,51 @@ export default function PrepaidCostsVsClosingCostsPage() {
         </section>
 
         <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Differences: Prepaid Costs vs Closing Fees</h2>
+          <p className="text-gray-700 mb-4">
+            The table below summarizes how prepaid items differ from one-time closing fees. Both appear on your Loan Estimate and Closing Disclosure, but they serve different purposes.
+          </p>
+          <div className="overflow-x-auto rounded-lg border border-gray-200 mb-4">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Aspect</th>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Prepaid Costs</th>
+                  <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Closing Fees</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 bg-white">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">What it is</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Advance payments for future use</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">One-time fees for services</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Examples</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Prepaid interest, homeowner insurance, initial escrow deposit</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Origination, appraisal, title, recording</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Can you avoid it?</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Generally no; required for the loan</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Some fees are negotiable or shoppable</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Where it appears</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Sections F and G (Prepaids, Initial Escrow)</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Sections A through E (loan costs, other costs)</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-gray-700">Refundable?</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">Escrow balance may be refunded if loan is paid off; prepaid interest is not</td>
+                  <td className="px-4 py-3 text-sm text-gray-700">No; fees are paid for services rendered</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Example Scenario</h2>
           <p className="text-gray-700 mb-4">
             Jordan is closing on a $300,000 loan at 6.5% interest. Closing is on March 15; the first payment is due May 1. Jordan has an escrow account for taxes and insurance.
@@ -142,6 +197,16 @@ export default function PrepaidCostsVsClosingCostsPage() {
           <p className="text-gray-700 mb-4">
             Jordan&apos;s total "Other Costs" (closing costs plus prepaids) is about $7,110. This is separate from the down payment. Cash to close includes down payment plus these costs minus any credits. This is illustrative.
           </p>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Common Mistakes</h2>
+          <ul className="list-disc list-inside text-gray-700 space-y-3">
+            <li><strong>Confusing prepaids with fees.</strong> Prepaid interest and escrow deposits are not extra charges; they are advance payments. Mistaking them for lender fees can lead to unnecessary negotiation attempts or frustration.</li>
+            <li><strong>Ignoring the escrow cushion.</strong> Lenders require an initial escrow deposit plus a cushion (often two months of taxes and insurance). Some borrowers are surprised by the total; review Section G of your Loan Estimate early.</li>
+            <li><strong>Assuming closing late in the month saves money.</strong> Closing later reduces prepaid interest, but it also delays your first payment. The trade-off is small; choose a closing date that fits your timeline, not just to minimize a few days of interest.</li>
+            <li><strong>Overlooking seller concessions for prepaids.</strong> Seller credits can often be applied to prepaid items. If you are negotiating <Link href="/mortgage/who-pays-closing-costs" className="text-primary hover:underline font-medium">who pays closing costs</Link>, remember that prepaids are eligible within program limits.</li>
+          </ul>
         </section>
 
         <div className="mb-10 rounded-xl border-l-4 border-teal-500 bg-teal-50/80 p-5 shadow-sm">

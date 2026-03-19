@@ -8,12 +8,12 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'What Are Closing Costs? A Guide for U.S. Homebuyers | Housentia',
+  title: 'Mortgage Closing Costs: What You Pay & How to Save | Housentia',
   description:
-    'Closing costs are fees and prepaid items paid to finalize a mortgage and transfer ownership. Learn what closing costs include, how they appear on Loan Estimates and Closing Disclosures, and how to review them.',
+    'Closing costs can add thousands to your purchase. See what\'s included, typical ranges, and how to reduce them.',
   openGraph: {
-    title: 'What Are Closing Costs? A Guide for U.S. Homebuyers | Housentia',
-    description: 'Learn what closing costs include and how to review them on your Loan Estimate and Closing Disclosure.',
+    title: 'Mortgage Closing Costs: What You Pay & How to Save | Housentia',
+    description: 'Closing costs can add thousands to your purchase. See what\'s included, typical ranges, and how to reduce them.',
   },
 };
 
