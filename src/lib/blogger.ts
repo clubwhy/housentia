@@ -112,4 +112,24 @@ export function createErrorResponse(message: string, status: number = 500) {
     error: message,
     status,
   };
+}
+
+/**
+ * Slug로 블로그 포스트를 가져옵니다. 서버 전용 (Blogger API 호출).
+ * 포스트가 없으면 null 반환.
+ */
+export async function getPostBySlug(slug: string): Promise<BloggerPost | null> {
+  try {
+    const config = getBloggerConfig();
+    const url = `https://www.googleapis.com/blogger/v3/blogs/${config.blogId}/posts?maxResults=50&status=LIVE`;
+    const response = await fetch(url, {
+      headers: { Accept: 'application/json', 'X-Goog-Api-Key': config.apiKey },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    const post = data.items?.find((p: { url: string }) => extractSlugFromUrl(p.url) === slug);
+    return post ? transformBloggerPost(post) : null;
+  } catch {
+    return null;
+  }
 } 
