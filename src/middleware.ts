@@ -6,12 +6,21 @@ import { validateSession } from '@/lib/auth';
  * Middleware to protect routes and enforce authentication
  */
 /** Legacy spam URL patterns — return 410 Gone so search engines drop them from index. */
-const GONE_PATH_PREFIXES = ['/casinonet/', '/virtuals/'];
+const GONE_PATH_PREFIXES = ['/casinoet', '/casinonet', '/virtuals'];
+
+/** Query params that indicate spam (e.g. /blog?casino=xxx) — block with 410. */
+const SPAM_QUERY_KEYS = ['casino', 'casinoet', 'gambling', 'bet', 'poker', 'slots', 'virtuals'];
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, searchParams } = request.nextUrl;
 
+  // Block spam paths
   if (GONE_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
+    return new NextResponse(null, { status: 410, statusText: 'Gone' });
+  }
+
+  // Block query spam (e.g. /blog?casino=xxx)
+  if (searchParams.size > 0 && SPAM_QUERY_KEYS.some((key) => searchParams.has(key))) {
     return new NextResponse(null, { status: 410, statusText: 'Gone' });
   }
 
