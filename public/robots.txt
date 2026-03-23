@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /casinoet/
+Disallow: /virtuals/
+Disallow: /*?*
+
+Sitemap: https://housentia.com/sitemap.xml
