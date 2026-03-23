@@ -325,7 +325,7 @@ export default function WhatIsClosingCostsPage() {
           </ul>
         </section>
 
-        <RelatedGuides articleSlug={ARTICLE_SLUG} className="mb-10" />
+        <RelatedGuides articleSlug={ARTICLE_SLUG} limit={4} relatedTopicsLimit={6} className="mb-10" />
         <RelatedLinks
           glossary={[{ label: 'Closing Costs', href: '/mortgage-glossary/closing-costs' }]}
           calculator={{ label: 'Mortgage Calculator', href: '/tools/mortgage-calculator' }}

@@ -28,6 +28,8 @@ export interface GuideCategory {
   slug: CategorySlug;
   title: string;
   description: string;
+  /** Top guides to feature on category card (article slugs) */
+  topSlugs?: string[];
 }
 
 export const GUIDE_CATEGORIES: GuideCategory[] = [
@@ -35,41 +37,49 @@ export const GUIDE_CATEGORIES: GuideCategory[] = [
     slug: 'basics',
     title: 'Mortgage Basics',
     description: 'Learn the core concepts behind mortgages.',
+    topSlugs: ['what-is-a-mortgage', 'what-is-apr', 'what-is-dti', 'what-is-ltv', 'what-is-piti'],
   },
   {
     slug: 'process',
     title: 'Mortgage Process',
     description: 'Understand the steps from application to closing.',
+    topSlugs: ['mortgage-application-process', 'loan-estimate-explained', 'mortgage-underwriting-explained', 'mortgage-closing-process', 'what-happens-at-closing'],
   },
   {
     slug: 'loan-types',
     title: 'Loan Types',
     description: 'Explore FHA, VA, conventional and other loan programs.',
+    topSlugs: ['fha-loan', 'va-loan', 'conventional-loan', 'fha-vs-conventional-loan', 'usda-loan'],
   },
   {
     slug: 'refinance',
     title: 'Refinancing',
     description: 'Information about refinancing your existing mortgage.',
+    topSlugs: ['what-is-refinance', 'how-mortgage-refinancing-works', 'when-to-refinance-a-mortgage', 'what-is-cash-out-refinance'],
   },
   {
     slug: 'home-buying',
     title: 'Home Buying',
     description: 'Guides for buyers, including first-time home buyer information.',
+    topSlugs: ['first-time-home-buyer', 'steps-to-buy-a-house-with-a-mortgage', 'mortgage-pre-approval', 'find-the-right-loan'],
   },
   {
     slug: 'costs',
     title: 'Mortgage Costs',
     description: 'Understand closing costs, PMI, points, and other fees.',
+    topSlugs: ['what-is-closing-costs', 'what-is-pmi', 'what-is-mortgage-points', 'what-is-apr', 'mortgage-closing-cost-breakdown'],
   },
   {
     slug: 'rates',
     title: 'Mortgage Rates',
     description: 'Learn about APR, rate locks, and how rates work.',
+    topSlugs: ['what-is-apr', 'what-is-interest-rate', 'what-is-rate-lock', 'what-is-a-fixed-rate-mortgage', 'fixed-vs-adjustable-rate-mortgage'],
   },
   {
     slug: 'credit',
     title: 'Credit & Qualification',
     description: 'Credit, income documentation, and qualification requirements.',
+    topSlugs: ['credit-score-for-mortgage', 'what-is-dti', 'mortgage-pre-approval', 'what-lenders-look-at-mortgage-approval', 'mortgage-qualification-checklist'],
   },
 ];
 
