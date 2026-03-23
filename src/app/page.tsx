@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import BlogFeed from '@/components/BlogFeed';
 import MortgageRateChart from '@/components/MortgageRateChart';
 
@@ -202,9 +202,26 @@ export default async function Home() {
           </div>
           <div className="flex flex-wrap justify-center gap-4 mb-4">
             <a href="/mortgage" className="bg-primary text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">View All Mortgage Guides</a>
-            <a href="/mortgage/todays-mortgage-rates" className="bg-accent text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">Today's Mortgage Rates</a>
+            <a href="/mortgage/todays-mortgage-rates" className="bg-accent text-white font-semibold px-6 py-2 rounded-md hover:bg-accent-hover transition">Today&apos;s Mortgage Rates</a>
             <a href="/mortgage/find-the-right-loan" className="border-2 border-primary text-primary font-semibold px-6 py-2 rounded-md hover:bg-primary hover:text-white transition">Explore Your Options Further</a>
           </div>
+
+          {/* Internal links: SEO-strong pillar & topic cluster pages */}
+          <nav className="mt-10 pt-8 border-t border-gray-200" aria-label="Popular mortgage guides">
+            <p className="text-sm font-semibold text-gray-600 mb-3 text-center">Popular Mortgage Topics</p>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              <Link href="/mortgage-guides/process" className="text-primary hover:underline font-medium">Mortgage Process Guide</Link>
+              <Link href="/mortgage/what-is-closing-costs" className="text-primary hover:underline font-medium">What Are Closing Costs</Link>
+              <Link href="/mortgage/prepaid-costs-vs-closing-costs" className="text-primary hover:underline font-medium">Prepaid vs Closing Costs</Link>
+              <Link href="/mortgage/who-pays-closing-costs" className="text-primary hover:underline font-medium">Who Pays Closing Costs</Link>
+              <Link href="/mortgage/how-to-reduce-closing-costs" className="text-primary hover:underline font-medium">How to Reduce Closing Costs</Link>
+              <Link href="/mortgage/what-is-apr" className="text-primary hover:underline font-medium">What Is APR</Link>
+              <Link href="/mortgage/what-is-dti" className="text-primary hover:underline font-medium">What Is DTI</Link>
+              <Link href="/mortgage/loan-estimate-explained" className="text-primary hover:underline font-medium">Loan Estimate Explained</Link>
+              <Link href="/mortgage/mortgage-closing-process" className="text-primary hover:underline font-medium">Mortgage Closing Process</Link>
+              <Link href="/mortgage-guides" className="text-primary hover:underline font-medium">Mortgage Guides by Topic</Link>
+            </div>
+          </nav>
         </div>
       </section>
 
@@ -336,10 +353,14 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto px-4 md:flex md:items-center">
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Exploring Home Financing Options?</h2>
-            <p className="text-gray-700 mb-6">Learn about different loan types — mortgage, HELOC, or cash-out refinancing — and connect with licensed professionals who can help.</p>
-            <div className="flex gap-4 justify-center md:justify-start">
+            <p className="text-gray-700 mb-6">
+              Learn about the <Link href="/mortgage-guides/process" className="text-primary hover:underline font-medium">mortgage process</Link>,{' '}
+              <Link href="/mortgage/what-is-closing-costs" className="text-primary hover:underline font-medium">closing costs</Link>, and different loan types — mortgage, HELOC, or cash-out refinancing.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <a href="/mortgage/find-the-right-loan" className="px-8 py-3 bg-primary text-white text-base font-semibold rounded-md hover:bg-accent-hover transition">Explore Your Options Further</a>
               <a href="/mortgage" className="px-8 py-3 border-2 border-primary text-primary text-base font-semibold rounded-md hover:bg-primary hover:text-white transition bg-transparent">Explore Mortgage Guides</a>
+              <Link href="/mortgage-guides" className="px-8 py-3 border border-gray-300 text-gray-700 text-base font-semibold rounded-md hover:bg-gray-50 transition">Browse by Topic</Link>
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
