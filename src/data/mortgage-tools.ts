@@ -89,12 +89,12 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     description: 'View a full amortization schedule: how each payment splits between principal and interest and the remaining balance.',
     href: '/mortgage-tools/amortization',
     category: 'payment',
-    available: false,
+    available: true,
     relatedGuides: [
       { label: 'What Is Amortization', href: '/mortgage/what-is-amortization' },
-      { label: 'Principal and Interest Explained', href: '/mortgage/principal-and-interest' },
+      { label: 'What Is Mortgage Principal', href: '/mortgage/what-is-mortgage-principal' },
     ],
-    howItWorks: ['Enter loan amount, interest rate, and term.', 'View or download the schedule by month or year.', 'See impact of extra principal payments.'],
+    howItWorks: ['Enter loan amount, interest rate, and term.', 'View the schedule by month.', 'See how principal and interest split changes over time.'],
   },
   {
     id: 'extra-payment',
@@ -102,12 +102,12 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     description: 'See how extra principal payments reduce total interest and shorten the loan term.',
     href: '/mortgage-tools/extra-payment',
     category: 'payment',
-    available: false,
+    available: true,
     relatedGuides: [
-      { label: 'Paying Off Mortgage Early', href: '/mortgage/paying-off-mortgage-early' },
-      { label: 'Biweekly Mortgage Payments', href: '/mortgage/biweekly-payments' },
+      { label: 'What Is Amortization', href: '/mortgage/what-is-amortization' },
+      { label: 'What Is Mortgage Principal', href: '/mortgage/what-is-mortgage-principal' },
     ],
-    howItWorks: ['Enter your loan details and current balance.', 'Add one-time or recurring extra payments.', 'See new payoff date and interest saved.'],
+    howItWorks: ['Enter your loan details.', 'Add one-time or recurring extra payments.', 'See new payoff date and interest saved.'],
   },
   {
     id: 'arm-vs-fixed',

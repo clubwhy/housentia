@@ -47,6 +47,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/mortgage-guides', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/mortgage-glossary', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/mortgage-tools', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/mortgage-tools/amortization', changeFrequency: 'weekly', priority: 0.8 },
+    { path: '/mortgage-tools/extra-payment', changeFrequency: 'weekly', priority: 0.8 },
 
     // Static pages
     { path: '/about-housentia', changeFrequency: 'monthly', priority: 0.7 },
