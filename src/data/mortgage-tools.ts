@@ -76,7 +76,7 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     description: 'Compare the costs of renting versus buying a home over time, including down payment, mortgage, and maintenance.',
     href: '/mortgage-tools/rent-vs-buy',
     category: 'affordability',
-    available: false,
+    available: true,
     relatedGuides: [
       { label: 'How Much Down Payment for a House', href: '/mortgage/down-payment-requirements' },
       { label: 'What Is a Mortgage', href: '/mortgage/what-is-a-mortgage' },
@@ -128,10 +128,10 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     description: 'Calculate your front-end and back-end DTI to see how lenders may view your affordability.',
     href: '/mortgage-tools/dti-calculator',
     category: 'affordability',
-    available: false,
+    available: true,
     relatedGuides: [
-      { label: 'How Lenders Calculate DTI', href: '/mortgage/how-dti-calculated' },
-      { label: 'Debt-to-Income Explained', href: '/mortgage/debt-to-income-explained' },
+      { label: 'How DTI Affects Mortgage Approval', href: '/mortgage/how-dti-affects-mortgage-approval' },
+      { label: 'What Is DTI', href: '/mortgage/what-is-dti' },
     ],
     howItWorks: ['Enter gross monthly income.', 'Enter all monthly debt payments (and proposed housing payment).', 'See front-end and back-end DTI percentages.'],
   },

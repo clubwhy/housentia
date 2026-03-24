@@ -117,27 +117,8 @@ export default function NonQMScenarioComparisonPage() {
       </section>
 
       <main className="max-w-5xl mx-auto px-4 py-10">
-        {/* Enhanced Disclaimer */}
         <div className="mb-8">
           <Disclaimer variant="compact" />
-          <div className="bg-red-50 border-l-4 border-red-500 p-6 mt-4 rounded-r-lg">
-            <p className="text-red-800 font-bold mb-2">Important Educational Disclaimer</p>
-            <p className="text-red-700 text-sm mb-3">
-              This tool is for <strong>educational purposes only</strong>. It does not:
-            </p>
-            <ul className="list-disc list-inside text-red-700 text-sm space-y-1 mb-3">
-              <li>Determine eligibility or qualification</li>
-              <li>Provide approvals or pre-approvals</li>
-              <li>Quote rates or loan terms</li>
-              <li>Make recommendations</li>
-              <li>Guarantee loan availability</li>
-            </ul>
-            <p className="text-red-700 text-sm">
-              This tool explains <em>how qualification approaches may differ</em> between loan types. 
-              Actual requirements vary by lender, program, and individual circumstances. Always consult 
-              with licensed mortgage professionals to understand your options.
-            </p>
-          </div>
         </div>
 
         {/* Introduction */}
