@@ -55,7 +55,7 @@ export const GUIDE_CATEGORIES: GuideCategory[] = [
     slug: 'refinance',
     title: 'Refinancing',
     description: 'Information about refinancing your existing mortgage.',
-    topSlugs: ['what-is-refinance', 'how-mortgage-refinancing-works', 'when-to-refinance-a-mortgage', 'what-is-cash-out-refinance'],
+    topSlugs: ['what-is-refinance', 'should-i-refinance', 'how-mortgage-refinancing-works', 'when-to-refinance-a-mortgage', 'what-is-cash-out-refinance'],
   },
   {
     slug: 'home-buying',
@@ -112,7 +112,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is DTI',
     description: 'Debt-to-Income ratio compares monthly debt payments to gross income. Learn how lenders use it in underwriting.',
     category: 'basics',
-    relatedSlugs: ['what-is-piti', 'what-is-apr', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-pmi'],
+    relatedSlugs: ['how-dti-calculated', 'how-dti-affects-mortgage-approval', 'what-is-piti', 'what-is-apr', 'what-is-ltv', 'what-is-mortgage-points', 'what-is-pmi'],
   },
   {
     slug: 'what-is-ltv',
@@ -512,6 +512,13 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     relatedSlugs: ['what-is-mortgage-equity', 'what-is-cash-out-refinance', 'refinance-cashout', 'what-is-ltv', 'refinance'],
   },
   {
+    slug: 'home-equity-loan-vs-heloc',
+    title: 'Home Equity Loan vs HELOC',
+    description: 'Compare home equity loans and HELOCs: lump sum vs revolving credit, fixed vs variable rate.',
+    category: 'loan-types',
+    relatedSlugs: ['heloc', 'what-is-a-second-mortgage', 'what-is-mortgage-equity', 'refinance-vs-heloc'],
+  },
+  {
     slug: 'reverse',
     title: 'Reverse Mortgage Guide',
     description: 'Converts home equity into cash. Available to homeowners age 62 and older.',
@@ -559,6 +566,13 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     description: 'Compare fixed and ARM. Learn when each makes sense.',
     category: 'rates',
     relatedSlugs: ['what-is-a-fixed-rate-mortgage', 'what-is-an-adjustable-rate-mortgage', 'what-is-loan-term'],
+  },
+  {
+    slug: '5-1-arm-explained',
+    title: '5/1 ARM Explained',
+    description: 'A 5/1 ARM is fixed for 5 years, then adjusts annually. Learn how it works, caps, and when it makes sense.',
+    category: 'rates',
+    relatedSlugs: ['what-is-an-adjustable-rate-mortgage', 'fixed-vs-adjustable-rate-mortgage', 'what-is-a-fixed-rate-mortgage'],
   },
   {
     slug: 'fha-vs-conventional-loan',
@@ -678,7 +692,7 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'What is a Refinance',
     description: 'Learn what refinancing is, how it works, and how to compare refinance scenarios.',
     category: 'refinance',
-    relatedSlugs: ['refinance', 'how-mortgage-refinancing-works', 'what-is-cash-out-refinance', 'refinance-cashout', 'what-is-apr'],
+    relatedSlugs: ['refinance', 'should-i-refinance', 'how-mortgage-refinancing-works', 'what-is-cash-out-refinance', 'refinance-cashout', 'what-is-apr'],
   },
   {
     slug: 'what-is-cash-out-refinance',
@@ -706,7 +720,14 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     title: 'When to Refinance a Mortgage',
     description: 'Learn when refinancing makes sense and when to avoid it.',
     category: 'refinance',
-    relatedSlugs: ['refinance-break-even-point-explained', 'refinance-after-interest-rates-drop', 'what-is-refinance'],
+    relatedSlugs: ['should-i-refinance', 'refinance-break-even-point-explained', 'refinance-after-interest-rates-drop', 'what-is-refinance'],
+  },
+  {
+    slug: 'should-i-refinance',
+    title: 'Should I Refinance My Mortgage',
+    description: 'Decide whether refinancing makes sense. Learn about break-even, when to refinance, and when to avoid it.',
+    category: 'refinance',
+    relatedSlugs: ['when-to-refinance-a-mortgage', 'refinance-break-even-point-explained', 'what-is-refinance', 'refinance-closing-costs-explained'],
   },
   {
     slug: 'what-is-a-rate-and-term-refinance',
@@ -1099,11 +1120,18 @@ export const GUIDE_ARTICLES: GuideArticle[] = [
     relatedSlugs: ['what-lenders-look-at-mortgage-approval', 'how-dti-affects-mortgage-approval', 'prequalify', 'conventional-loan'],
   },
   {
+    slug: 'how-dti-calculated',
+    title: 'How Lenders Calculate DTI',
+    description: 'Learn the DTI formula, what counts as income and debt, and front-end vs back-end ratios.',
+    category: 'credit',
+    relatedSlugs: ['what-is-dti', 'how-dti-affects-mortgage-approval', 'what-is-piti'],
+  },
+  {
     slug: 'how-dti-affects-mortgage-approval',
     title: 'How DTI Affects Mortgage Approval',
     description: 'DTI is a key factor in approval. Learn how lenders use it and typical limits.',
     category: 'credit',
-    relatedSlugs: ['what-is-dti', 'what-lenders-look-at-mortgage-approval', 'credit-score-for-mortgage', 'prequalify'],
+    relatedSlugs: ['what-is-dti', 'how-dti-calculated', 'what-lenders-look-at-mortgage-approval', 'credit-score-for-mortgage', 'prequalify'],
   },
   {
     slug: 'what-lenders-look-at-mortgage-approval',

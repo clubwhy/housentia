@@ -39,7 +39,7 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     relatedGuides: [
       { label: 'Refinance Overview', href: '/mortgage/refinance' },
       { label: 'Should I Refinance', href: '/mortgage/should-i-refinance' },
-      { label: 'Refinance Break-Even', href: '/mortgage/refinance-break-even' },
+      { label: 'Refinance Break-Even', href: '/mortgage/refinance-break-even-point-explained' },
     ],
     howItWorks: ['Enter your current loan balance, rate, and remaining term.', 'Enter the new loan rate, term, and estimated closing costs.', 'See monthly savings and break-even period.'],
   },
@@ -52,7 +52,7 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     available: true,
     relatedGuides: [
       { label: 'How Lenders Calculate DTI', href: '/mortgage/how-dti-calculated' },
-      { label: 'Down Payment Requirements', href: '/mortgage/down-payment-requirements' },
+      { label: 'Down Payment Requirements', href: '/mortgage/down-payment-requirements-explained' },
       { label: 'First-Time Home Buyer Guide', href: '/mortgage/first-time-home-buyer' },
     ],
     howItWorks: ['Enter your income and monthly debts.', 'Set down payment and rate assumptions.', 'See estimated max home price and monthly payment.'],
@@ -78,7 +78,7 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     category: 'affordability',
     available: true,
     relatedGuides: [
-      { label: 'How Much Down Payment for a House', href: '/mortgage/down-payment-requirements' },
+      { label: 'How Much Down Payment for a House', href: '/mortgage/down-payment-requirements-explained' },
       { label: 'What Is a Mortgage', href: '/mortgage/what-is-a-mortgage' },
     ],
     howItWorks: ['Enter rent, home price, down payment, and rate.', 'Add property tax, insurance, and maintenance assumptions.', 'Compare total cost of renting vs buying over 5–30 years.'],
@@ -143,9 +143,9 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     category: 'affordability',
     available: true,
     relatedGuides: [
-      { label: 'Down Payment Requirements', href: '/mortgage/down-payment-requirements' },
-      { label: 'Loan-to-Value LTV Explained', href: '/mortgage/loan-to-value-ltv' },
-      { label: 'Private Mortgage Insurance PMI', href: '/mortgage/private-mortgage-insurance-pmi' },
+      { label: 'Down Payment Requirements', href: '/mortgage/down-payment-requirements-explained' },
+      { label: 'Loan-to-Value LTV Explained', href: '/mortgage/what-is-ltv' },
+      { label: 'Private Mortgage Insurance PMI', href: '/mortgage/what-is-pmi' },
     ],
   },
   {

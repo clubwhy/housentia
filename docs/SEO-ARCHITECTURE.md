@@ -30,7 +30,7 @@ Mortgage
 | 2 | Basics | How Mortgage Interest Works | /mortgage/how-mortgage-interest-works |
 | 3 | Basics | What Is APR | /mortgage/what-is-apr |
 | 4 | Basics | Mortgage Rate vs APR | /mortgage/mortgage-rate-vs-apr |
-| 5 | Basics | Fixed-Rate vs Adjustable-Rate Mortgage | /mortgage/fixed-vs-arm |
+| 5 | Basics | Fixed-Rate vs Adjustable-Rate Mortgage | /mortgage/fixed-vs-adjustable-rate-mortgage |
 | 6 | Basics | How Long Does a Mortgage Take | /mortgage/how-long-does-mortgage-take |
 | 7 | Basics | What Is Amortization | /mortgage/what-is-amortization |
 | 8 | Basics | Principal and Interest Explained | /mortgage/principal-and-interest |
@@ -46,7 +46,7 @@ Mortgage
 | 18 | Rates | Discount Points vs Origination Points | /mortgage/discount-vs-origination-points |
 | 19 | Rates | Today's Mortgage Rates | /mortgage/todays-mortgage-rates (exists) |
 | 20 | Rates | How Lenders Price Loans | /mortgage/loan-pricing-adjustments |
-| 21 | Down Payment | How Much Down Payment for a House | /mortgage/down-payment-requirements |
+| 21 | Down Payment | How Much Down Payment for a House | /mortgage/down-payment-requirements-explained |
 | 22 | Down Payment | Down Payment Assistance Programs | /mortgage/down-payment-assistance |
 | 23 | Down Payment | Gift Funds for Down Payment | /mortgage/gift-funds-down-payment |
 | 24 | Down Payment | PMI and Down Payment | /mortgage/pmi-and-down-payment |
@@ -63,7 +63,7 @@ Mortgage
 | 35 | Closing | Closing Cost Breakdown | /mortgage/closing-cost-breakdown |
 | 36 | Closing | How Long Does Mortgage Approval Take | /mortgage/mortgage-approval-timeline |
 | 37 | Closing | What Is Escrow | /mortgage/escrow-explained |
-| 38 | Insurance | Private Mortgage Insurance PMI | /mortgage/private-mortgage-insurance-pmi |
+| 38 | Insurance | Private Mortgage Insurance PMI | /mortgage/what-is-pmi |
 | 39 | Insurance | FHA MIP Explained | /mortgage/fha-mip-explained |
 | 40 | Insurance | When Can You Remove PMI | /mortgage/when-remove-pmi |
 | 41 | Insurance | Mortgage Insurance vs Home Insurance | /mortgage/mortgage-vs-home-insurance |
@@ -79,7 +79,7 @@ Mortgage
 | 51 | Refinance | Cash-Out Refinance | /mortgage/refinance-cashout (exists) |
 | 52 | Refinance | Rate and Term Refinance | /mortgage/rate-and-term-refinance |
 | 53 | Refinance | Should I Refinance My Mortgage | /mortgage/should-i-refinance |
-| 54 | Refinance | Refinance Break-Even | /mortgage/refinance-break-even |
+| 54 | Refinance | Refinance Break-Even | /mortgage/refinance-break-even-point-explained |
 | 55 | Refinance | Streamline Refinance FHA VA | /mortgage/streamline-refinance |
 | 56 | Refinance | No-Closing-Cost Refinance | /mortgage/no-closing-cost-refinance |
 | 57 | Equity | HELOC Overview | /mortgage/heloc (exists) |
