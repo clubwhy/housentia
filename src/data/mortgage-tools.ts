@@ -115,10 +115,10 @@ export const MORTGAGE_TOOLS: MortgageToolItem[] = [
     description: 'Compare monthly payments and total cost for an ARM and a fixed-rate mortgage over time.',
     href: '/mortgage-tools/arm-vs-fixed',
     category: 'comparison',
-    available: false,
+    available: true,
     relatedGuides: [
-      { label: 'Fixed-Rate vs ARM', href: '/mortgage/fixed-vs-arm' },
-      { label: '5/1 ARM Explained', href: '/mortgage/5-1-arm-explained' },
+      { label: 'Fixed vs Adjustable Rate Mortgage', href: '/mortgage/fixed-vs-adjustable-rate-mortgage' },
+      { label: 'What Is an Adjustable Rate Mortgage', href: '/mortgage/what-is-an-adjustable-rate-mortgage' },
     ],
     howItWorks: ['Enter loan amount and term.', 'Set fixed rate and ARM initial rate plus caps and index.', 'Compare payments and balance over 5–30 years.'],
   },

@@ -125,17 +125,19 @@ export default function NonQMScenarioComparisonPage() {
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-4 text-gray-900">Understanding Qualification Approach Differences</h2>
           <p className="text-gray-700 mb-4">
-            Conventional and Non-QM loans use different approaches to evaluate borrowers. This educational tool 
-            helps you understand how documentation requirements, income calculation methods, and underwriting 
-            approaches may differ between these loan types.
+            Conventional loans (Qualified Mortgages, or QM) and Non-QM loans use fundamentally different approaches to evaluate borrowers. If you are self-employed, have a high debt-to-income ratio, rely on assets rather than traditional income, or are a real estate investor, you may find that conventional guidelines do not fit your situation. This educational tool helps you understand how documentation requirements, income calculation methods, and underwriting approaches differ between these loan types.
+          </p>
+          <p className="text-gray-700 mb-4">
+            Non-QM loans are designed for borrowers whose financial profiles do not fit traditional Qualified Mortgage standards but who may still have the ability to repay. They can offer alternative income documentation (such as bank statements instead of tax returns), more flexible DTI limits, and asset-based qualification options. However, they are typically more expensive and less standardized. See{' '}
+            <Link href="/mortgage/non-qm-loan" className="text-primary hover:underline font-medium">Non-QM Loan Guide</Link> for a full overview.
           </p>
           <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
             <p className="text-blue-800 font-medium mb-2">What This Tool Explains:</p>
             <ul className="list-disc list-inside text-blue-700 text-sm space-y-1">
-              <li>How income documentation requirements differ</li>
-              <li>How underwriting approaches may vary</li>
+              <li>How income documentation requirements differ between Conventional and Non-QM</li>
+              <li>How underwriting approaches may vary by loan type and lender</li>
               <li>What documentation each loan type typically requires</li>
-              <li>How qualification structures may differ conceptually</li>
+              <li>How qualification structures may differ conceptually for self-employed, high DTI, asset-based, and investor scenarios</li>
             </ul>
             <p className="text-blue-800 font-medium mt-3 mb-2">What This Tool Does NOT Do:</p>
             <ul className="list-disc list-inside text-blue-700 text-sm space-y-1">
@@ -147,9 +149,43 @@ export default function NonQMScenarioComparisonPage() {
           </div>
         </section>
 
+        {/* QM vs Non-QM Basics */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">What Are QM and Non-QM Loans?</h2>
+          <p className="text-gray-700 mb-4">
+            <strong>Qualified Mortgages (QM)</strong> are loans that meet standards set by the Consumer Financial Protection Bureau (CFPB). They typically require standard income documentation (W-2s, pay stubs, or tax returns), a debt-to-income ratio of 43% or less (with limited exceptions), and no risky loan features. Conventional conforming loans, FHA loans, and VA loans generally fall under QM. They follow predictable, standardized guidelines. See{' '}
+            <Link href="/mortgage/conventional-loan" className="text-primary hover:underline font-medium">Conventional Loan Guide</Link> and{' '}
+            <Link href="/mortgage/what-is-dti" className="text-primary hover:underline font-medium">What Is DTI</Link>.
+          </p>
+          <p className="text-gray-700 mb-4">
+            <strong>Non-Qualified Mortgages (Non-QM)</strong> do not meet those QM standards. They are designed for borrowers who may not fit the traditional profile—self-employed individuals with significant deductions, retirees with assets but limited taxable income, investors with portfolio cash flow, or borrowers with higher DTI. Non-QM lenders use alternative methods to assess ability to repay, such as bank statement income, asset depletion, or portfolio analysis. Requirements vary significantly by lender and program.
+          </p>
+        </section>
+
+        {/* Who Might Consider Non-QM */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">Who Might Consider Non-QM?</h2>
+          <p className="text-gray-700 mb-4">
+            Non-QM loans may be worth exploring if you:
+          </p>
+          <ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
+            <li><strong>Are self-employed</strong> and your tax returns show low net income due to business deductions, even though your actual cash flow is higher. Bank statement loans may use 12–24 months of deposits instead of tax returns. See <Link href="/mortgage/self-employed-borrower" className="text-primary hover:underline font-medium">Self-Employed Borrower Scenarios</Link>.</li>
+            <li><strong>Have a higher DTI</strong> than conventional limits (typically 43–45%). Some Non-QM programs allow 50% or higher with compensating factors. See <Link href="/mortgage/how-dti-affects-mortgage-approval" className="text-primary hover:underline font-medium">How DTI Affects Mortgage Approval</Link>.</li>
+            <li><strong>Have substantial assets but limited or irregular income</strong> (e.g., retirees, high-net-worth individuals). Asset-based programs may use liquid assets to qualify. See <Link href="/mortgage/what-assets-count-for-mortgage-approval" className="text-primary hover:underline font-medium">What Assets Count for Mortgage Approval</Link>.</li>
+            <li><strong>Are a real estate investor</strong> with multiple properties. Non-QM programs may use a higher percentage of rental income or portfolio cash flow than conventional guidelines allow.</li>
+            <li><strong>Have recent credit events</strong> (e.g., short sale, foreclosure) outside conventional waiting periods. Some Non-QM programs have shorter lookbacks.</li>
+          </ul>
+          <p className="text-gray-700">
+            Non-QM loans are generally more expensive—higher interest rates and fees—and less standardized. Always compare options and consult licensed mortgage professionals.
+          </p>
+        </section>
+
         {/* Scenario Selection */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Select a Scenario to Explore</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">Select a Scenario to Explore</h2>
+          <p className="text-gray-700 mb-6">
+            Click a scenario below to compare how Conventional (QM) and Non-QM loans typically approach each situation. The comparison shows evaluation methods, typical documentation, and key considerations. Actual requirements vary by lender.
+          </p>
           <div className="grid md:grid-cols-2 gap-4">
             <button
               onClick={() => setSelectedScenario('self-employed')}
@@ -161,7 +197,7 @@ export default function NonQMScenarioComparisonPage() {
             >
               <h3 className="font-semibold text-lg mb-2 text-gray-900">Self-Employed Borrower</h3>
               <p className="text-sm text-gray-600">
-                Explore how income documentation differs for self-employed individuals
+                Conventional uses tax returns (Schedule C); Non-QM may use bank statement deposits. Compare documentation and income calculation methods.
               </p>
             </button>
             
@@ -175,7 +211,7 @@ export default function NonQMScenarioComparisonPage() {
             >
               <h3 className="font-semibold text-lg mb-2 text-gray-900">High Debt-to-Income Ratio</h3>
               <p className="text-sm text-gray-600">
-                Understand how different loan types approach higher DTI ratios
+                Conventional typically caps DTI at 43–45%; Non-QM may allow 50%+ with compensating factors. See how limits differ.
               </p>
             </button>
             
@@ -189,7 +225,7 @@ export default function NonQMScenarioComparisonPage() {
             >
               <h3 className="font-semibold text-lg mb-2 text-gray-900">Asset-Based Qualification</h3>
               <p className="text-sm text-gray-600">
-                Learn how assets may be used differently in qualification
+                Conventional focuses on income; Non-QM may qualify based on liquid assets. Compare approaches for retirees and high-net-worth borrowers.
               </p>
             </button>
             
@@ -203,7 +239,7 @@ export default function NonQMScenarioComparisonPage() {
             >
               <h3 className="font-semibold text-lg mb-2 text-gray-900">Real Estate Investor</h3>
               <p className="text-sm text-gray-600">
-                Explore qualification approaches for investment property borrowers
+                Conventional uses 75% of rental income; Non-QM may use higher percentages or portfolio cash flow. Explore investor qualification differences.
               </p>
             </button>
           </div>
@@ -412,30 +448,88 @@ export default function NonQMScenarioComparisonPage() {
           </section>
         )}
 
+        {/* Tradeoffs */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">Tradeoffs: Flexibility vs Cost</h2>
+          <p className="text-gray-700 mb-4">
+            Non-QM loans can provide options when conventional loans do not fit, but they come with tradeoffs. Interest rates and fees are typically higher because Non-QM lenders take on more risk and cannot sell many of these loans to government-sponsored entities (Fannie Mae, Freddie Mac). Down payment requirements may also be higher—often 20–30% for some programs.
+          </p>
+          <p className="text-gray-700 mb-4">
+            If you qualify for a conventional loan, it will usually be the more affordable choice. Explore conventional options first. Use this tool to understand when Non-QM might be relevant for your situation, then discuss both paths with a licensed mortgage professional. See{' '}
+            <Link href="/mortgage/find-the-right-loan" className="text-primary hover:underline font-medium">Find the Right Loan</Link> for guidance on comparing loan types.
+          </p>
+        </section>
+
+        {/* FAQ */}
+        <section className="mb-12" aria-label="Frequently asked questions about Non-QM qualification">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">What is a Non-QM loan?</h3>
+              <p className="text-gray-700 text-sm">
+                A Non-QM (Non-Qualified Mortgage) loan does not meet CFPB Qualified Mortgage standards. It offers alternative qualification methods—such as bank statement income or asset-based qualification—for borrowers who may not fit conventional guidelines. Rates and fees are typically higher.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">Who typically uses Non-QM loans?</h3>
+              <p className="text-gray-700 text-sm">
+                Self-employed borrowers with significant tax deductions, those with higher DTI, retirees or high-net-worth individuals with substantial assets but limited taxable income, and real estate investors often explore Non-QM when conventional options are limited.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">Does this tool determine if I qualify?</h3>
+              <p className="text-gray-700 text-sm">
+                No. This tool is for education only. It explains how qualification approaches may differ. Actual eligibility depends on your specific situation, the lender, and the program. Always consult with licensed mortgage professionals.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">Are Non-QM loans riskier?</h3>
+              <p className="text-gray-700 text-sm">
+                Non-QM loans are designed with alternative documentation and evaluation methods. They can be appropriate when you have the ability to repay but your profile does not fit QM standards. They typically cost more. Work with reputable lenders and understand the terms before committing.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Related Resources */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">Related Educational Resources</h2>
           <div className="bg-gray-50 rounded-lg p-6">
             <p className="text-gray-700 mb-4">
-              Explore these related guides and tools to deepen your understanding:
+              Explore these related guides and tools to deepen your understanding of qualification approaches:
             </p>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2 text-sm">Loan Guides</h4>
                 <ul className="space-y-1 text-sm">
                   <li>
-                    <Link href="/mortgage/non-qm-loan" className="text-blue-600 hover:underline">
-                      Non-QM Loan Guide →
+                    <Link href="/mortgage/non-qm-loan" className="text-primary hover:underline">
+                      Non-QM Loan Guide
                     </Link>
                   </li>
                   <li>
-                    <Link href="/mortgage/conventional-loan" className="text-blue-600 hover:underline">
-                      Conventional Loan Guide →
+                    <Link href="/mortgage/conventional-loan" className="text-primary hover:underline">
+                      Conventional Loan Guide
                     </Link>
                   </li>
                   <li>
-                    <Link href="/mortgage/self-employed-borrower" className="text-blue-600 hover:underline">
-                      Self-Employed Borrower Scenarios →
+                    <Link href="/mortgage/self-employed-borrower" className="text-primary hover:underline">
+                      Self-Employed Borrower Scenarios
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/mortgage/how-dti-affects-mortgage-approval" className="text-primary hover:underline">
+                      How DTI Affects Mortgage Approval
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/mortgage/what-assets-count-for-mortgage-approval" className="text-primary hover:underline">
+                      What Assets Count for Mortgage Approval
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/mortgage/find-the-right-loan" className="text-primary hover:underline">
+                      Find the Right Loan
                     </Link>
                   </li>
                 </ul>
@@ -444,13 +538,18 @@ export default function NonQMScenarioComparisonPage() {
                 <h4 className="font-semibold text-gray-900 mb-2 text-sm">Tools</h4>
                 <ul className="space-y-1 text-sm">
                   <li>
-                    <Link href="/tools/loan-qualification-comparison" className="text-blue-600 hover:underline">
-                      Loan Qualification Scenario Comparison →
+                    <Link href="/tools/loan-qualification-comparison" className="text-primary hover:underline">
+                      Loan Qualification Scenario Comparison
                     </Link>
                   </li>
                   <li>
-                    <Link href="/tools/mortgage-calculator" className="text-blue-600 hover:underline">
-                      Mortgage Calculator →
+                    <Link href="/tools/mortgage-calculator" className="text-primary hover:underline">
+                      Mortgage Calculator
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/tools/affordability-calculator" className="text-primary hover:underline">
+                      Home Affordability Calculator
                     </Link>
                   </li>
                 </ul>
@@ -458,6 +557,15 @@ export default function NonQMScenarioComparisonPage() {
             </div>
           </div>
         </section>
+
+        {/* Key Takeaway */}
+        <div className="mb-12 rounded-xl border-l-4 border-teal-500 bg-teal-50/80 p-5 shadow-sm">
+          <h3 className="text-lg font-bold text-teal-900 mb-2">Key Takeaway</h3>
+          <p className="text-teal-800 text-[15px] leading-relaxed">
+            Conventional (QM) loans use standardized income documentation and DTI limits. Non-QM loans offer alternative approaches—bank statements, higher DTI, asset-based qualification—for borrowers who do not fit the traditional profile. Non-QM is typically more expensive. Use this tool to understand the conceptual differences, then consult a licensed mortgage professional to explore your options. See{' '}
+            <Link href="/mortgage/non-qm-loan" className="text-teal-700 underline font-medium">Non-QM Loan Guide</Link>.
+          </p>
+        </div>
 
         {/* CTA Section */}
         <section className="text-center bg-blue-50 rounded-2xl p-8">
